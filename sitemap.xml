@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/fizzbuzz-is-a-jazz-standard/</loc>
+    <lastmod>2017-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/calling-a-c-function-from-rust/</loc>
+    <lastmod>2017-03-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/the-mandelwat-set/</loc>
+    <lastmod>2017-03-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/a-small-musical-proof/</loc>
+    <lastmod>2017-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/hello-2017/</loc>
+    <lastmod>2017-01-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/advent-of-learning-about-md5-and-opencl/</loc>
+    <lastmod>2016-12-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/adventure-of-advent-of-code/</loc>
+    <lastmod>2016-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sound-from-nowhere/</loc>
+    <lastmod>2016-10-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/how-rust-do/</loc>
+    <lastmod>2016-10-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/how-react-do/</loc>
+    <lastmod>2016-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/dialog-with-an-intern/</loc>
+    <lastmod>2016-08-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-in-closing-closures-or-lambda-part-2/</loc>
+    <lastmod>2016-07-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-lambda-the-ultimate-part-one/</loc>
+    <lastmod>2016-07-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-save-the-environment/</loc>
+    <lastmod>2016-07-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-step-in-the-stream/</loc>
+    <lastmod>2016-07-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-were-gonna-make-it-after-all/</loc>
+    <lastmod>2016-07-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-header-files/</loc>
+    <lastmod>2016-07-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-booleans-and-conditionals/</loc>
+    <lastmod>2016-06-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-arity-checking-and-rich-error-messaging/</loc>
+    <lastmod>2016-06-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-storing-built-in-functions/</loc>
+    <lastmod>2016-06-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-implementing-some-built-in-functions/</loc>
+    <lastmod>2016-06-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-apply/</loc>
+    <lastmod>2016-06-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-an-initial-eval/</loc>
+    <lastmod>2016-06-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-match-those-parens/</loc>
+    <lastmod>2016-06-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-named-enums/</loc>
+    <lastmod>2016-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-read-more-good/</loc>
+    <lastmod>2016-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-actual-lists/</loc>
+    <lastmod>2016-06-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-reading-substrings/</loc>
+    <lastmod>2016-06-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-is-a-list/</loc>
+    <lastmod>2016-06-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sild-is-a-lisp-dialect/</loc>
+    <lastmod>2016-06-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/structs-and-unions/</loc>
+    <lastmod>2016-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/c-and-simple-types/</loc>
+    <lastmod>2016-05-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/advice-for-recursers/</loc>
+    <lastmod>2016-05-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/sounds-some-other-stuff/</loc>
+    <lastmod>2016-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/what-i-did-at-rc/</loc>
+    <lastmod>2016-05-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/how-i-went-to-rc/</loc>
+    <lastmod>2016-05-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/hey-a-lot-of-posts/</loc>
+    <lastmod>2016-05-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/monome-part-bi/</loc>
+    <lastmod>2015-05-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/monome-part-mono/</loc>
+    <lastmod>2015-05-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/into-the-cloud--a-quick-aws-primer/</loc>
+    <lastmod>2014-04-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/a-simple-gene/</loc>
+    <lastmod>2014-04-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/one-hundred-days/</loc>
+    <lastmod>2014-04-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/on-typing/</loc>
+    <lastmod>2014-04-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/again-and-forever-and-ever-a-blog/</loc>
+    <lastmod>2014-03-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/recursion-in-3-steps/</loc>
+    <lastmod>2014-02-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/a-song/</loc>
+    <lastmod>2014-02-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/week-one/</loc>
+    <lastmod>2014-02-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/it-is-as-a-long-corridor/</loc>
+    <lastmod>2014-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/some-more-tracks-from-jordans-and-my-duo/</loc>
+    <lastmod>2013-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/rubyks-the-solver-methods/</loc>
+    <lastmod>2013-11-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/rubyks-a-gem/</loc>
+    <lastmod>2013-11-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/derple-derp-the-hot-new-social-network/</loc>
+    <lastmod>2013-11-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/fizzbuzz-in-brainfuck-part-3/</loc>
+    <lastmod>2013-10-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/the-chorder-prototype/</loc>
+    <lastmod>2013-10-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/fizzbuzz-in-brainfuck-part-two/</loc>
+    <lastmod>2013-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/doll/</loc>
+    <lastmod>2013-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/fizzbuzz-in-brainfuck-part-one/</loc>
+    <lastmod>2013-09-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/august-8-2012/</loc>
+    <lastmod>2013-09-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/the-story-so-far/</loc>
+    <lastmod>2013-09-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/jason-saltiels-wait-until-the-night/</loc>
+    <lastmod>2013-09-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/the-tower-of-learning/</loc>
+    <lastmod>2013-09-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/top-5000/</loc>
+    <lastmod>2013-09-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/how-brainfuck-works/</loc>
+    <lastmod>2013-09-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/ill-come-back-someday/</loc>
+    <lastmod>2013-09-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/a-couple-more-tracks-from-that-duo-gig-with-jordan/</loc>
+    <lastmod>2013-09-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/days-of-wine-and-roses/</loc>
+    <lastmod>2013-09-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/portishead-tribute-live-at-roseland-live-at-le-poisson-rouge/</loc>
+    <lastmod>2013-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/new-posts/</loc>
+    <lastmod>2013-07-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/the-post-i-am-not-writing-this-time/</loc>
+    <lastmod>2013-01-06T00:00:01+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/polaroids-story/</loc>
+    <lastmod>2013-01-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/v-i/</loc>
+    <lastmod>2013-01-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://jfo.github.io/weblog/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://jfo.github.io/weblog/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://jfo.github.io/weblog/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://jfo.github.io/weblog/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/post/</loc>
+    <lastmod>2017-04-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jfo.github.io/weblog/</loc>
+    <lastmod>2017-04-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

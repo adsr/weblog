@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+    <head>
+    <title>&#34;The Chorder&#34; prototype</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://jfo.github.io/weblogimages/jeff.ico" type="image/x-icon" />
+    <style type="text/css">
+        @font-face {
+    font-family: "etbook";
+    src: url("https://jfo.github.io/weblogcss/et-book.woff") format('woff');
+}
+
+
+    </style>
+    <link rel="stylesheet" href="https://jfo.github.io/weblogcss/style.css">
+    <link rel="stylesheet" href="https://jfo.github.io/weblogcss/solarized-dark.css">
+    <link href="" rel="alternate feed" type="application/rss+xml" title="RSS Feed for blog.jfo.click" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+
+    <body>
+        <div id="content">
+            <header class="site-header">
+    <a href="https://jfo.github.io/weblog"><h4>archive</h4></a> &mdash;
+    <a href="https://jfo.github.io/weblogabout"><h4>about</h4></a> &mdash;
+    <a href="https://jfo.github.io/weblogfeed.xml"><h4>rss</h4></a>
+</header>
+
+            <article>
+                <h1>&#34;The Chorder&#34; prototype</h1>
+                <sub>October 6, 2013 </sub>
+                <div>
+                    <p>I wrote <a href="https://github.com/urthbound/chorder">this</a> program a few months ago. It&rsquo;s visually minimal, but it can generate over a thousand valid chord shapes. I wrote it in Ruby and wrapped it in <a href="http://shoesrb.com/" target="_blank">Shoes</a>. Instead of prettifying it, I decided to refactor the whole project and build it into a web app, while extending it&rsquo;s functionality to include Drop 3, Drop <sup>2</sup>&frasl;<sub>3</sub>, and Drop <sup>2</sup>&frasl;<sub>4</sub> voicings and inversions. That&rsquo;s in the pipes.</p>
+
+<p>I&rsquo;m  planning to use this as a base from which to write a program that can output properly voice-led arrangements of any jazz tune by reading charts from the <a href="http://musiccog.ohio-state.edu/home/index.php/iRb_Jazz_Corpus" target="_blank">iRb Jazz Corpus</a>, which I&rsquo;m making good progress with but will elaborate on in a future post.</p>
+
+<p>If you&rsquo;d like to run this version, you can<a href="http://shoesrb.com/downloads.html" target="_blank"> download the shoes interpreter here</a> and open the source in the shoes GUI. If you&rsquo;re command-line savvy, you could also <a href="https://github.com/urthbound/chorder" target="_blank">clone the github repo</a> and run a terminal interface via <code>$ruby interface.rb</code> that accesses the same logic.</p>
+
+<p>The left hand side has five main groups of buttons:</p>
+
+<ul>
+        <li>root note</li>
+        <li>accidental</li>
+        <li>chord quality</li>
+        <li>inversion</li>
+        <li>string set</li>
+</ul>
+
+<p>The program will also accommodate open strings and notes that fall above the 12th fret.</p>
+
+                </div>
+            </article>
+        </div>
+    </body>
+</html>
