@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>blog.jfo.click</title>
-    <link>https://jfo.github.io/weblog/</link>
+    <link>http://blog.jfo.click/</link>
     <description>Recent content on blog.jfo.click</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 12 Apr 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://jfo.github.io/weblog/feed.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://blog.jfo.click/feed.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Fizzbuzz is a Jazz Standard</title>
-      <link>https://jfo.github.io/weblog/fizzbuzz-is-a-jazz-standard/</link>
+      <link>http://blog.jfo.click/fizzbuzz-is-a-jazz-standard/</link>
       <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://jfo.github.io/weblog/fizzbuzz-is-a-jazz-standard/</guid>
+      <guid>http://blog.jfo.click/fizzbuzz-is-a-jazz-standard/</guid>
       <description>Jeff Atwood, of Coding Horror fame, wrote a blogpost called &amp;ldquo;Why Can&amp;rsquo;t Programmers.. Program?&amp;rdquo;, by a happy coincidence nearly exactly 10 years ago.
 Central to the post is the assertion that candidates for development jobs should be initially screened on tasks that any remotely experienced programmer might (many would say should) consider low hanging fruit, the canonical example offered being &amp;ldquo;FizzBuzz.&amp;rdquo;
 I think that the specification for the problem is pretty universally known at this point, mostly due to the linked post above, but it&amp;rsquo;s short and simple enough to allow a quick repeat here:</description>
@@ -24,19 +24,19 @@ I think that the specification for the problem is pretty universally known at th
     
     <item>
       <title>Calling a C function from Rust</title>
-      <link>https://jfo.github.io/weblog/calling-a-c-function-from-rust/</link>
+      <link>http://blog.jfo.click/calling-a-c-function-from-rust/</link>
       <pubDate>Sat, 11 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://jfo.github.io/weblog/calling-a-c-function-from-rust/</guid>
+      <guid>http://blog.jfo.click/calling-a-c-function-from-rust/</guid>
       <description>Today I went to a Rust meetup. I had some ideas of what I might work on, but I&amp;rsquo;ve started to try and be more open to random nerdsnipes and discussions at these things. Here&amp;rsquo;s something I was thinking about and a little experiment that was an equally little success, that is to say, a success that was :+1: but isn&amp;rsquo;t that big of a thing. I&amp;rsquo;m happy about it though.</description>
     </item>
     
     <item>
       <title>The Mandelwat Set</title>
-      <link>https://jfo.github.io/weblog/the-mandelwat-set/</link>
+      <link>http://blog.jfo.click/the-mandelwat-set/</link>
       <pubDate>Sun, 05 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://jfo.github.io/weblog/the-mandelwat-set/</guid>
+      <guid>http://blog.jfo.click/the-mandelwat-set/</guid>
       <description>var randColor = function() { return &#39;#&#39;+Math.floor(Math.random()*16777215).toString(16).toUpperCase(); }  If you&amp;rsquo;ve never seen the Mandelbrot set, do me and also yourself a favor and watch some amount of time of one or two of these videos real quick.
 I know, right? What is that thing.
  I wanted to learn about the Mandelbrot set. I thought, that&amp;rsquo;s a neat thing! I wonder how I could make one. Turns out it&amp;rsquo;s not that hard, really, but you have to understand the math and also what it is, and those things are pretty hard, at least for me, because I am not great at math even though I love it and also the Mandlebrot set is a fractal and fractals are bonkers.</description>
