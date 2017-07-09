@@ -765,16 +765,17 @@ that is completely enumerated.</p>
 each other, I just typed some numbers. And so for any number <code>x</code> that you can
 dream up, <code>x</code> will either be in this set, or not.</p>
 
-<p>|&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+&mdash;&mdash;&mdash;&mdash;+
-| <code>x</code>             | Is in set? |
-|:&mdash;&mdash;&mdash;&mdash;&mdash;:|:&mdash;&mdash;&mdash;-:|
+<pre><code>|-----------------+------------+
+| `x`             | Is in set? |
+|:---------------:|:----------:|
 | 2               | no         |
 | 20              | no         |
 | 76              | no         |
 | 88              | no         |
 | 397376          | yes        |
 | 100             | no         |
-|&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+&mdash;&mdash;&mdash;&mdash;+</p>
+|-----------------+------------+
+</code></pre>
 
 <p>Hey actually, JavaScript has a syntax for exactly this!</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">mySet</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">([</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">397376</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">44</span> <span class="p">])</span>
