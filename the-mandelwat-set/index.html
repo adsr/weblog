@@ -1264,6 +1264,7 @@ what we&rsquo;ve got above?</p>
 </code></pre></div>
 
 <canvas id="ex12" height="200" width="200" style="border: 1px solid black;"></canvas>
+
 <script>
 (function() {
     function isMandlebrot(coord) {
@@ -1289,24 +1290,19 @@ what we&rsquo;ve got above?</p>
     graph.render(isMandlebrot);
 })();
 </script>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">graph</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Graph</span><span class="p">(</span><span class="s2">&quot;ex12&quot;</span><span class="p">);</span>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">isMandlebrot</span><span class="p">);</span>
+</code></pre></div>
 
+<p>There it is. Our old friend. The Mandelbrot set.</p>
 
-```js
-var graph = new Graph("ex12");
-graph.render(isMandlebrot);
-```
+<h1 id="that-looks-like-a-fuzzy-potato">That looks like a fuzzy potato</h1>
 
-There it is. Our old friend. The Mandelbrot set.
+<p>Yeah, it might look boring from where we&rsquo;re sitting, <em>but it&rsquo;s totally not</em></p>
 
-
-Lol that looks like a fuzzy potato why is this cool
-===================================================
-
-Yeah, it might look boring from where we're sitting, _but it's totally not_
-
-Remember when I built that "Graph" object, I made both `r` (the zoom factor)
-and `center` accessible. We can totally change where we're looking at the graph
-and re-render on the fly!
+<p>Remember when I built that &ldquo;Graph&rdquo; object, I made both <code>r</code> (the zoom factor)
+and <code>center</code> accessible. We can totally change where we&rsquo;re looking at the graph
+and re-render on the fly!</p>
 
 <canvas id="ex13" height="200" width="200" style="border: 1px solid black;"></canvas>
 <button class="ex13button" data-centerx="-0.7463" data-centery="0.1102" data-r="0.005" >x:-0.7463, y:0.1102, r:0.005</button>
