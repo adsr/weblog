@@ -1305,10 +1305,11 @@ and <code>center</code> accessible. We can totally change where we&rsquo;re look
 and re-render on the fly!</p>
 
 <canvas id="ex13" height="200" width="200" style="border: 1px solid black;"></canvas>
-<button class="ex13button" data-centerx="-0.7463" data-centery="0.1102" data-r="0.005" >x:-0.7463, y:0.1102, r:0.005</button>
+
+<p><button class="ex13button" data-centerx="-0.7463" data-centery="0.1102" data-r="0.005" >x:-0.7463, y:0.1102, r:0.005</button>
 <button class="ex13button" data-centerx="-0.7453" data-centery="0.1127" data-r="0.00065" >x:-0.7453, y:0.1127, r:0.00065</button>
 <button class="ex13button" data-centerx="-1.25066" data-centery="0.02012" data-r="0.0005" >x:-1.25066, y:0.02012, r:0.0005</button>
-<button class="ex13button" data-centerx="-0.16" data-centery="1.0405" data-r="0.076">x:-0.16, y:1.0405 r:0.046</button>
+<button class="ex13button" data-centerx="-0.16" data-centery="1.0405" data-r="0.076">x:-0.16, y:1.0405 r:0.046</button></p>
 
 <script>
 (function() {
@@ -1349,70 +1350,67 @@ and re-render on the fly!</p>
 })();
 </script>
 
-Small refactor
-=================
+<h1 id="small-refactor">Small refactor</h1>
 
-So at this point I am going to drop the more general `Graph` abstraction and
-just hardcode that object's predicate as the Mandelbrot test. That... pretty
-much looks like you would expect.
+<p>So at this point I am going to drop the more general <code>Graph</code> abstraction and
+just hardcode that object&rsquo;s predicate as the Mandelbrot test. That&hellip; pretty
+much looks like you would expect.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">Mandelbrot</span><span class="p">(</span><span class="nx">canvasId</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">canvasId</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">imageData</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">createImageData</span><span class="p">(</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">aspectRatio</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">/</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span>
 
-```js
-function Mandelbrot(canvasId) {
-    var canvas = document.getElementById(canvasId);
-    var ctx = canvas.getContext("2d");
-    var imageData = ctx.createImageData(canvas.width, canvas.height);
-    var aspectRatio = canvas.height / canvas.width
+    <span class="k">this</span><span class="p">.</span><span class="nx">iterations</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">r</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">center</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">x</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span>
+    <span class="p">};</span>
 
-    this.iterations = 200;
-    this.r = 4
-    this.center = {
-        x: 0,
-        y: 0
-    };
+    <span class="kd">var</span> <span class="nx">indexToCoord</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">index</span> <span class="o">/=</span> <span class="mi">4</span><span class="p">;</span>
+        <span class="nx">coord</span> <span class="o">=</span>  <span class="p">{</span>
+            <span class="nx">x</span><span class="o">:</span> <span class="nx">index</span> <span class="o">%</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
+            <span class="nx">y</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">index</span> <span class="o">/</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nx">coord</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="p">(((</span><span class="nx">coord</span><span class="p">.</span><span class="nx">x</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">r</span> <span class="o">/</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">r</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">center</span><span class="p">.</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">aspectRatio</span><span class="p">))</span> <span class="o">/</span> <span class="nx">aspectRatio</span><span class="p">;</span>
+        <span class="nx">coord</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="p">((((</span><span class="nx">coord</span><span class="p">.</span><span class="nx">y</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">r</span> <span class="o">/</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">r</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">center</span><span class="p">.</span><span class="nx">y</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">coord</span><span class="p">;</span>
+    <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
 
-    var indexToCoord = function(index) {
-        index /= 4;
-        coord =  {
-            x: index % canvas.width,
-            y: Math.floor(index / canvas.width)
-        }
-        coord.x = (((coord.x * this.r / canvas.width) - this.r / 2) + (this.center.x * aspectRatio)) / aspectRatio;
-        coord.y = ((((coord.y * this.r / canvas.height) - this.r / 2) * -1) + this.center.y);
-        return coord;
-    }.bind(this)
+    <span class="kd">var</span> <span class="nx">isMandlebrot</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">coord</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">cr</span> <span class="o">=</span> <span class="nx">coord</span><span class="p">.</span><span class="nx">x</span>
+        <span class="kd">var</span> <span class="nx">ci</span> <span class="o">=</span> <span class="nx">coord</span><span class="p">.</span><span class="nx">y</span>
+        <span class="kd">var</span> <span class="nx">zr</span> <span class="o">=</span> <span class="nx">coord</span><span class="p">.</span><span class="nx">x</span>
+        <span class="kd">var</span> <span class="nx">zi</span> <span class="o">=</span> <span class="nx">coord</span><span class="p">.</span><span class="nx">y</span>
 
-    var isMandlebrot = function(coord) {
-        var cr = coord.x
-        var ci = coord.y
-        var zr = coord.x
-        var zi = coord.y
+        <span class="kd">var</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">iterations</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">zr</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="nx">zi</span><span class="o">**</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
 
-        var i;
-        for (i = 0; i < this.iterations; i++) {
-            if (zr**2 + zi**2 > 4) {
-                return false;
-            }
+            <span class="nx">newzr</span> <span class="o">=</span> <span class="p">(</span><span class="nx">zr</span> <span class="o">*</span> <span class="nx">zr</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="nx">zi</span> <span class="o">*</span> <span class="nx">zi</span><span class="p">)</span> <span class="o">+</span> <span class="nx">cr</span><span class="p">;</span>
+            <span class="nx">newzi</span> <span class="o">=</span> <span class="p">((</span><span class="nx">zr</span> <span class="o">*</span> <span class="nx">zi</span><span class="p">)</span> <span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nx">ci</span>
+            <span class="nx">zr</span> <span class="o">=</span> <span class="nx">newzr</span>
+            <span class="nx">zi</span> <span class="o">=</span> <span class="nx">newzi</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 
-            newzr = (zr * zr) - (zi * zi) + cr;
-            newzi = ((zr * zi) *2) + ci
-            zr = newzr
-            zi = newzi
-        }
-        return true;
-    }.bind(this);
-
-    this.render = function(predicate) {
-        for (var i = 0; i < canvas.width * canvas.height * 4; i += 4) {
-            set = predicate(indexToCoord(i)) ? 255 : 0;
-            imageData.data[i]     = 0;
-            imageData.data[i + 1] = 0;
-            imageData.data[i + 2] = 0;
-            imageData.data[i + 3] = set;
-        }
-        ctx.putImageData(imageData, 0, 0);
-    }.bind(this)
-}
-```
+    <span class="k">this</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">predicate</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">*</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span> <span class="o">*</span> <span class="mi">4</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">set</span> <span class="o">=</span> <span class="nx">predicate</span><span class="p">(</span><span class="nx">indexToCoord</span><span class="p">(</span><span class="nx">i</span><span class="p">))</span> <span class="o">?</span> <span class="mi">255</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>     <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="nx">set</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">ctx</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">imageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <script>
 function MandelbrotOne(canvasId) {
