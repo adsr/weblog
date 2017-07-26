@@ -6,10 +6,20 @@
     <description>Recent content in Posts on blog.jfo.click</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Apr 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 26 Jul 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.jfo.click/post/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Farvel til alt det</title>
+      <link>https://blog.jfo.click/farvel-til-alt-det/</link>
+      <pubDate>Wed, 26 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jfo.click/farvel-til-alt-det/</guid>
+      <description>After 9 years in New York, I am leaving for good on August 1st, when I&amp;rsquo;ll be moving to Copenhagen with my wife and cat.
+I came here with what were in retrospect some pretty vague ideas about what I wanted to do, and I did some of that, and I did a bunch of other things I could have never predicted. One of those things was &amp;ldquo;become a computer programmer,&amp;rdquo; the decision to do so I maintain to be one of the most personally positively impactful ones I have ever made and likely ever will make in my life.</description>
+    </item>
     
     <item>
       <title>Fizzbuzz is a Jazz Standard</title>
@@ -29,17 +39,6 @@ I think that the specification for the problem is pretty universally known at th
       
       <guid>https://blog.jfo.click/calling-a-c-function-from-rust/</guid>
       <description>Today I went to a Rust meetup. I had some ideas of what I might work on, but I&amp;rsquo;ve started to try and be more open to random nerdsnipes and discussions at these things. Here&amp;rsquo;s something I was thinking about and a little experiment that was an equally little success, that is to say, a success that was :+1: but isn&amp;rsquo;t that big of a thing. I&amp;rsquo;m happy about it though.</description>
-    </item>
-    
-    <item>
-      <title>The Mandelwat Set</title>
-      <link>https://blog.jfo.click/the-mandelwat-set/</link>
-      <pubDate>Sun, 05 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.jfo.click/the-mandelwat-set/</guid>
-      <description>var randColor = function() { return &#39;#&#39;+Math.floor(Math.random()*16777215).toString(16).toUpperCase(); }  If you&amp;rsquo;ve never seen the Mandelbrot set, do me and also yourself a favor and watch some amount of time of one or two of these videos real quick.
-I know, right? What is that thing.
- I wanted to learn about the Mandelbrot set. I thought, that&amp;rsquo;s a neat thing! I wonder how I could make one. Turns out it&amp;rsquo;s not that hard, really, but you have to understand the math and also what it is, and those things are pretty hard, at least for me, because I am not great at math even though I love it and also the Mandlebrot set is a fractal and fractals are bonkers.</description>
     </item>
     
   </channel>
