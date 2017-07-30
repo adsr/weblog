@@ -124,20 +124,18 @@ authored in the early 70&rsquo;s. <code>patch</code> was capable of taking the <
 <p>Here&rsquo;s a thing to try! Run some commands in an empty directory (not a git repo
 just an empty directory&hellip;)</p>
 </blockquote>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span><span class="nb">printf</span> <span class="s1">&#39;hi mom\nhi dad\n&#39;</span> &gt; <span class="m">1</span>.txt
+<span class="nb">printf</span> <span class="s1">&#39;hi mom\nhi dad\nhello world\n&#39;</span> &gt; <span class="m">2</span>.txt
+cat <span class="m">1</span>.txt
+cat <span class="m">2</span>.txt
+</code></pre></div>
 
-<p>``bash
-printf &lsquo;hi mom\nhi dad\n&rsquo; &gt; 1.txt
-printf &lsquo;hi mom\nhi dad\nhello world\n&rsquo; &gt; 2.txt
-cat 1.txt
-cat 2.txt</p>
-
-<pre><code>
-&gt; Just makin' some files! How are they different?
-
-```bash
-diff 1.txt 2.txt
-diff 2.txt 1.txt
-</code></pre>
+<blockquote>
+<p>Just makin&rsquo; some files! How are they different?</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>diff <span class="m">1</span>.txt <span class="m">2</span>.txt
+diff <span class="m">2</span>.txt <span class="m">1</span>.txt
+</code></pre></div>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>diff <span class="m">1</span>.txt <span class="m">2</span>.txt &gt; look_a_patch_file_omg
 cat look_a_patch_file_omg
 </code></pre></div>
