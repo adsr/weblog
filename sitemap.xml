@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.jfo.click/mapping-the-monado/</loc>
+    <lastmod>2017-09-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.jfo.click/farvel-til-alt-det/</loc>
     <lastmod>2017-07-26T00:00:00+00:00</lastmod>
   </url>
@@ -412,13 +417,13 @@
   
   <url>
     <loc>https://blog.jfo.click/post/</loc>
-    <lastmod>2017-07-26T00:00:00+00:00</lastmod>
+    <lastmod>2017-09-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.jfo.click/</loc>
-    <lastmod>2017-07-26T00:00:00+00:00</lastmod>
+    <lastmod>2017-09-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

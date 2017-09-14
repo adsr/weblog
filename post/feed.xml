@@ -6,10 +6,19 @@
     <description>Recent content in Posts on blog.jfo.click</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 26 Jul 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 Sep 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.jfo.click/post/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mapping the Monado</title>
+      <link>https://blog.jfo.click/mapping-the-monado/</link>
+      <pubDate>Fri, 15 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jfo.click/mapping-the-monado/</guid>
+      <description>I have recently come into possession of a reasonably sound understanding of monads. Tradition dictates that I now have an obligation to write a blog post/tutorial/thing about them, wherein I attempt to gracefully share this nascent knowledge through the judicious use of carefully chosen metaphors and examples. Legend has it that I will inevitably fail in this, and then be raked over the coals for my sins by both category theorists and Haskellers alike.</description>
+    </item>
     
     <item>
       <title>Farvel til alt det</title>
@@ -30,15 +39,6 @@
       <description>Jeff Atwood, of Coding Horror fame, wrote a blogpost called &amp;ldquo;Why Can&amp;rsquo;t Programmers.. Program?&amp;rdquo;, by a happy coincidence nearly exactly 10 years ago.
 Central to the post is the assertion that candidates for development jobs should be initially screened on tasks that any remotely experienced programmer might (many would say should) consider low hanging fruit, the canonical example offered being &amp;ldquo;FizzBuzz.&amp;rdquo;
 I think that the specification for the problem is pretty universally known at this point, mostly due to the linked post above, but it&amp;rsquo;s short and simple enough to allow a quick repeat here:</description>
-    </item>
-    
-    <item>
-      <title>Calling a C function from Rust</title>
-      <link>https://blog.jfo.click/calling-a-c-function-from-rust/</link>
-      <pubDate>Sat, 11 Mar 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.jfo.click/calling-a-c-function-from-rust/</guid>
-      <description>Today I went to a Rust meetup. I had some ideas of what I might work on, but I&amp;rsquo;ve started to try and be more open to random nerdsnipes and discussions at these things. Here&amp;rsquo;s something I was thinking about and a little experiment that was an equally little success, that is to say, a success that was :+1: but isn&amp;rsquo;t that big of a thing. I&amp;rsquo;m happy about it though.</description>
     </item>
     
   </channel>
