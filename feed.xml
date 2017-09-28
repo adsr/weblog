@@ -6,10 +6,19 @@
     <description>Recent content on blog.jfo.click</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 15 Sep 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 29 Sep 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.jfo.click/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>s3, Hugo, and static asset hosting</title>
+      <link>https://blog.jfo.click/s3-hugo-and-static-asset-hosting/</link>
+      <pubDate>Fri, 29 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jfo.click/s3-hugo-and-static-asset-hosting/</guid>
+      <description>I&amp;rsquo;ve been writing this blog for a while now, and put it through several different blogging engines and style changes. Wordpress, Middleman, Jekyll&amp;hellip; and finally to Hugo, which I&amp;rsquo;m using currently. I feel it should be really easy to switch platforms (where &amp;ldquo;really easy&amp;rdquo; means like, a week or two of fiddly work), and I fully expect to do so again when it becomes worth the trouble to do it, whenever and whyever that may be.</description>
+    </item>
     
     <item>
       <title>Mapping the Monado</title>
@@ -28,17 +37,6 @@
       <guid>https://blog.jfo.click/farvel-til-alt-det/</guid>
       <description>September update: After a short but intense job hunt, I&amp;rsquo;m happy to say I&amp;rsquo;ll be starting work with Peakon at their beautiful office in Copenhagen in a few weeks! Thanks to all who shared and read this post, it was a vast help to me.
  After 9 years in New York, I am leaving for good on August 1st, when I&amp;rsquo;ll be moving to Copenhagen with my wife and cat.</description>
-    </item>
-    
-    <item>
-      <title>Fizzbuzz is a Jazz Standard</title>
-      <link>https://blog.jfo.click/fizzbuzz-is-a-jazz-standard/</link>
-      <pubDate>Wed, 12 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.jfo.click/fizzbuzz-is-a-jazz-standard/</guid>
-      <description>Jeff Atwood, of Coding Horror fame, wrote a blogpost called &amp;ldquo;Why Can&amp;rsquo;t Programmers.. Program?&amp;rdquo;, by a happy coincidence nearly exactly 10 years ago.
-Central to the post is the assertion that candidates for development jobs should be initially screened on tasks that any remotely experienced programmer might (many would say should) consider low hanging fruit, the canonical example offered being &amp;ldquo;FizzBuzz.&amp;rdquo;
-I think that the specification for the problem is pretty universally known at this point, mostly due to the linked post above, but it&amp;rsquo;s short and simple enough to allow a quick repeat here:</description>
     </item>
     
   </channel>
