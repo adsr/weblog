@@ -373,52 +373,28 @@
   </url>
   
   <url>
-    <loc>https://blog.jfo.click/</loc>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://blog.jfo.click/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://blog.jfo.click/</loc>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://blog.jfo.click/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://blog.jfo.click/</loc>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://blog.jfo.click/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://blog.jfo.click/</loc>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://blog.jfo.click/"
-                />
-  </url>
-  
-  <url>
     <loc>https://blog.jfo.click/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.jfo.click/categories/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.jfo.click/post/</loc>
     <lastmod>2017-09-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.jfo.click/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.jfo.click/categories/uncategorized/</loc>
+    <lastmod>2013-01-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
