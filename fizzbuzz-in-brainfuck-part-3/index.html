@@ -26,9 +26,12 @@
                     <sub>October 7, 2013 </sub>
                 <p>
                 <div>
-                    <p>Alright. I have a memory array loaded with the information I need to get going, and I have a program blueprint that I should be able to implement. I only need to be able to use if/else and if. I looked up some algorithms to use for this bit, and these are the ones I settled on&hellip;</p>
+                    <p>Alright. I have a memory array loaded with the information I need to get going,
+and I have a program blueprint that I should be able to implement. I only need
+to be able to use if/else and if. I looked up some algorithms to use for this
+bit, and these are the ones I settled on&hellip;</p>
 
-<p>If &hellip;</p>
+<p>if&hellip;</p>
 <div class="highlight"><pre><code class="language-brainfuck" data-lang="brainfuck"><span></span><span class="c">temp0</span><span class="k">[</span><span class="nb">-</span><span class="k">]</span><span class="c"></span>
 <span class="c">temp1</span><span class="k">[</span><span class="nb">-</span><span class="k">]</span><span class="c"></span>
 <span class="c">x</span><span class="k">[</span><span class="c">temp0</span><span class="nb">+</span><span class="c">temp1</span><span class="nb">+</span><span class="c">x</span><span class="nb">-</span><span class="k">]</span><span class="c">temp0</span><span class="k">[</span><span class="c">x</span><span class="nb">+</span><span class="c">temp0</span><span class="nb">-</span><span class="k">]</span><span class="nb">+</span><span class="c"></span>
@@ -58,7 +61,24 @@
 <span class="c">temp0</span><span class="k">]</span><span class="c"></span>
 </code></pre></div>
 
-<p>Note that the inline &ldquo;variable&rdquo; names are actually describing whatever location that cell happens to be. When we get to the final code, those plain text names will be appended with the pointer motions necessary to arrive at them. Both of these algorithms were lifted from <a href="http://esolangs.org/wiki/brainfuck_algorithms" target="_blank">here</a>. For every cell I want to evaluate, I need two more cells to hold temporary information. This is why I left two empty cells next to each multiples counter in the last post, and it is also why I&rsquo;ll need to slap a couple more empty cells onto the beginning of the whole program when we get around to putting in the final &ldquo;Buzz&rdquo; block that needs to be nested into the &ldquo;Fizz&rdquo; block. But notice! There is already a problem here&hellip; for If/Else, this algorithm runs the first block IF the cell it&rsquo;s evaluating is &ldquo;TRUE&rdquo; (meaning it&rsquo;s holding a value other than 0). For our &ldquo;Fizz&rdquo; and &ldquo;Buzz&rdquo; statements, we want them to run if the value of the cell is &ldquo;0&rdquo;. Sad Trombone. But it&rsquo;s an easy fix, of course! We just have to invert all the code we had <a title="fizzbuzz in brainfuck, part one" href="http://www.jeffalanfowler.com/blog/fizzbuzz-in-brainfuck-part-one/" target="_blank">before</a>. Just keep that in mind. Lets write the inverted program in psuedo-code and then fill it all in with the specifics&hellip;</p>
+<p>Note that the inline &ldquo;variable&rdquo; names are actually describing whatever location
+that cell happens to be. When we get to the final code, those plain text names
+will be appended with the pointer motions necessary to arrive at them. Both of
+these algorithms were lifted from <a
+href="http://esolangs.org/wiki/brainfuck_algorithms" target="_blank">here</a>.
+For every cell I want to evaluate, I need two more cells to hold temporary
+information. This is why I left two empty cells next to each multiples counter
+in the last post, and it is also why I&rsquo;ll need to slap a couple more empty
+cells onto the beginning of the whole program when we get around to putting in
+the final &ldquo;Buzz&rdquo; block that needs to be nested into the &ldquo;Fizz&rdquo; block. But
+notice! There is already a problem here&hellip; for If/Else, this algorithm runs the
+first block IF the cell it&rsquo;s evaluating is &ldquo;TRUE&rdquo; (meaning it&rsquo;s holding a value
+other than 0). For our &ldquo;Fizz&rdquo; and &ldquo;Buzz&rdquo; statements, we want them to run if the
+value of the cell is &ldquo;0&rdquo;. Sad Trombone. But it&rsquo;s an easy fix, of course! We
+just have to invert all the code we had <a title="fizzbuzz in brainfuck, part
+one" href="http://www.jeffalanfowler.com/blog/fizzbuzz-in-brainfuck-part-one/"
+target="_blank">before</a>. Just keep that in mind. Lets write the inverted
+program in psuedo-code and then fill it all in with the specifics&hellip;</p>
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="n">number</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="k">until</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">100</span> <span class="k">do</span>
@@ -81,9 +101,14 @@
 <span class="k">end</span>
 </code></pre></div>
 
-<p>Keep in mind that we&rsquo;ve taken care of all the variable assignments and memory allocation in the last post, so this really is all we have left.</p>
+<p>Keep in mind that we&rsquo;ve taken care of all the variable assignments and memory
+allocation in the last post, so this really is all we have left.</p>
 
-<p>Here is the complete, annotated program, which you can also view and run <a href="http://replit.com/Kr0/3" target="_blank">here</a>. This is EXACTLY the same code as the giant block of bf symbols I put in the <a title="fizzbuzz in brainfuck, part one" href="/2013/09/fizzbuzz-in-brainfuck-part-one.html" target="_blank">first part</a>, just spread out with indentation etc.</p>
+<p>Here is the complete, annotated program, which you can also view and run <a
+href="http://replit.com/Kr0/3" target="_blank">here</a>. This is EXACTLY the
+same code as the giant block of bf symbols I put in the <a title="fizzbuzz in
+brainfuck, part one" href="/2013/09/fizzbuzz-in-brainfuck-part-one.html"
+target="_blank">first part</a>, just spread out with indentation etc.</p>
 <div class="highlight"><pre><code class="language-brainfuck" data-lang="brainfuck"><span></span><span class="c">MOVE 20 CELLS TO THE RIGHT TO &quot;CLEAR&quot; MEMORY</span>
 <span class="nv">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span><span class="c"></span>
 <span class="nv">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span><span class="c"></span>
@@ -272,11 +297,32 @@
 <span class="nv">&gt;</span><span class="nt">.</span><span class="nv">&gt;</span><span class="nt">.</span><span class="nv">&gt;</span><span class="nt">..</span><span class="c"></span>
 </code></pre></div>
 
-<p>So, that&rsquo;s basically that. This is super hard to read, because of the crazy syntax and how unreadable brainfuck is, but maybe having it parsed out so much will help some people understand it better. I sure learned a hell of a lot about memory allocation, cursors, and logic gates. All in all, now that I have a couple of weeks between it and me, it was worth the time.</p>
+<p>So, that&rsquo;s basically that. This is super hard to read, because of the crazy
+syntax and how unreadable brainfuck is, but maybe having it parsed out so much
+will help some people understand it better. I sure learned a hell of a lot
+about memory allocation, cursors, and logic gates. All in all, now that I have
+a couple of weeks between it and me, it was worth the time.</p>
 
-<p>Next time in the brainfuck series maybe: <a href="https://github.com/urthbound/esoteric/blob/master/brainfuckint.rb" target="_blank">writing a compiler / interpreter for brainfuck in ruby. </a> Sometime. But don&rsquo;t hold your breath. All you brainfuck fans out there. In Ukraine. Don&rsquo;t think I don&rsquo;t see your ip&rsquo;s.</p>
+<blockquote>
+<p>Update, Sep 2017: totally using all of those words wrong, but they&rsquo;re sort of in
+the same balpark as reality, so I&rsquo;ll keep them around.TBH I didn&rsquo;t really
+know wtf I was doing back then.</p>
+</blockquote>
 
-<p>Oh and just to wrap this up: it feels pretty good to say that I am never going to write another fizzbuzz again; FizzBuzz is officially checked of the bucket list.</p>
+<p>Next time in the brainfuck series maybe: <a
+href="https://github.com/urthbound/esoteric/blob/master/brainfuckint.rb"
+target="_blank">writing a compiler / interpreter for brainfuck in
+ruby. </a> Sometime. But don&rsquo;t hold your breath. All you brainfuck fans out
+there. In Ukraine. Don&rsquo;t think I don&rsquo;t see your ip&rsquo;s.</p>
+
+<blockquote>
+<p>Update, Sep 2017: This never happened also it never will happen probably
+either.</p>
+</blockquote>
+
+<p>Oh and just to wrap this up: it feels pretty good to say that I am never going
+to write another fizzbuzz again; FizzBuzz is officially checked of the bucket
+list.</p>
 
 <p>Goodnight and goodluck, interwebs.</p>
 

@@ -32,13 +32,11 @@
 <p><a href="http://replit.com/Kr0/1" target="_blank">Run that junk.</a></p>
 
 <p>A couple of weeks ago I got it into my pointy little egg-head that I wanted to
-write a <a
-href="http://www.codinghorror.com/blog/2007/02/fizzbuzz-the-programmers-stairway-to-heaven.html"
-target="_blank">fizzbuzz</a> in <a
-href="http://www.jeffalanfowler.com/blog/how-brainfuck-works/"
-target="_blank">brainfuck</a>. As with a lot of the stupid ideas that occur to
-me, I initially dismissed it as a waste of time,
-as-well-I-had-ought-to-have-done.</p>
+write a
+<a href="http://www.codinghorror.com/blog/2007/02/fizzbuzz-the-programmers-stairway-to-heaven.html">fizzbuzz</a>
+in <a href="http://www.jeffalanfowler.com/blog/how-brainfuck-works/">brainfuck</a>
+As with a lot of the stupid ideas that occur to me, I initially dismissed it as
+a waste of time, as-well-I-had-ought-to-have-done.</p>
 
 <p>&ldquo;Nahhhhhhh,&rdquo; past me said to himself, chuckling, &ldquo;that would be totally,
 needlessly hard right now, and it would take a lot of time, and anyway I don&rsquo;t
@@ -46,9 +44,8 @@ know how I would even START! Unless, maybe, well&hellip; I wonder if I could wri
 an if/else&hellip; and then if I could do that&hellip;maybe with a multiples counter
 cell&hellip;and&hellip;.&rdquo;</p>
 
-<p>And so <a href="http://esolangs.org/wiki/brainfuck_algorithms"
-target="_blank">after a quick googling</a>, I was off. I <a
-href="http://xkcd.com/356/">nerd-sniped</a> myself.</p></p>
+<p>And so <a href="http://esolangs.org/wiki/brainfuck_algorithms">after a quick googling</a>
+I was off. I had <a href="http://xkcd.com/356/">nerd-sniped</a> myself!</p>
 
 <p>I decided the easiest way to go about it was to write fizzbuzz in Ruby, first,
 and then translate it into brainfuck. Aww Ruby, <a
@@ -294,9 +291,22 @@ like this:</p>
 <span class="nb">print</span> <span class="n">thirteen</span>
 </code></pre></div>
 
-<p>Aside from the repetition we are ignoring- there are three problems left. Still no &ldquo;FizzBuzz,&rdquo; and when it should make &ldquo;FizzBuzz,&rdquo; it throws off the 5&rsquo;s counter into negative numbers so it never prints Buzz after 15. And it&rsquo;s not evaluating 100. The first and second problem can be fixed with just one more &ldquo;if&rdquo; statement, nuzzled way down in the bowels of our<a href="http://en.wikipedia.org/wiki/Spaghetti_code" target="_blank"> increasingly complex</a>program. We know we&rsquo;ll only have to write &ldquo;FizzBuzz&rdquo; if we&rsquo;ve already written &ldquo;Fizz,&rdquo; so anytime we print &ldquo;Fizz,&rdquo; we just throw in an extra check against whether or not we need to write &ldquo;Buzz.&rdquo; Now, if we write &ldquo;FizzBuzz&rdquo;, we will also be resetting the 5&rsquo;s counter.</p>
+<p>Aside from the repetition we are ignoring- there are three problems left. Still
+no &ldquo;FizzBuzz,&rdquo; and when it should make &ldquo;FizzBuzz,&rdquo; it throws off the 5&rsquo;s
+counter into negative numbers so it never prints Buzz after 15. And it&rsquo;s not
+evaluating 100. The first and second problem can be fixed with just one more
+&ldquo;if&rdquo; statement, nuzzled way down in the bowels of our<a
+href="http://en.wikipedia.org/wiki/Spaghetti_code" target="_blank">
+increasingly complex</a>program. We know we&rsquo;ll only have to write &ldquo;FizzBuzz&rdquo; if
+we&rsquo;ve already written &ldquo;Fizz,&rdquo; so anytime we print &ldquo;Fizz,&rdquo; we just throw in an
+extra check against whether or not we need to write &ldquo;Buzz.&rdquo; Now, if we write
+&ldquo;FizzBuzz&rdquo;, we will also be resetting the 5&rsquo;s counter.</p>
 
-<p>Oh and as for the last problem, I just hardcoded printing &ldquo;Buzz&rdquo; out at the end instead of &ldquo;100&rdquo;, bypassing all the logic, because I&rsquo;m a filthy, cheating, dirty fraud. YOLO####33<a href="http://knowyourmeme.com/memes/the-1-phenomenon" target="_blank">3</a>. Also because it will always end up on a multiple of 100, so at least the &ldquo;Buzz&rdquo; part will be right. Screw you, 300, 600, and 900!!</p>
+<p>Oh and as for the last problem, I just hardcoded printing &ldquo;Buzz&rdquo; out at the end
+instead of &ldquo;100&rdquo;, bypassing all the logic, because I&rsquo;m a filthy, cheating,
+dirty fraud. YOLO####33<a href="http://knowyourmeme.com/memes/the-1-phenomenon"
+target="_blank">3</a>. Also because it will always end up on a multiple of 100,
+so at least the &ldquo;Buzz&rdquo; part will be right. Screw you, 300, 600, and 900!!</p>
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="n">five</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">six</span> <span class="o">=</span> <span class="mi">5</span>
 
