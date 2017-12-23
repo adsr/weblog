@@ -34,32 +34,20 @@ penultimate post in a long series that started
 
 <p>A lambda is an anonymous, unnamed function that can be applied to an arbitrary
 set of inputs. Usually it looks something like:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span></code></pre></div>
 <p>That&rsquo;s the <a href="https://en.wikipedia.org/wiki/Identity_function">identity
 function</a>. If we were to want
 to perhaps call it on something, it would look like this.</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span></code></pre></div>
 <p>That call would output:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span></code></pre></div>
 <p>You might be tempted to say, hey wait- that&rsquo;s the same as the builtin quote
 function! But it is in fact <em>not</em> the same thing, at all! Consider:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="k">quote </span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="k">quote </span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span></code></pre></div>
 <p>Will produce</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)</span></code></pre></div>
 <p>But</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span></code></pre></div>
 <p>Will produce</p>
 
 <pre><code>Error: unbound label: 1
@@ -86,16 +74,12 @@ view, <code>lambda</code> is a special form that <em>produces a procedure</em> t
 applied to an arbitrary set of arguments.</p>
 
 <p>Let&rsquo;s think about this for a moment. The way the interpreter is written, if I were to write this:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">((</span><span class="nb">car </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">car</span><span class="p">))</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">((</span><span class="nv">car</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">car</span><span class="p">))</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span></code></pre></div>
 <p>What am I going to get out of it? Let&rsquo;s walk through it.</p>
 
 <p>The interpreter sees a list, so it tries to apply the first item in that list
 to the remaining items as a function. It sees another list:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="nb">car </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">car</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nv">car</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">car</span><span class="p">))</span></code></pre></div>
 <p>So it tries to evaluate this list before trying to apply it. What does it get
 out of that evalutation?</p>
 
@@ -105,35 +89,23 @@ builtin! We know what to do with that one, so the interpreter passes off
 control to the function that the builtin points to. As we already know, <code>car</code>
 expects a list and returns the first thing in that list. What is being passed
 to it?</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="o">&#39;</span><span class="p">(</span><span class="nv">car</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="o">&#39;</span><span class="p">(</span><span class="nv">car</span><span class="p">)</span></code></pre></div>
 <p>It needs to evaluate this to see if the result is a list.</p>
 
 <p>Remember that <code>'</code> expands to a quoted form, so what the interpreter is really seeing is:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="k">quote </span><span class="p">(</span><span class="nf">car</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="k">quote </span><span class="p">(</span><span class="nv">car</span><span class="p">))</span></code></pre></div>
 <p>Another list! But this one is easy, right? <code>quote</code> is another builtin, it just
 returns its arg unevaluated. So this whole thing returns <code>(car)</code>, which is a
 list with one thing in it, which the original, calling <code>car</code> knows what to do with.</p>
 
 <p>So, that call to <code>car</code> returns <code>car</code>. It could have returned anything- whatever
 was the first thing in that list. So, back to the original:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">((</span><span class="nb">car </span><span class="o">&#39;</span><span class="p">(</span><span class="nv">car</span><span class="p">))</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">((</span><span class="nv">car</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">car</span><span class="p">))</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span></code></pre></div>
 <p>ends up looking like</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="nb">car </span><span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nv">car</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span></code></pre></div>
 <p>Now the interpreter is able to apply the first item to the rest. Once again,
 car returns the first thing in the list that is passed to it. Round and round we go&hellip;</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="k">quote </span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)))</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="mi">1</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nv">car</span> <span class="p">(</span><span class="k">quote </span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)))</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="mi">1</span></code></pre></div>
 <p>This is all familiar!</p>
 
 <hr>
@@ -144,9 +116,7 @@ car returns the first thing in the list that is passed to it. Round and round we
 Sees another list&hellip; same deal. Now it sees <code>lambda</code>. What is it supposed to
 do? It needs to <em>return a procedure</em>. So after it evaluates the lambda, it
 should see something like:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="nf">PROC</span> <span class="ss">&#39;9</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nv">PROC</span> <span class="ss">&#39;9</span><span class="p">)</span></code></pre></div>
 <p>That <code>PROC</code> object needs to hold three things inside of it: the argument list,
 for binding labels to the arguments being passed to it, the body of the
 function, and a <em>reference to the environment it was produced in</em>. That
@@ -156,15 +126,11 @@ turns into a PROC, it retains a link to the env that was passed into the
 <code>lambda()</code> C function!</p>
 
 <p>What should that look like?</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="c1">; arg list    function body</span>
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="c1">; arg list    function body</span>
 <span class="c1">;       \   /</span>
-<span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span>
-</code></pre></div>
-
+<span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span></code></pre></div>
 <p>so, let&rsquo;s say the interpreter produces this <code>PROC</code> and then tries to apply it:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="nf">PROC</span> <span class="ss">&#39;9</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nv">PROC</span> <span class="ss">&#39;9</span><span class="p">)</span></code></pre></div>
 <p>It should first evaluate the arguments passed to it, in this case <code>'9</code>, then it
 needs to bind the result to the argument list, in this case <code>(x)</code>, so duriing
 the evaluationg of this procedure&rsquo;s body, <code>x = 9</code>. Then, it evaluates the
@@ -174,20 +140,14 @@ returns <code>9</code>. The end, sleep tight.</p>
 
 <p>Some notes to this- for now, I think the arity should match. This should throw
 an error:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span> <span class="nv">y</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span> <span class="ss">&#39;1</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span> <span class="ss">&#39;1</span><span class="p">)</span></code></pre></div>
 <p>So should this, I think:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span> <span class="nv">y</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span> <span class="ss">&#39;1</span> <span class="ss">&#39;2</span> <span class="ss">&#39;3</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span> <span class="ss">&#39;1</span> <span class="ss">&#39;2</span> <span class="ss">&#39;3</span><span class="p">)</span></code></pre></div>
 <p>In each case, the number of arguments passed to the function is not equal to
 the number of arguments the function expects. I don&rsquo;t know much about flexible
 variable arity, maybe it&rsquo;s a good idea? But it doesn&rsquo;t make sense to me right
 now, especially since if you want to pass in some number of things, well&hellip;</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">x</span><span class="p">)))</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nv">car</span> <span class="p">(</span><span class="nv">cdr</span> <span class="nv">x</span><span class="p">)))</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span></code></pre></div>
 <p>Seems like there is a way to do so already.</p>
 
 <hr>
@@ -196,20 +156,16 @@ now, especially since if you want to pass in some number of things, well&hellip;
 this goes.</p>
 
 <p>I&rsquo;ll add it here:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">enum</span> <span class="n">CellType</span> <span class="p">{</span> <span class="n">NIL</span><span class="p">,</span> <span class="n">LABEL</span><span class="p">,</span> <span class="n">LIST</span><span class="p">,</span> <span class="n">BUILTIN</span><span class="p">,</span> <span class="n">PROC</span> <span class="p">};</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">enum</span> <span class="n">CellType</span> <span class="p">{</span> <span class="n">NIL</span><span class="p">,</span> <span class="n">LABEL</span><span class="p">,</span> <span class="n">LIST</span><span class="p">,</span> <span class="n">BUILTIN</span><span class="p">,</span> <span class="n">PROC</span> <span class="p">};</span></code></pre></div>
 <p>And I&rsquo;ll add it here:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">typedef</span> <span class="k">union</span> <span class="n">V</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">union</span> <span class="n">V</span> <span class="p">{</span>
     <span class="kt">char</span> <span class="o">*</span> <span class="n">label</span><span class="p">;</span>
     <span class="k">struct</span> <span class="n">C</span> <span class="o">*</span> <span class="n">list</span><span class="p">;</span>
     <span class="k">struct</span> <span class="n">funcval</span> <span class="n">func</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">procval</span> <span class="n">proc</span><span class="p">;</span> <span class="c1">// here!</span>
-<span class="p">}</span> <span class="n">V</span><span class="p">;</span>
-</code></pre></div>
-
+    <span class="k">struct</span> <span class="n">procval</span> <span class="n">proc</span><span class="p">;</span> <span class="c1">// here!
+</span><span class="c1"></span><span class="p">}</span> <span class="n">V</span><span class="p">;</span></code></pre></div>
 <p>And I&rsquo;ll need a <code>procval</code> so that makes sense&hellip;</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">struct</span> <span class="n">procval</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">procval</span> <span class="p">{</span>
     <span class="k">struct</span> <span class="n">C</span> <span class="o">*</span><span class="n">args</span><span class="p">;</span>
     <span class="k">struct</span> <span class="n">C</span> <span class="o">*</span><span class="n">body</span><span class="p">;</span>
     <span class="k">struct</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">;</span>
@@ -220,36 +176,30 @@ this goes.</p>
 <span class="n">the</span> <span class="n">identity</span> <span class="n">function</span> <span class="n">example</span><span class="p">...</span>
 
 <span class="err">```</span><span class="n">scheme</span>
-<span class="p">(</span><span class="n">lambda</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">x</span><span class="p">)</span>
-</code></pre></div>
-
+<span class="p">(</span><span class="n">lambda</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">x</span><span class="p">)</span></code></pre></div>
 <p>when evaluated, should produce this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">makecell</span><span class="p">(</span><span class="n">PROC</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span> <span class="p">.</span><span class="n">proc</span> <span class="o">=</span> <span class="p">{</span> <span class="n">operand</span><span class="p">,</span> <span class="n">operand2</span><span class="p">,</span> <span class="n">env</span> <span class="p">}</span> <span class="p">},</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">makecell</span><span class="p">(</span><span class="n">PROC</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span> <span class="p">.</span><span class="n">proc</span> <span class="o">=</span> <span class="p">{</span> <span class="n">operand</span><span class="p">,</span> <span class="n">operand2</span><span class="p">,</span> <span class="n">env</span> <span class="p">}</span> <span class="p">},</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">);</span></code></pre></div>
 <p>And so, I will make a new builtin function called <code>lambda</code> that will produce
 that cell. This pattern will look familiar, it is the same as all the other
 builtin functions!</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">lambda</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// check arity for only two things- arg list and function body</span>
-    <span class="n">arity_check</span><span class="p">(</span><span class="s">&quot;lambda&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">operand</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">lambda</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// check arity for only two things- arg list and function body
+</span><span class="c1"></span>    <span class="n">arity_check</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;lambda&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">operand</span><span class="p">);</span>
 
-    <span class="c1">// separating them from each other.</span>
-    <span class="n">C</span> <span class="o">*</span><span class="n">operand2</span> <span class="o">=</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="c1">// separating them from each other.
+</span><span class="c1"></span>    <span class="n">C</span> <span class="o">*</span><span class="n">operand2</span> <span class="o">=</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
     <span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
     <span class="n">operand2</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
 
-    <span class="c1">// type checking the arg list</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">LIST</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;lambda expected a LIST as its first argument and did not get one</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="c1">// type checking the arg list
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">LIST</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;lambda expected a LIST as its first argument and did not get one</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="c1">// returning a new PROC cell</span>
-    <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">PROC</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span> <span class="p">.</span><span class="n">proc</span> <span class="o">=</span> <span class="p">{</span> <span class="n">operand</span><span class="p">,</span> <span class="n">operand2</span><span class="p">,</span> <span class="n">env</span> <span class="p">}</span> <span class="p">},</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+    <span class="c1">// returning a new PROC cell
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">PROC</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span> <span class="p">.</span><span class="n">proc</span> <span class="o">=</span> <span class="p">{</span> <span class="n">operand</span><span class="p">,</span> <span class="n">operand2</span><span class="p">,</span> <span class="n">env</span> <span class="p">}</span> <span class="p">},</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
 <p>This function is fairly straightforward, it&rsquo;s when we try to apply that cell as
 a function that things get interesting.</p>
 
@@ -260,39 +210,31 @@ switch statements that operate on cell types.</p>
 
 <p>In <code>debug_list</code>, I&rsquo;ll simply output the new procval struct in the same way as
 the others:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">case</span> <span class="nl">PROC</span><span class="p">:</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;PROC- Address: %p, Next: %p</span><span class="se">\n</span><span class="s">| Args: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">case</span> <span class="nl">PROC</span><span class="p">:</span>
+    <span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;PROC- Address: %p, Next: %p</span><span class="se">\n</span><span class="s">| Args: </span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
     <span class="n">debug_list_inner</span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">args</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;| Body: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;| Body: </span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
     <span class="n">debug_list_inner</span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">body</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
     <span class="n">debug_list_inner</span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">depth</span><span class="p">);</span>
-    <span class="k">break</span><span class="p">;</span>
-</code></pre></div>
-
+    <span class="k">break</span><span class="p">;</span></code></pre></div>
 <p>similarly, in <code>print</code>:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">case</span> <span class="nl">PROC</span><span class="p">:</span>
-    <span class="n">fprintf</span><span class="p">(</span><span class="n">output_stream</span><span class="p">,</span> <span class="s">&quot;(PROC &quot;</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">case</span> <span class="nl">PROC</span><span class="p">:</span>
+    <span class="n">fprintf</span><span class="p">(</span><span class="n">output_stream</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;(PROC &#34;</span><span class="p">);</span>
     <span class="n">print_inner</span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">args</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">output_stream</span><span class="p">);</span>
-    <span class="n">fprintf</span><span class="p">(</span><span class="n">output_stream</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">);</span>
+    <span class="n">fprintf</span><span class="p">(</span><span class="n">output_stream</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34; &#34;</span><span class="p">);</span>
     <span class="n">print_inner</span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">body</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">output_stream</span><span class="p">);</span>
-    <span class="n">fprintf</span><span class="p">(</span><span class="n">output_stream</span><span class="p">,</span> <span class="s">&quot;)&quot;</span><span class="p">);</span>
-    <span class="k">break</span><span class="p">;</span>
-</code></pre></div>
-
+    <span class="n">fprintf</span><span class="p">(</span><span class="n">output_stream</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;)&#34;</span><span class="p">);</span>
+    <span class="k">break</span><span class="p">;</span></code></pre></div>
 <p>In <code>eval</code>, a <code>PROC</code> should evaluate to itself, just like a <code>BUILTIN</code>, or <code>NIL</code></p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="p">...</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="p">...</span>
 <span class="k">case</span> <span class="nl">PROC</span><span class="p">:</span>
 <span class="k">case</span> <span class="nl">BUILTIN</span><span class="p">:</span>
 <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
-<span class="p">...</span>
-</code></pre></div>
-
+<span class="p">...</span></code></pre></div>
 <p>And in <code>apply</code>, well, that&rsquo;s where the action happens.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">case</span> <span class="nl">PROC</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">apply_proc</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">case</span> <span class="nl">PROC</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">apply_proc</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span></code></pre></div>
 <p>Looks pretty simple until you remember that we haven&rsquo;t written <code>apply_proc()</code> yet!</p>
 
 <hr>
@@ -302,109 +244,93 @@ project. It&rsquo;s the heart of the eval/apply loop.</p>
 
 <p>All of the business logic of applying an anonymous procedure has to live in
 this function. Let&rsquo;s take it step by step.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">static</span> <span class="n">C</span> <span class="o">*</span><span class="nf">apply_proc</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">proc</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="n">C</span> <span class="o">*</span><span class="nf">apply_proc</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">proc</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span></code></pre></div>
 <p>It will be static, I only need to call it from <code>apply</code>.</p>
 
 <p>First, I&rsquo;ll need to check the arity against the number of arguments that have
 been passed into it. For this, I&rsquo;ll need a function that can count how many
 things are in the argument list, then count how many things have been passed,
 and then compare them. Remember that the form will be:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="c1">; arg list    function body</span>
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="c1">; arg list    function body</span>
 <span class="c1">;       \   /</span>
-<span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span> <span class="ss">&#39;1</span><span class="p">)</span>
+<span class="p">((</span><span class="k">lambda </span><span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span> <span class="ss">&#39;1</span><span class="p">)</span>
 <span class="c1">;                 \</span>
-<span class="c1">;                   arguments being passed</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">static</span> <span class="n">C</span> <span class="o">*</span><span class="nf">apply_proc</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">proc</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">;                   arguments being passed</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="n">C</span> <span class="o">*</span><span class="nf">apply_proc</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">proc</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
 
-    <span class="c1">// first element in arg list</span>
-    <span class="n">C</span> <span class="o">*</span><span class="n">cur</span> <span class="o">=</span> <span class="n">proc</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">list</span><span class="p">;</span>
-    <span class="c1">// first argument being passed</span>
-    <span class="n">C</span> <span class="o">*</span><span class="n">curarg</span> <span class="o">=</span> <span class="n">proc</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="c1">// first element in arg list
+</span><span class="c1"></span>    <span class="n">C</span> <span class="o">*</span><span class="n">cur</span> <span class="o">=</span> <span class="n">proc</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">list</span><span class="p">;</span>
+    <span class="c1">// first argument being passed
+</span><span class="c1"></span>    <span class="n">C</span> <span class="o">*</span><span class="n">curarg</span> <span class="o">=</span> <span class="n">proc</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
 
     <span class="kt">int</span> <span class="n">arity</span> <span class="o">=</span> <span class="n">count_list</span><span class="p">(</span><span class="n">cur</span><span class="p">);</span>
     <span class="kt">int</span> <span class="n">numpassed</span> <span class="o">=</span> <span class="n">count_list</span><span class="p">(</span><span class="n">curarg</span><span class="p">);</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">arity</span> <span class="o">!=</span> <span class="n">numpassed</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;arity error on proc application</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;arity error on proc application</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="c1">// etc...</span>
-</code></pre></div>
-
+    <span class="o">//</span> <span class="n">etc</span><span class="p">...</span></code></pre></div>
 <p>And I&rsquo;ll need to implement <code>count_list()</code>. This is relatively straightforward,
 and I&rsquo;ll simply do it iteratively&hellip;</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">count_list</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">){</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="nf">count_list</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">){</span>
     <span class="kt">int</span> <span class="n">i</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="c1">// count args until the end of the list!</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// count args until the end of the list!
+</span><span class="c1"></span>    <span class="k">while</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">i</span><span class="o">++</span><span class="p">;</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<span class="p">};</span></code></pre></div>
 <p>Great! That wraps up a dynamic arity check.</p>
 
 <p>Next, I need to evaluate the arguments being passed and set them to the labels
 designated in the arg list. For this, I&rsquo;ll create a new environment called
 <code>frame</code> to set them in.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span>    <span class="c1">// make an env just for this procedure application!</span>
-    <span class="k">struct</span> <span class="n">Env</span> <span class="o">*</span><span class="n">frame</span> <span class="o">=</span> <span class="n">new_env</span><span class="p">();</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c">    <span class="c1">// make an env just for this procedure application!
+</span><span class="c1"></span>    <span class="k">struct</span> <span class="n">Env</span> <span class="o">*</span><span class="n">frame</span> <span class="o">=</span> <span class="n">new_env</span><span class="p">();</span>
 
     <span class="n">C</span> <span class="o">*</span><span class="n">nextarg</span><span class="p">;</span>
     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arity</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// retain a reference to the next arg before disconnecting it</span>
-        <span class="n">nextarg</span> <span class="o">=</span> <span class="n">curarg</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="c1">// retain a reference to the next arg before disconnecting it
+</span><span class="c1"></span>        <span class="n">nextarg</span> <span class="o">=</span> <span class="n">curarg</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
 
-        <span class="c1">// disconnect next arg from curarg</span>
-        <span class="n">curarg</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
+        <span class="c1">// disconnect next arg from curarg
+</span><span class="c1"></span>        <span class="n">curarg</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
 
-        <span class="c1">// evaluate curarg _in the enclosing environment_ and assign cur to it in the frame</span>
-        <span class="n">set</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">eval</span><span class="p">(</span><span class="n">curarg</span><span class="p">,</span> <span class="n">env</span><span class="p">));</span>
+        <span class="c1">// evaluate curarg _in the enclosing environment_ and assign cur to it in the frame
+</span><span class="c1"></span>        <span class="n">set</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">eval</span><span class="p">(</span><span class="n">curarg</span><span class="p">,</span> <span class="n">env</span><span class="p">));</span>
 
-        <span class="c1">// advance to next label / value pair</span>
-        <span class="n">curarg</span> <span class="o">=</span> <span class="n">nextarg</span><span class="p">;</span>
+        <span class="c1">// advance to next label / value pair
+</span><span class="c1"></span>        <span class="n">curarg</span> <span class="o">=</span> <span class="n">nextarg</span><span class="p">;</span>
         <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-    <span class="p">}</span>
-</code></pre></div>
-
+    <span class="p">}</span></code></pre></div>
 <p>Notice a very important point here is that the arguments being passed into the
 lambda are evaluated in the <em>enclosing</em> environment that the lambda is being
 applied <em>inside of</em> BEFORE being passed to the loop that assigns that result to
 a label in the frame. This enables us to <em>shadow</em> variables effectively.</p>
 
 <p>Consider the following:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="k">define </span><span class="nv">thingy</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="k">define </span><span class="nv">thingy</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>
 
-<span class="p">(</span><span class="k">define </span><span class="nv">cdrer</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">thingy</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">thingy</span><span class="p">)))</span>
+<span class="p">(</span><span class="k">define </span><span class="nv">cdrer</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nv">thingy</span><span class="p">)</span> <span class="p">(</span><span class="nv">cdr</span> <span class="nv">thingy</span><span class="p">)))</span>
 
-<span class="p">(</span><span class="nf">display</span>
-    <span class="p">(</span><span class="nf">cdrer</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">thingy</span><span class="p">))</span>
-<span class="p">)</span>
-</code></pre></div>
-
+<span class="p">(</span><span class="nv">display</span>
+    <span class="p">(</span><span class="nv">cdrer</span> <span class="p">(</span><span class="nv">cdr</span> <span class="nv">thingy</span><span class="p">))</span>
+<span class="p">)</span></code></pre></div>
 <p>Here, &ldquo;thingy&rdquo; is being shadowed in the lambda application. It means one thing
 in the global env, and another in the frame, but the two definitions are
 effectively isolated from one another.</p>
 
 <p>Look at this expansion:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="nf">cdrer</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">thingy</span><span class="p">))</span>
-<span class="p">(</span><span class="nf">cdrer</span> <span class="p">(</span><span class="nb">cdr </span><span class="o">&#39;</span><span class="p">(</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)))</span>
-<span class="p">(</span><span class="nf">cdrer</span> <span class="p">(</span><span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nv">cdrer</span> <span class="p">(</span><span class="nv">cdr</span> <span class="nv">thingy</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">cdrer</span> <span class="p">(</span><span class="nv">cdr</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)))</span>
+<span class="p">(</span><span class="nv">cdrer</span> <span class="p">(</span><span class="mi">3</span> <span class="mi">4</span><span class="p">))</span></code></pre></div>
 <p>and internal to the lambda&hellip;</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="nb">cdr </span><span class="nv">thingy</span><span class="p">)</span>
-<span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>
-<span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nv">cdr</span> <span class="nv">thingy</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">cdr</span> <span class="p">(</span><span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">)</span></code></pre></div>
 <p>Which is ultimately what we get returned.</p>
 
 <hr>
@@ -419,30 +345,20 @@ passed arguments, and assigned them to their labels in the frame env that we&rsq
 created.</p>
 
 <p>Here&rsquo;s the money line:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">eval</span><span class="p">(</span><span class="n">proc</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">body</span><span class="p">,</span> <span class="n">frame</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">eval</span><span class="p">(</span><span class="n">proc</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">body</span><span class="p">,</span> <span class="n">frame</span><span class="p">);</span></code></pre></div>
 <p>And that&rsquo;s that. We&rsquo;ve evaluated the body of the lambda in the context of its
 local frame environment. All that is left is to clean up after ourselves.</p>
 
 <p>We free the args:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">free_cell</span><span class="p">(</span><span class="n">proc</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">args</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">free_cell</span><span class="p">(</span><span class="n">proc</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">args</span><span class="p">);</span></code></pre></div>
 <p>We free the proc cell pointer itself:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">free</span><span class="p">(</span><span class="n">proc</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">free</span><span class="p">(</span><span class="n">proc</span><span class="p">);</span></code></pre></div>
 <p>and we free the frame</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">free_env</span><span class="p">(</span><span class="n">frame</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">free_env</span><span class="p">(</span><span class="n">frame</span><span class="p">);</span></code></pre></div>
 <p>Then we can return the result that we wanted all along.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">return</span> <span class="n">out</span><span class="p">;</span></code></pre></div>
 <p>That&rsquo;s it! The whole <code>apply_proc()</code> function looks like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">static</span> <span class="n">C</span> <span class="o">*</span><span class="nf">apply_proc</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">proc</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="n">C</span> <span class="o">*</span><span class="nf">apply_proc</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">proc</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="n">C</span> <span class="o">*</span><span class="n">cur</span> <span class="o">=</span> <span class="n">proc</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">args</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">list</span><span class="p">;</span>
     <span class="n">C</span> <span class="o">*</span><span class="n">curarg</span> <span class="o">=</span> <span class="n">proc</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
@@ -452,7 +368,7 @@ local frame environment. All that is left is to clean up after ourselves.</p>
     <span class="kt">int</span> <span class="n">numpassed</span> <span class="o">=</span> <span class="n">count_list</span><span class="p">(</span><span class="n">curarg</span><span class="p">);</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">arity</span> <span class="o">!=</span> <span class="n">numpassed</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;arity error on proc application</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;arity error on proc application</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
 
@@ -466,19 +382,17 @@ local frame environment. All that is left is to clean up after ourselves.</p>
         <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="c1">// eval will free the body, here:</span>
-    <span class="n">C</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">eval</span><span class="p">(</span><span class="n">proc</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">body</span><span class="p">,</span> <span class="n">frame</span><span class="p">);</span>
-    <span class="c1">// but the args and the proc cell itself still need to be freed manually</span>
-    <span class="c1">// after application:</span>
-
+    <span class="c1">// eval will free the body, here:
+</span><span class="c1"></span>    <span class="n">C</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">eval</span><span class="p">(</span><span class="n">proc</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">body</span><span class="p">,</span> <span class="n">frame</span><span class="p">);</span>
+    <span class="c1">// but the args and the proc cell itself still need to be freed manually
+</span><span class="c1"></span>    <span class="c1">// after application:
+</span><span class="c1"></span>
     <span class="n">free_cell</span><span class="p">(</span><span class="n">proc</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">proc</span><span class="p">.</span><span class="n">args</span><span class="p">);</span>
     <span class="n">free</span><span class="p">(</span><span class="n">proc</span><span class="p">);</span>
     <span class="n">free_env</span><span class="p">(</span><span class="n">frame</span><span class="p">);</span>
 
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>:D</p>
 
 <hr>
@@ -489,51 +403,35 @@ look at an easy way to use them!</p>
 <p>We have <code>car</code> and <code>cdr</code>, but what if we wanted to <em>second</em> item in a list?</p>
 
 <p>We could go like:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nv">car</span> <span class="p">(</span><span class="nv">cdr</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)))</span></code></pre></div>
 <pre><code>2
 </code></pre>
 
 <p>If we did that a lot, it would be helpful to have a shortcut:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="k">define </span><span class="nv">cadr</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">x</span><span class="p">))))</span>
-<span class="p">(</span><span class="nb">cadr </span><span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="mi">2</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="k">define </span><span class="nv">cadr</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nv">car</span> <span class="p">(</span><span class="nv">cdr</span> <span class="nv">x</span><span class="p">))))</span>
+<span class="p">(</span><span class="nv">cadr</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">))</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="mi">2</span></code></pre></div>
 <p>That&rsquo;s a traditional pattern in a lisp, we could define a whole host of helper functions!</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="k">define </span><span class="nv">caddr</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">x</span><span class="p">)))))</span>
-<span class="p">(</span><span class="k">define </span><span class="nv">caadr</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">car </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">x</span><span class="p">)))))</span>
-<span class="c1">; etc...</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="k">define </span><span class="nv">caddr</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nv">car</span> <span class="p">(</span><span class="nv">cdr</span> <span class="p">(</span><span class="nv">cdr</span> <span class="nv">x</span><span class="p">)))))</span>
+<span class="p">(</span><span class="k">define </span><span class="nv">caadr</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nv">car</span> <span class="p">(</span><span class="nv">car</span> <span class="p">(</span><span class="nv">cdr</span> <span class="nv">x</span><span class="p">)))))</span>
+<span class="c1">; etc...</span></code></pre></div>
 <p>But, much more impressively, we can use control flow introduced by <code>cond</code> to
 write more dynamic procedures!</p>
 
 <p>What if we want the last item in a list?</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="k">define </span><span class="nv">last</span>
-    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">l</span><span class="p">)</span>
-        <span class="p">(</span><span class="k">cond </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">l</span><span class="p">)</span> <span class="p">(</span><span class="nf">last</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">l</span><span class="p">))</span>
-              <span class="p">(</span><span class="nb">car </span><span class="nv">l</span><span class="p">))))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="k">define </span><span class="nv">last</span>
+    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nv">l</span><span class="p">)</span>
+        <span class="p">(</span><span class="k">cond </span><span class="p">(</span><span class="nv">cdr</span> <span class="nv">l</span><span class="p">)</span> <span class="p">(</span><span class="nv">last</span> <span class="p">(</span><span class="nv">cdr</span> <span class="nv">l</span><span class="p">))</span>
+              <span class="p">(</span><span class="nv">car</span> <span class="nv">l</span><span class="p">))))</span></code></pre></div>
 <p>Now,</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="nf">last</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nv">last</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span><span class="p">))</span></code></pre></div>
 <p>is <code>7</code></p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="nf">last</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nv">last</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span><span class="p">))</span></code></pre></div>
 <p>is <code>2</code></p>
 
 <p>and furthermore,</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="p">(</span><span class="n">display</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="p">(</span><span class="n">display</span>
     <span class="p">(</span><span class="n">last</span> <span class="err">&#39;</span><span class="p">(</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> <span class="mi">10</span> <span class="mi">11</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">14</span> <span class="mi">15</span> <span class="mi">16</span> <span class="mi">17</span> <span class="mi">18</span> <span class="mi">19</span> <span class="mi">20</span> <span class="mi">21</span> <span class="mi">22</span> <span class="mi">23</span> <span class="mi">24</span> <span class="mi">25</span> <span class="mi">26</span> <span class="mi">27</span> <span class="mi">28</span> <span class="mi">29</span> <span class="mi">30</span> <span class="mi">31</span> <span class="mi">32</span> <span class="mi">33</span> <span class="mi">34</span> <span class="mi">35</span> <span class="mi">36</span> <span class="mi">37</span> <span class="mi">38</span> <span class="mi">39</span> <span class="mi">40</span> <span class="mi">41</span> <span class="mi">42</span> <span class="mi">43</span> <span class="mi">44</span> <span class="mi">45</span> <span class="mi">46</span> <span class="mi">47</span> <span class="mi">48</span> <span class="mi">49</span> <span class="mi">50</span> <span class="mi">51</span> <span class="mi">52</span> <span class="mi">53</span> <span class="mi">54</span> <span class="mi">55</span> <span class="mi">56</span> <span class="mi">57</span> <span class="mi">58</span> <span class="mi">59</span> <span class="mi">60</span> <span class="mi">61</span> <span class="mi">62</span> <span class="mi">63</span> <span class="mi">64</span> <span class="mi">65</span> <span class="mi">66</span> <span class="mi">67</span> <span class="mi">68</span> <span class="mi">69</span> <span class="mi">70</span> <span class="mi">71</span> <span class="mi">72</span> <span class="mi">73</span> <span class="mi">74</span> <span class="mi">75</span> <span class="mi">76</span> <span class="mi">77</span> <span class="mi">78</span> <span class="mi">79</span> <span class="mi">80</span> <span class="mi">81</span> <span class="mi">82</span> <span class="mi">83</span> <span class="mi">84</span> <span class="mi">85</span> <span class="mi">86</span> <span class="mi">87</span> <span class="mi">88</span> <span class="mi">89</span> <span class="mi">90</span> <span class="mi">91</span> <span class="mi">92</span> <span class="mi">93</span> <span class="mi">94</span> <span class="mi">95</span> <span class="mi">96</span> <span class="mi">97</span> <span class="mi">98</span> <span class="mi">99</span> <span class="mi">100</span><span class="p">))</span>
-<span class="p">)</span>
-</code></pre></div>
-
+<span class="p">)</span></code></pre></div>
 <p>is <code>100</code>!</p>
 
 <p>NOW we&rsquo;re cooking with gas! In the next post I&rsquo;ll address some thorny problems

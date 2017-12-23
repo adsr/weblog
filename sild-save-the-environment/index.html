@@ -62,21 +62,19 @@ void, and a getter that takes an <code>Env</code> and a key and returns a value-
 know I&rsquo;ll need a deletion function too, or at least a way to free a whole env
 up at once. This is basically a miniature little CRUD interface!  (set =
 Create, get = Read, delete+set = Update, delete = Delete)</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="cp">#ifndef ENV_GUARD</span>
-<span class="cp">#define ENV_GUARD</span>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#ifndef ENV_GUARD
+</span><span class="cp">#define ENV_GUARD
+</span><span class="cp"></span>
 <span class="k">typedef</span> <span class="k">struct</span> <span class="n">_Env</span> <span class="n">Env</span><span class="p">;</span>
 
 <span class="n">C</span> <span class="o">*</span><span class="nf">set</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span><span class="p">,</span><span class="n">C</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">);</span>
 <span class="n">C</span> <span class="o">*</span><span class="nf">get</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">key</span><span class="p">);</span>
 <span class="n">C</span> <span class="o">*</span><span class="nf">delete</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">key</span><span class="p">);</span>
 
-<span class="cp">#endif</span>
-</code></pre></div>
-
+<span class="cp">#endif</span></code></pre></div>
 <p>I&rsquo;ll jump a little bit now, before implementing something for this, to where it
 will be used in the evaluation code! <code>eval</code> currently looks like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">eval</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">eval</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LIST</span><span class="p">:</span>
         <span class="p">{</span>
@@ -90,14 +88,12 @@ will be used in the evaluation code! <code>eval</code> currently looks like this
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Where evaluating a <code>LABEL</code> simply returns itself. This is silly- I want a label
 to return what it has been assigned to, or else throw an error! This is where I
 will be <code>get()</code>ting a value from an <code>Env</code></p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="cp">#include</span> <span class="cpf">&quot;eval.h&quot;</span><span class="cp"></span>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&#34;eval.h&#34;</span><span class="cp">
+</span><span class="cp"></span>
 <span class="n">C</span> <span class="o">*</span><span class="nf">eval</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LIST</span><span class="p">:</span>
@@ -113,16 +109,12 @@ will be <code>get()</code>ting a value from an <code>Env</code></p>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Immediately we see a big problem with this- there is no <code>Env</code> to pass through
 to this getter function! I haven&rsquo;t added that bit yet! And sure enough:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">src</span><span class="o">/</span><span class="n">eval</span><span class="p">.</span><span class="nl">c</span><span class="p">:</span><span class="mi">37</span><span class="o">:</span><span class="mi">24</span><span class="o">:</span> <span class="nl">error</span><span class="p">:</span> <span class="n">use</span> <span class="n">of</span> <span class="n">undeclared</span> <span class="n">identifier</span> <span class="err">&#39;</span><span class="n">env</span><span class="err">&#39;</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">src</span><span class="o">/</span><span class="n">eval</span><span class="p">.</span><span class="nl">c</span><span class="p">:</span><span class="mi">37</span><span class="o">:</span><span class="mi">24</span><span class="o">:</span> <span class="nl">error</span><span class="p">:</span> <span class="n">use</span> <span class="n">of</span> <span class="n">undeclared</span> <span class="n">identifier</span> <span class="err">&#39;</span><span class="n">env</span><span class="err">&#39;</span>
     <span class="k">return</span> <span class="n">get</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
-           <span class="o">^</span>
-</code></pre></div>
-
+           <span class="o">^</span></code></pre></div>
 <p>Get ready for a big, but boring changeset. In order to have access to that
 Environment (whatever it turns out to be!) in all of these calls to <code>eval</code> and
 all the builtin functions, I have to add an <code>Env</code> parameter to <em>every single
@@ -132,28 +124,20 @@ going to show that, but you can see it
 
 <p>One operative part is creating a NULL <code>Env</code> in <code>evalfile</code> and passing it
 through into <code>eval</code>:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span>    <span class="n">Env</span> <span class="o">*</span> <span class="n">env</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c">    <span class="n">Env</span> <span class="o">*</span> <span class="n">env</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="k">while</span><span class="p">((</span><span class="n">c</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">fp</span><span class="p">))</span> <span class="o">!=</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
         <span class="n">print</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
         <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
-    <span class="p">}</span>
-</code></pre></div>
-
+    <span class="p">}</span></code></pre></div>
 <p>and that I&rsquo;ve set the <code>get()</code> function to simply return an empty list for <em>any</em> label.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">get</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">get</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">empty_list</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Since <code>get</code> inside of <code>eval</code> is just returning an empty list, I can eval something like this:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(</span><span class="nb">cons </span><span class="nv">something</span> <span class="nv">somethingelse</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nv">cons</span> <span class="nv">something</span> <span class="nv">somethingelse</span><span class="p">)</span></code></pre></div>
 <p>And it will evaluate both of those labels to an empty list and return:</p>
-<div class="highlight"><pre><code class="language-scheme" data-lang="scheme"><span></span><span class="p">(())</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(())</span></code></pre></div>
 <p>Ah, I should remember to clean up the label cell that I fetched!</p>
 
 <pre><code>C *eval(C* c, Env *env) {
@@ -182,39 +166,33 @@ through into <code>eval</code>:</p>
 
 <p><code>Env</code> has been typedeffed, so I can pass pointers to it around, but I haven&rsquo;t
 defined what an <code>Env</code> is, yet. Let&rsquo;s start with this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">struct</span> <span class="n">Env</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">Env</span> <span class="p">{</span>
     <span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">;</span>
     <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<span class="p">};</span></code></pre></div>
 <p>Which is super reductive, but will illustrate a point! Now, I&rsquo;ll set <code>get</code> to
 return <code>truth</code> if the key passed in matches the key in the env, and the empty
 list otherwise:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">get</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">get</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">scmp</span><span class="p">(</span><span class="n">key</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">))</span> <span class="p">{</span>
         <span class="k">return</span> <span class="n">truth</span><span class="p">();</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
         <span class="k">return</span> <span class="n">empty_list</span><span class="p">();</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Back in the <code>eval_file</code> function, I&rsquo;m going to have to actually pass in a real
 live <code>Env</code> now, instead of just a NULL pointer, since I will be dereferencing
 it. BUT, I can&rsquo;t assign values to the <code>Env</code> from there, since I haven&rsquo;t made
 the internals public (for good reasons!). I&rsquo;ll introduce a <code>new_env()</code> function
 to <code>env.c</code> and <code>env.h</code> that will return a pointer to an env, and I&rsquo;ll set a key
 for it!</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">Env</span> <span class="o">*</span><span class="nf">new_env</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">Env</span> <span class="o">*</span><span class="nf">new_env</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">Env</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Env</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">};</span>
-    <span class="n">out</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">=</span> <span class="s">&quot;derp&quot;</span><span class="p">;</span>
+    <span class="n">out</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">=</span> <span class="sa"></span><span class="s">&#34;derp&#34;</span><span class="p">;</span>
     <span class="n">out</span><span class="o">-&gt;</span><span class="n">value</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Looks a lot like <code>makecell</code>, doesn&rsquo;t it?</p>
 
 <p>This Env only has one key: &lsquo;derp&rsquo;. When <code>get</code> tries to evaluate LABELS, it will
@@ -222,10 +200,10 @@ return truth for only labels with the label <code>derp</code> and empty lists fo
 everything else.</p>
 
 <p>Back in eval_file:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">eval_file</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">eval_file</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;r&#34;</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fp</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Error opening file: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;Error opening file: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
         <span class="n">exit</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
 
@@ -239,9 +217,7 @@ everything else.</p>
     <span class="p">}</span>
 
     <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Now, if I evaluate something like this:</p>
 
 <pre><code>(cons something somethingelse)
@@ -276,24 +252,20 @@ Env, and to search through the entries to try and find a match. First of all,
 that struct definition of Env is completely useless for this, as it only holds
 one key value pair. That&rsquo;s really an <code>Entry</code>, which I will define internally
 above <code>Env</code></p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">Entry</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">Entry</span> <span class="p">{</span>
     <span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">;</span>
     <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">Entry</span><span class="p">;</span>
-</code></pre></div>
-
+<span class="p">}</span> <span class="n">Entry</span><span class="p">;</span></code></pre></div>
 <p>Env, now, should just hold a single thing: a pointer to the first entry in a
 dictionary!</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">struct</span> <span class="n">Env</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">Env</span> <span class="p">{</span>
     <span class="k">struct</span> <span class="n">Entry</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<span class="p">};</span></code></pre></div>
 <p>Now, I can change what was <code>new_env</code> to <code>new_entry</code> and add a new <code>new_env</code>:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">static</span> <span class="n">Entry</span> <span class="o">*</span><span class="nf">new_entry</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="n">Entry</span> <span class="o">*</span><span class="nf">new_entry</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">Entry</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Entry</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="p">};</span>
-    <span class="n">out</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">=</span> <span class="s">&quot;derp&quot;</span><span class="p">;</span>
+    <span class="n">out</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">=</span> <span class="sa"></span><span class="s">&#34;derp&#34;</span><span class="p">;</span>
     <span class="n">out</span><span class="o">-&gt;</span><span class="n">value</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
 <span class="p">}</span>
@@ -303,9 +275,7 @@ dictionary!</p>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="p">};</span>
     <span class="n">out</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_entry</span><span class="p">();</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This works!</p>
 
 <pre><code>(())
@@ -317,18 +287,16 @@ passing around a pointer to a pointer of the first entry in a list of entries!
 Just like I did in the first few posts defining cells, I&rsquo;m going to use a
 singly linked list structure to define these Entrys. That means they need to
 have a reference to the next cell in the series:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">Entry</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">Entry</span> <span class="p">{</span>
     <span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">;</span>
     <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">;</span>
     <span class="k">struct</span> <span class="n">Entry</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">Entry</span><span class="p">;</span>
-</code></pre></div>
-
+<span class="p">}</span> <span class="n">Entry</span><span class="p">;</span></code></pre></div>
 <p>Let&rsquo;s make two entries!</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">static</span> <span class="n">Entry</span> <span class="o">*</span><span class="nf">new_entry</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="n">Entry</span> <span class="o">*</span><span class="nf">new_entry</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">Entry</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Entry</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="p">};</span>
-    <span class="n">out</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">=</span> <span class="s">&quot;derp&quot;</span><span class="p">;</span>
+    <span class="n">out</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">=</span> <span class="sa"></span><span class="s">&#34;derp&#34;</span><span class="p">;</span>
     <span class="n">out</span><span class="o">-&gt;</span><span class="n">value</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="n">out</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
@@ -337,7 +305,7 @@ have a reference to the next cell in the series:</p>
 <span class="k">static</span> <span class="n">Entry</span> <span class="o">*</span><span class="nf">new_entry2</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">Entry</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Entry</span><span class="p">));</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="p">};</span>
-    <span class="n">out</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">=</span> <span class="s">&quot;another&quot;</span><span class="p">;</span>
+    <span class="n">out</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">=</span> <span class="sa"></span><span class="s">&#34;another&#34;</span><span class="p">;</span>
     <span class="n">out</span><span class="o">-&gt;</span><span class="n">value</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="n">out</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">new_entry</span><span class="p">();</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
@@ -348,9 +316,7 @@ have a reference to the next cell in the series:</p>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="p">};</span>
     <span class="n">out</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_entry2</span><span class="p">();</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Boy, that&rsquo;s ugly! Now, the Env looks like this:</p>
 
 <pre><code>Env
@@ -360,7 +326,7 @@ have a reference to the next cell in the series:</p>
 
 <p>I need to adjust the get function to traverse this list, and to know how to
 handle a NULL pointer.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">get</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">get</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">Entry</span> <span class="o">*</span><span class="n">cur</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
 
     <span class="k">while</span> <span class="p">(</span><span class="n">cur</span><span class="p">)</span> <span class="p">{</span>
@@ -370,9 +336,7 @@ handle a NULL pointer.</p>
         <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">empty_list</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>I&rsquo;m going to skip the sentinel node this time, because I&rsquo;m only implementing
 that method that looks through everything, and I can keep that as is!</p>
 
@@ -432,35 +396,31 @@ will return an empty list.</p>
 <p>We&rsquo;re getting close, now! Back in the <code>get</code> function, I&rsquo;m just returning true
 if I find a match, but what I really want is arbitrary values being assigned
 and returned.</p>
-<div class="highlight"><pre><code class="language-diff" data-lang="diff"><span></span> C *get(Env* env, C *key) {
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"> C *get(Env* env, C *key) {
      Entry *cur = env-&gt;head;
      while (cur) {
          if (scmp(key-&gt;val.label, cur-&gt;key)) {
-<span class="gd">-            return truth();</span>
-<span class="gi">+            return cur-&gt;value;</span>
-         }
+<span class="gd">-            return truth();
+</span><span class="gd"></span><span class="gi">+            return cur-&gt;value;
+</span><span class="gi"></span>         }
          cur = cur-&gt;next;
      }
      return NULL;
- }
-</code></pre></div>
-
+<span class="err"> }</span></code></pre></div>
 <p>and down in <code>new_env()</code>:</p>
-<div class="highlight"><pre><code class="language-diff" data-lang="diff"><span></span> Env *new_env() {
+<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"> Env *new_env() {
 
-<span class="gd">-    struct Entry *entry1 = new_entry(&quot;one&quot;, NULL);</span>
-<span class="gd">-    struct Entry *entry2 = new_entry(&quot;two&quot;, NULL);</span>
-<span class="gi">+    struct Entry *entry1 = new_entry(&quot;one&quot;, truth());</span>
-<span class="gi">+    struct Entry *entry2 = new_entry(&quot;two&quot;, truth());</span>
-     entry1-&gt;next = entry2;
+<span class="gd">-    struct Entry *entry1 = new_entry(&#34;one&#34;, NULL);
+</span><span class="gd">-    struct Entry *entry2 = new_entry(&#34;two&#34;, NULL);
+</span><span class="gd"></span><span class="gi">+    struct Entry *entry1 = new_entry(&#34;one&#34;, truth());
+</span><span class="gi">+    struct Entry *entry2 = new_entry(&#34;two&#34;, truth());
+</span><span class="gi"></span>     entry1-&gt;next = entry2;
 
      Env *out = malloc(sizeof(Env));
      if (!out) { exit(1); };
      out-&gt;head = entry1;
      return out;
- }
-</code></pre></div>
-
+<span class="err"> }</span></code></pre></div>
 <p>This works great for something like:</p>
 
 <pre><code>one
@@ -487,29 +447,25 @@ one
 <p>Can you guess? When <code>eval</code> looks at the first <code>one</code>, it retrieves the cell
 pointer to the <code>Entry</code>&rsquo;s <code>value</code> member. Remember that eval as I&rsquo;ve written it
 always cleans up after itself:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span>        <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c">        <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
         <span class="p">{</span>
             <span class="n">C</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">free_one_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span> <span class="c1">// right here!</span>
-                <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</code></pre></div>
-
+                <span class="n">free_one_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span> <span class="c1">// right here!
+</span><span class="c1"></span>                <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span></code></pre></div>
 <p>Which means that the second time I try to evaluate <code>one</code>, it tries to clean up after itself and blows up, because that pointer has already been freed:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">sild</span><span class="p">(</span><span class="mi">76627</span><span class="p">,</span><span class="mh">0x7fff7b607000</span><span class="p">)</span> <span class="nl">malloc</span><span class="p">:</span> <span class="o">***</span> <span class="n">error</span> <span class="k">for</span> <span class="n">object</span> <span class="mh">0x7f88f0403380</span><span class="o">:</span> <span class="n">pointer</span> <span class="n">being</span> <span class="n">freed</span> <span class="n">was</span> <span class="n">not</span> <span class="n">allocated</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">sild</span><span class="p">(</span><span class="mi">76627</span><span class="p">,</span><span class="mh">0x7fff7b607000</span><span class="p">)</span> <span class="nl">malloc</span><span class="p">:</span> <span class="o">***</span> <span class="n">error</span> <span class="k">for</span> <span class="n">object</span> <span class="mh">0x7f88f0403380</span><span class="o">:</span> <span class="n">pointer</span> <span class="n">being</span> <span class="n">freed</span> <span class="n">was</span> <span class="n">not</span> <span class="n">allocated</span>
 <span class="o">***</span> <span class="n">set</span> <span class="n">a</span> <span class="n">breakpoint</span> <span class="n">in</span> <span class="n">malloc_error_break</span> <span class="n">to</span> <span class="n">debug</span>
 
-<span class="n">Command</span> <span class="n">terminated</span>
-</code></pre></div>
-
+<span class="n">Command</span> <span class="n">terminated</span></code></pre></div>
 <p>When I fetch a value from the Environment, I need to be fetching a <em>copy</em> of
 it, so that when it passes through the rest of the evaluation, and gets cleaned
 up afterwards, the original entry is still intact and can be fetched again.</p>
 
 <p>this function will live back in <code>cell.c</code>, and will look exactly like
 <code>free_cell</code> and <code>free_one_cell</code>, which look like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">free_cell</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">free_cell</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
             <span class="n">free</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">);</span>
@@ -548,14 +504,12 @@ up afterwards, the original entry is still intact and can be fetched again.</p>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">break</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This is some wordy code, but it&rsquo;s necessary to handle all the different types
 of cells. Let&rsquo;s adapt them! Remember that the only substantive difference
 between <code>copy</code> and <code>copy_one</code> is that <code>copy_one</code> doesn&rsquo;t propogate through
 <code>next</code> addresses!</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">copy_cell</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">copy_cell</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LABEL</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span> <span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span> <span class="p">},</span> <span class="n">copy_cell</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">));</span>
@@ -566,11 +520,9 @@ between <code>copy</code> and <code>copy_one</code> is that <code>copy_one</code
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>and <code>copy_one_cell</code>, with the <code>next</code> members pointing to <code>&amp;nil</code>:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">copy_one_cell</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">copy_one_cell</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LABEL</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span> <span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span> <span class="p">},</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">);</span>
@@ -581,33 +533,27 @@ between <code>copy</code> and <code>copy_one</code> is that <code>copy_one</code
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>You might notice a problem right away with this! <code>makecell</code> allocates memory
 for the contents of a cell, but those contents sometimes include pointers to
 strings that also need to be allocated! I can pull this into a helper function
 that allocates some memory, copies a string into it.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">scpy</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="o">*</span><span class="nf">scpy</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="n">l</span><span class="o">++</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">!=</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="n">l</span><span class="o">++</span><span class="p">;</span> <span class="p">}</span>
     <span class="kt">char</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">l</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="p">}</span>
 
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">l</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="p">}</span>
-    <span class="n">out</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+    <span class="n">out</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<span class="p">};</span></code></pre></div>
 <p>I&rsquo;ll plop this into <code>utils.c</code> and use it in the <code>env.c</code> file to return a copy instead of the original.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="p">...</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="p">...</span>
             <span class="k">return</span> <span class="n">copy_one_cell</span><span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
-<span class="p">...</span>
-</code></pre></div>
-
+<span class="p">...</span></code></pre></div>
 <p>Now, everything cleans itself up correctly when it is evaluated.</p>
 
 <blockquote>
@@ -638,50 +584,38 @@ becomes important later for scoping!) and then updates that Env&rsquo;s internal
 <code>head</code> member to point to this new entry.</p>
 
 <p>First, the function signature, which I had already put into the <code>h</code> file:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">set</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">set</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span></code></pre></div>
 <p>Except, you know what? now that I think of it, this function needn&rsquo;t return
 anything at all, since if it fails I want to exit. And though I&rsquo;m always going
 to be returning a value, I might as well pass in a string so I don&rsquo;t have to
 muck around with new cells.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">set</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">set</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span></code></pre></div>
 <p>So I&rsquo;ll make a new entry out of the key value pair with my shiny <code>new_entry()</code> function:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">set</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">set</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">new_entry</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>And I&rsquo;ll tell the new_entry that its <code>next</code> member should be the current head
 of the Env:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">set</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">set</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">struct</span> <span class="n">Entry</span> <span class="o">*</span><span class="n">new</span> <span class="o">=</span> <span class="n">new_entry</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
     <span class="n">new</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">Env</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>And I&rsquo;ll tell the Env that its head is now the new entry:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">set</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">set</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">struct</span> <span class="n">Entry</span> <span class="o">*</span><span class="n">new</span> <span class="o">=</span> <span class="n">new_entry</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
     <span class="n">new</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">Env</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
     <span class="n">env</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">new</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>And that&rsquo;s it! If the <code>malloc</code>ing happening inside of new_entry fails, I&rsquo;ll have
 an <code>exit(1)</code> call to cath it. I&rsquo;ve been falling behind on setting up good exit error
 messaging, but I&rsquo;ll make a sweep on that at some point.</p>
 
 <p>Back in the <code>eval_file</code> function, then, I can do this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">Env</span> <span class="o">*</span><span class="n">env</span> <span class="o">=</span> <span class="n">new_env</span><span class="p">();</span>
-<span class="n">set</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s">&quot;hi&quot;</span><span class="p">,</span> <span class="n">truth</span><span class="p">());</span>
-<span class="n">set</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s">&quot;mom&quot;</span><span class="p">,</span> <span class="n">truth</span><span class="p">());</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">Env</span> <span class="o">*</span><span class="n">env</span> <span class="o">=</span> <span class="n">new_env</span><span class="p">();</span>
+<span class="n">set</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;hi&#34;</span><span class="p">,</span> <span class="n">truth</span><span class="p">());</span>
+<span class="n">set</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;mom&#34;</span><span class="p">,</span> <span class="n">truth</span><span class="p">());</span></code></pre></div>
 <p>And I have an env with two entries!</p>
 
 <pre><code>hi
@@ -697,14 +631,12 @@ mom
 <p>Success!</p>
 
 <p>There&rsquo;s one interesting aspect of this env thing that is implicit in its design! What if I do this?</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">Env</span> <span class="o">*</span><span class="n">env</span> <span class="o">=</span> <span class="n">new_env</span><span class="p">();</span>
-<span class="n">set</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s">&quot;hi&quot;</span><span class="p">,</span> <span class="n">truth</span><span class="p">());</span>
-<span class="n">set</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s">&quot;hi&quot;</span><span class="p">,</span> <span class="n">empty_list</span><span class="p">());</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">Env</span> <span class="o">*</span><span class="n">env</span> <span class="o">=</span> <span class="n">new_env</span><span class="p">();</span>
+<span class="n">set</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;hi&#34;</span><span class="p">,</span> <span class="n">truth</span><span class="p">());</span>
+<span class="n">set</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;hi&#34;</span><span class="p">,</span> <span class="n">empty_list</span><span class="p">());</span></code></pre></div>
 <p>Two entries with the same key but different values. Now, in sild land, what
 will I get if I evaluate the LABEL <code>hi</code>? How does my <code>get</code> function choose?</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">get</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">get</span><span class="p">(</span><span class="n">Env</span><span class="o">*</span> <span class="n">env</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">Entry</span> <span class="o">*</span><span class="n">cur</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
 
     <span class="k">while</span> <span class="p">(</span><span class="n">cur</span><span class="p">)</span> <span class="p">{</span>
@@ -714,9 +646,7 @@ will I get if I evaluate the LABEL <code>hi</code>? How does my <code>get</code>
         <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>I didn&rsquo;t put any special logic in there- how does it know which one? Well&hellip;</p>
 
 <pre><code>()
@@ -730,52 +660,40 @@ way it will be the backbone of my language&rsquo;s variable scoping, later on.</
 <p>Now that I have all these helpers defined, and a concept of an Env defined,
 it&rsquo;s a short walk in the park to implement a new <code>sild</code> builtin function that
 can utilize them! The signature will look like all the builtin functions:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">define</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">define</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">);</span></code></pre></div>
 <p>it will take two arguments, a key and a value. (in sild land):</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">define</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">arity_check</span><span class="p">(</span><span class="s">&quot;define&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">operand</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">define</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">arity_check</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;define&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">operand</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
 <p>The key <em>must</em> be a label:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">define</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">arity_check</span><span class="p">(</span><span class="s">&quot;define&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">operand</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">define</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">arity_check</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;define&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">operand</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">LABEL</span><span class="p">)</span> <span class="p">{</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Then it will <code>set</code> the arguments to a key value pair inside the given env,
 evalling the 2nd operand.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">define</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">arity_check</span><span class="p">(</span><span class="s">&quot;define&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">operand</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">define</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">arity_check</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;define&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">operand</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">LABEL</span><span class="p">)</span> <span class="p">{</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="p">}</span>
     <span class="n">set</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">eval</span><span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">env</span><span class="p">));</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Then it will free the label! I don&rsquo;t need to free the evalled operand, because
 that will serve as the master copy in the env.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">define</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">arity_check</span><span class="p">(</span><span class="s">&quot;define&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">operand</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">define</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">arity_check</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;define&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">operand</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">LABEL</span><span class="p">)</span> <span class="p">{</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="p">}</span>
     <span class="n">set</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">eval</span><span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">env</span><span class="p">));</span>
     <span class="n">free_one_cell</span><span class="p">(</span><span class="n">operand</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>And that&rsquo;s really that! It has to return something, so how about nil? I won&rsquo;t
 be doing anything with that return value ever (you will see why soon!)</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">define</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">arity_check</span><span class="p">(</span><span class="s">&quot;define&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">operand</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">define</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">,</span> <span class="n">Env</span> <span class="o">*</span><span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">arity_check</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;define&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">operand</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">LABEL</span><span class="p">)</span> <span class="p">{</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="p">}</span>
     <span class="n">set</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">eval</span><span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">env</span><span class="p">));</span>
     <span class="n">free_one_cell</span><span class="p">(</span><span class="n">operand</span><span class="p">);</span>
     <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Now, I can add <code>define</code> into the reader, just like the other ones:</p>
 
 <pre><code>...
@@ -853,16 +771,14 @@ forms.</p>
 <p>This looks a little funny compared to the other calls, but i can catch this in
 the reader step by throwing an error if the reader encounters a <code>define</code>
 keyword when the depth is greater than 1!</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="p">...</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">scmp</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="s">&quot;define&quot;</span><span class="p">))</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="p">...</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">scmp</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;define&#34;</span><span class="p">))</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">depth</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Error: define found in inner form.&quot;</span><span class="p">);</span>
+            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;Error: define found in inner form.&#34;</span><span class="p">);</span>
             <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">makecell</span><span class="p">(</span><span class="n">BUILTIN</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span> <span class="p">.</span><span class="n">func</span> <span class="o">=</span> <span class="p">{</span><span class="n">token</span><span class="p">,</span> <span class="n">define</span><span class="p">}</span> <span class="p">},</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">);</span>
-<span class="p">...</span>
-</code></pre></div>
-
+<span class="p">...</span></code></pre></div>
 <p>This solves the problem. Defines will now only be able to happen in the top
 level, and I don&rsquo;t really need to make another sild language void type or
 whatever, since I&rsquo;ll never be able to call define anywhere that would matter.</p>
@@ -888,9 +804,9 @@ it to remain that way. But I do need to free the environment itself after I&rsqu
 done with it, or I&rsquo;ll have a memory leak.</p>
 
 <p>Just as I free the results of an evaluation of a form after I don&rsquo;t need it anymore in <code>eval_file</code></p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">eval_file</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">eval_file</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
 
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Error opening file: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;Error opening file: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
         <span class="n">exit</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
 
@@ -899,19 +815,17 @@ done with it, or I&rsquo;ll have a memory leak.</p>
     <span class="n">Env</span> <span class="o">*</span><span class="n">env</span> <span class="o">=</span> <span class="n">new_env</span><span class="p">();</span>
     <span class="k">while</span><span class="p">((</span><span class="n">c</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">fp</span><span class="p">))</span> <span class="o">!=</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
-        <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>           <span class="c1">// here!</span>
-    <span class="p">}</span>
+        <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>           <span class="c1">// here!
+</span><span class="c1"></span>    <span class="p">}</span>
 
     <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>So too will I free the environment I created for that file after I&rsquo;m done
 reading the file! It will go here:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">eval_file</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">eval_file</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;r&#34;</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fp</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Error opening file: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;Error opening file: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">filename</span><span class="p">);</span>
         <span class="n">exit</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
 
@@ -922,12 +836,10 @@ reading the file! It will go here:</p>
         <span class="n">c</span> <span class="o">=</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
         <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="n">free_env</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>              <span class="c1">// here!</span>
-
+    <span class="n">free_env</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>              <span class="c1">// here!
+</span><span class="c1"></span>
     <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>And it will look like this:</p>
 
 <pre><code>void free_env(Env* env) {

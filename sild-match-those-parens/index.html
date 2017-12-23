@@ -27,69 +27,53 @@
                 <p>
                 <div>
                     <p>I mentioned that this isn&rsquo;t a very resilient reader right now.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="s">&quot;1 2 3&quot;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="sa"></span><span class="s">&#34;1 2 3&#34;</span></code></pre></div>
 <p>Is read in as</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f91eac03a70</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">1</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7f91eac03a50</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f91eac03a70</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">1</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7f91eac03a50</span>
 <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f91eac03a50</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">2</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7f91eac03a30</span>
 <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f91eac03a30</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">3</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x10d177028</span>
 <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x10d177028</span>
-<span class="o">-------------------------------------------------------</span>
-</code></pre></div>
-
+<span class="o">-------------------------------------------------------</span></code></pre></div>
 <p>Which is accurate- it is just three atoms in isolation (remember, right now,
 all atoms are simpy LABELs, the language doesn&rsquo;t know about any other types, so
 currently a LABEL is just a string that could be any characters except for
 whitespace and parens).</p>
 
 <p>And</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="s">&quot;(1 2 3)&quot;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="sa"></span><span class="s">&#34;(1 2 3)&#34;</span></code></pre></div>
 <p>is read as</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f9780403a90</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7f9780403a70</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x10bec2028</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f9780403a90</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7f9780403a70</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x10bec2028</span>
 <span class="o">|</span>   <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f9780403a70</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">1</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7f9780403a50</span>
 <span class="o">|</span>   <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f9780403a50</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">2</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7f9780403a30</span>
 <span class="o">|</span>   <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f9780403a30</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">3</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x10bec2028</span>
 <span class="o">|</span>   <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x10bec2028</span>
 <span class="o">-------------------------------------------------------</span>
 <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x10bec2028</span>
-<span class="o">-------------------------------------------------------</span>
-</code></pre></div>
-
+<span class="o">-------------------------------------------------------</span></code></pre></div>
 <p>Which is also correct. The final <code>NIL</code> that comes from the <code>'\0'</code> byte at the
 end of the input string is a little bit offputting, but acceptable for now.</p>
 
 <p>But what about</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="s">&quot;(1 2 3&quot;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="sa"></span><span class="s">&#34;(1 2 3&#34;</span></code></pre></div>
 <p>? This is <em>clearly</em> a syntax error, and yet&hellip;)</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fb983403a90</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7fb983403a70</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x10c690028</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fb983403a90</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7fb983403a70</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x10c690028</span>
 <span class="o">|</span>   <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fb983403a70</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">1</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7fb983403a50</span>
 <span class="o">|</span>   <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fb983403a50</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">2</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7fb983403a30</span>
 <span class="o">|</span>   <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fb983403a30</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">3</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x10c690028</span>
 <span class="o">|</span>   <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x10c690028</span>
 <span class="o">-------------------------------------------------------</span>
 <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x10c690028</span>
-<span class="o">-------------------------------------------------------</span>
-</code></pre></div>
-
+<span class="o">-------------------------------------------------------</span></code></pre></div>
 <p>Harumph. At the very least this should blow up completely.</p>
 
 <p>What about</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="s">&quot;1 2 3))))))&quot;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="sa"></span><span class="s">&#34;1 2 3))))))&#34;</span></code></pre></div>
 <p>gives</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fe913403a70</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">1</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7fe913403a50</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fe913403a70</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">1</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7fe913403a50</span>
 <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fe913403a50</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">2</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7fe913403a30</span>
 <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fe913403a30</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">3</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x1052df028</span>
 <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x1052df028</span>
-<span class="o">-------------------------------------------------------</span>
-</code></pre></div>
-
+<span class="o">-------------------------------------------------------</span></code></pre></div>
 <p>Psh.</p>
 
 <hr>
@@ -98,25 +82,25 @@ end of the input string is a little bit offputting, but acceptable for now.</p>
 closing parens are equal at the end of the input. A simple solution is to
 create a global counter and increment it when I see an opening paren, decrement
 when I see a closing paren, and check that it is <code>0</code> at the end of the string.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">int</span> <span class="n">list_depth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">list_depth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="n">C</span> <span class="o">*</span> <span class="nf">read</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span><span class="p">(</span><span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// now I have a reason to give &#39;\0&#39; its own case</span>
-        <span class="k">case</span> <span class="sc">&#39;\0&#39;</span><span class="o">:</span>
+        <span class="c1">// now I have a reason to give &#39;\0&#39; its own case
+</span><span class="c1"></span>        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="o">:</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">list_depth</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-                <span class="c1">// this may not be very informative as of yet but it gets the jorb done</span>
-                <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                <span class="c1">// this may not be very informative as of yet but it gets the jorb done
+</span><span class="c1"></span>                <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
                 <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
             <span class="p">}</span>
-        <span class="k">case</span> <span class="sc">&#39;)&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;)&#39;</span><span class="o">:</span>
             <span class="n">list_depth</span><span class="o">--</span><span class="p">;</span>
             <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
             <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
-        <span class="k">case</span> <span class="sc">&#39; &#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sc">&#39;\n&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39; &#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span><span class="o">:</span>
             <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
             <span class="k">return</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-        <span class="k">case</span> <span class="sc">&#39;(&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;(&#39;</span><span class="o">:</span>
             <span class="n">list_depth</span><span class="o">++</span><span class="p">;</span>
             <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
             <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LIST</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){.</span><span class="n">list</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">)},</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
@@ -124,27 +108,17 @@ when I see a closing paren, and check that it is <code>0</code> at the end of th
             <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LABEL</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span><span class="n">read_substring</span><span class="p">(</span><span class="n">s</span><span class="p">)},</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>So let&rsquo;s try</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="s">&quot;(1 2 3&quot;</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">shell</span> <span class="n">returned</span> <span class="mi">1</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="sa"></span><span class="s">&#34;(1 2 3&#34;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">shell</span> <span class="n">returned</span> <span class="mi">1</span></code></pre></div>
 <p>OOOOOK.</p>
 
 <p>How about&hellip;</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="s">&quot;1 2 3))))&quot;</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fa219403a70</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">1</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7fa219403a50</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="sa"></span><span class="s">&#34;1 2 3))))&#34;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fa219403a70</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">1</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7fa219403a50</span>
 <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fa219403a50</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">2</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7fa219403a30</span>
 <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fa219403a30</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">3</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x102f17030</span>
 <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x102f17030</span>
-<span class="o">-------------------------------------------------------</span>
-</code></pre></div>
-
+<span class="o">-------------------------------------------------------</span></code></pre></div>
 <p>Derr, still doesn&rsquo;t work. If you look at the <code>read</code> case for <code>')'</code>, you can see
 why. This reader never goes past the first closing paren, because there is not
 a call to <code>read</code> inside that case to move forward! This is the intended
@@ -157,35 +131,33 @@ behavior&hellip; I&rsquo;m returning <code>&amp;nil</code> there, which is what 
 
 <p>I need to verify that <em>each</em> char in the string satisfies that neither of these
 conditions are met. I can pull that out into a helper function, that looks like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="c1">// this var still needs to be global so that read() can increment / decrement it</span>
-<span class="kt">int</span> <span class="n">list_depth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// this var still needs to be global so that read() can increment / decrement it
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">list_depth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="kt">void</span> <span class="nf">verify</span><span class="p">(</span><span class="kt">char</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span>
-            <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;)&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">list_depth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sa"></span><span class="sc">&#39;)&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">list_depth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
             <span class="o">||</span>
-            <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;\0&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">list_depth</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">list_depth</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
        <span class="p">)</span>
     <span class="p">{</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>And now I can call it in the <code>read()</code> function:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span> <span class="nf">read</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span> <span class="nf">read</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">char</span> <span class="n">current_char</span> <span class="o">=</span> <span class="o">**</span><span class="n">s</span><span class="p">;</span>
 
     <span class="n">verify</span><span class="p">(</span><span class="n">current_char</span><span class="p">);</span>
 
     <span class="k">switch</span><span class="p">(</span><span class="n">current_char</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="sc">&#39;)&#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sc">&#39;\0&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;)&#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="o">:</span>
             <span class="n">list_depth</span><span class="o">--</span><span class="p">;</span>
             <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
             <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
-        <span class="k">case</span> <span class="sc">&#39; &#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sc">&#39;\n&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39; &#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span><span class="o">:</span>
             <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
             <span class="k">return</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-        <span class="k">case</span> <span class="sc">&#39;(&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;(&#39;</span><span class="o">:</span>
             <span class="n">list_depth</span><span class="o">++</span><span class="p">;</span>
             <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
             <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LIST</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){.</span><span class="n">list</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">)},</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
@@ -193,9 +165,7 @@ conditions are met. I can pull that out into a helper function, that looks like 
             <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LABEL</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span><span class="n">read_substring</span><span class="p">(</span><span class="n">s</span><span class="p">)},</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This function has no return value, it simply exits with a generic <code>1</code> exit code
 if any of these conditions exist.</p>
 
@@ -206,7 +176,7 @@ if any of these conditions exist.</p>
 <p><code>malloc()</code> <em>can fail</em>. If it fails, say if the system isn&rsquo;t able to provide the requested memory, or whatever, it returns a <code>NULL</code> pointer. No bueno. Wherever I call <code>malloc</code>, I should also check to see that it returned a valid memory address.</p>
 
 <p>Right now, that would be in <code>makecell()</code></p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">makecell</span><span class="p">(</span><span class="kt">int</span> <span class="n">type</span><span class="p">,</span> <span class="n">V</span> <span class="n">val</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">makecell</span><span class="p">(</span><span class="kt">int</span> <span class="n">type</span><span class="p">,</span> <span class="n">V</span> <span class="n">val</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">C</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">C</span><span class="p">));</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">out</span><span class="p">)</span> <span class="p">{</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="p">}</span>
@@ -215,11 +185,9 @@ if any of these conditions exist.</p>
     <span class="n">out</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
     <span class="n">out</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<span class="p">};</span></code></pre></div>
 <p>And in <code>read_substring()</code></p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">read_substring</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="o">*</span><span class="nf">read_substring</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">is_not_delimiter</span><span class="p">((</span><span class="o">*</span><span class="n">s</span><span class="p">)[</span><span class="n">l</span><span class="p">]))</span> <span class="p">{</span> <span class="n">l</span><span class="o">++</span><span class="p">;</span> <span class="p">}</span>
     <span class="kt">char</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">l</span><span class="p">);</span>
@@ -229,11 +197,9 @@ if any of these conditions exist.</p>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">l</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="n">out</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+    <span class="n">out</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<span class="p">};</span></code></pre></div>
 <p>This failure case is unlikely, but it needs to be accounted for.</p>
 
 <p>This is <em>very basic</em> error handling. I&rsquo;ve just guaranteed that in these cases
@@ -247,15 +213,11 @@ to an arbitrary stream, I&rsquo;ll pass in <code>stderr</code> as it is the appr
 stream for messaging errors.</p>
 
 <p>In <code>verify()</code>:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Syntax Error: mismatched parens&quot;</span><span class="p">);</span>
-<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;Syntax Error: mismatched parens&#34;</span><span class="p">);</span>
+<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span></code></pre></div>
 <p>and in <code>makecell()</code> and <code>read_substring()</code>, respectively:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;System Error: makecell failed to allocate memory.&quot;</span><span class="p">);</span>
-<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;System Error: read_substring failed to allocate memory.&quot;</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;System Error: makecell failed to allocate memory.&#34;</span><span class="p">);</span>
+<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;System Error: read_substring failed to allocate memory.&#34;</span><span class="p">);</span></code></pre></div>
 <hr>
 
 <p>Traditionally, a LISP cell is known as a <code>cons</code> cell, its value is referred to

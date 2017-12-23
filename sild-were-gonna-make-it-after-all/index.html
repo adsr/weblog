@@ -28,15 +28,14 @@
                 <div>
                     <p><a href="/sild-arity-checking-and-rich-error-messaging/">&hellip;if only there were a way to automate all those compilation
 steps&hellip;</a></p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="err">cc</span> <span class="err">utils.c</span> <span class="err">-o</span>
-<span class="err">cc</span> <span class="err">cell.c</span> <span class="err">-o</span>
-<span class="err">cc</span> <span class="err">eval.c</span> <span class="err">-o</span>
-<span class="err">cc</span> <span class="err">builtins.c</span> <span class="err">-o</span>
-<span class="err">cc</span> <span class="err">print.c</span> <span class="err">-o</span>
-<span class="err">cc</span> <span class="err">read.c</span> <span class="err">-o</span>
-<span class="err">cc</span> <span class="err">utils.o</span> <span class="err">cell.o</span> <span class="err">eval.o</span> <span class="err">builtins.o</span> <span class="err">print.o</span> <span class="err">read.o</span> <span class="err">main.c</span> <span class="err">-o</span> <span class="err">sild</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="err">cc</span> utils.c -o
+<span class="err">cc</span> cell.c -o
+<span class="err">cc</span> eval.c -o
+<span class="err">cc</span> builtins.c -o
+<span class="err">cc</span> print.c -o
+<span class="err">cc</span> read.c -o
+<span class="err">cc</span> utils.o cell.o eval.o builtins.o print.o read.o main.c -o sild
 </code></pre></div>
-
 <p>I could put this all into a shell script, maybe? Sure, but then I would be
 recompiling everything every single time I wanted to make a new build. Once
 again, not a big deal on a project of this small size, but bad practice.
@@ -62,38 +61,34 @@ letters, so I&rsquo;m naming mine <code>makefile</code>.</p>
 <p>When <code>make</code> is invoked, it looks for a makefile, and if it finds one, it
 executes the <em>default target</em> in that makefile. A make <em>target</em> is a rule that
 described how to <code>make</code> that target file, and generally looks like this:</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nf">target_name </span><span class="o">:</span> <span class="n">dependencies</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nf">target_name </span><span class="o">:</span> <span class="n">dependencies</span>
 	commmands to create target
 </code></pre></div>
-
 <p>So, for a single file, the target would look pretty familiar (it has no
 dependencies except for its own .c file)</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nf">thing </span><span class="o">:</span> <span class="n">thing</span>.<span class="n">c</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nf">thing </span><span class="o">:</span> <span class="n">thing</span>.<span class="n">c</span>
 	cc thing.c -o thing
 </code></pre></div>
-
 <p>The <em>default rule</em> will implicitly be the first rule in the file and, a note
 about formatting, that indent under the target/dependency declaration <em>must</em> be
 a hard tabstop character, or make will get wicked confused, as it used hard
 tabs to signal that that line is an actual command to execute in the shell.</p>
 
 <p>Let&rsquo;s say <code>thing</code> depends on something else, some object file or another&hellip;</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nf">thing </span><span class="o">:</span> <span class="n">thing</span>.<span class="n">c</span> <span class="n">lib</span>.<span class="n">o</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nf">thing </span><span class="o">:</span> <span class="n">thing</span>.<span class="n">c</span> <span class="n">lib</span>.<span class="n">o</span>
 	cc -o thing thing.c lib.o
 </code></pre></div>
-
 <p>(I think it looks better to put the target at the beginning of the command if
 there are multiple dependencies&hellip;)</p>
 
 <p>But where does lib.o come from? Ostensibly, it comes from some file called
 lib.c! For that, we&rsquo;ll need another target.</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nf">thing </span><span class="o">:</span> <span class="n">thing</span>.<span class="n">c</span> <span class="n">lib</span>.<span class="n">o</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nf">thing </span><span class="o">:</span> <span class="n">thing</span>.<span class="n">c</span> <span class="n">lib</span>.<span class="n">o</span>
 	cc -o thing thing.c lib.o
 
 <span class="nf">lib.o</span><span class="o">:</span> <span class="n">lib</span>.<span class="n">c</span>
 	cc -c lib.c
 </code></pre></div>
-
 <p>Now, in order to execute <code>thing</code>, make will look at its dependency list and
 recursively execute any subcommands that it needs to to keep all of its
 dependencies up to date. This is the clever part of make! Let&rsquo;s say you compile
@@ -110,7 +105,7 @@ compile/test/edit cycle! And its convenient even in a small project like this.</
 
 <p>So, as I factored out the libraries from my old big sild.c file, I added a rule
 for each new library in my makefile. Right now, it looks like this:</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nf">sild</span><span class="o">:</span> <span class="n">read</span>.<span class="n">o</span> <span class="n">print</span>.<span class="n">o</span> <span class="n">builtins</span>.<span class="n">o</span> <span class="n">eval</span>.<span class="n">o</span> <span class="n">cell</span>.<span class="n">o</span> <span class="n">util</span>.<span class="n">o</span> <span class="n">sild</span>.<span class="n">c</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nf">sild</span><span class="o">:</span> <span class="n">read</span>.<span class="n">o</span> <span class="n">print</span>.<span class="n">o</span> <span class="n">builtins</span>.<span class="n">o</span> <span class="n">eval</span>.<span class="n">o</span> <span class="n">cell</span>.<span class="n">o</span> <span class="n">util</span>.<span class="n">o</span> <span class="n">sild</span>.<span class="n">c</span>
 	cc read.o print.o builtins.o eval.o cell.o util.o sild.c -o sild
 
 <span class="nf">util.o</span><span class="o">:</span> <span class="n">util</span>.<span class="n">c</span>
@@ -131,7 +126,6 @@ for each new library in my makefile. Right now, it looks like this:</p>
 <span class="nf">read.o</span><span class="o">:</span> <span class="n">read</span>.<span class="n">c</span>
 	cc read.c -c
 </code></pre></div>
-
 <p>This worked, but I don&rsquo;t like it. I felt like there was something I was missing
 about make, something I didn&rsquo;t quite get! That is awfully repetitive, not very
 DRY code, there must be a better way!</p>
@@ -139,11 +133,10 @@ DRY code, there must be a better way!</p>
 <p>Make supports variables internal to itself, I can start by defining <code>CC</code> (for
 &lsquo;C compiler) to point to my compiler of choice, which is clang, which is
 invoked on my machine via <code>cc</code></p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nv">CC</span> <span class="o">=</span> cc
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nv">CC</span> <span class="o">=</span> cc
 </code></pre></div>
-
 <p>Now, I replace all the <code>cc</code> calls in my rules with a variable expansion of that var:</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nv">CC</span> <span class="o">=</span> cc
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nv">CC</span> <span class="o">=</span> cc
 
 <span class="nf">sild</span><span class="o">:</span> <span class="n">read</span>.<span class="n">o</span> <span class="n">print</span>.<span class="n">o</span> <span class="n">builtins</span>.<span class="n">o</span> <span class="n">eval</span>.<span class="n">o</span> <span class="n">cell</span>.<span class="n">o</span> <span class="n">util</span>.<span class="n">o</span> <span class="n">sild</span>.<span class="n">c</span>
 	<span class="k">$(</span>CC<span class="k">)</span> read.o print.o builtins.o eval.o cell.o util.o sild.c -o sild
@@ -166,50 +159,44 @@ invoked on my machine via <code>cc</code></p>
 <span class="nf">read.o</span><span class="o">:</span> <span class="n">read</span>.<span class="n">c</span>
 	<span class="k">$(</span>CC<span class="k">)</span> read.c -c
 </code></pre></div>
-
 <p>Now, if I want to change my compiler, I just change one line.</p>
 
 <p>It&rsquo;s useful to have a <code>clean</code> target to remove all the artifacts from a build. The commands to do that now would be like this:</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nf">clean</span><span class="o">:</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nf">clean</span><span class="o">:</span>
 	rm sild *.o
 </code></pre></div>
-
 <p>I&rsquo;ve also added those to my .gitignore file, as I don&rsquo;t need to commit any of
 these artifacts since they are derivable from the source code.</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="err">sild</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="err">sild</span>
 <span class="err">*.o</span>
 </code></pre></div>
-
 <p><code>clean</code> is the traditional name for this task, but it presents a little bit of
 a problem. What if there is a file named &ldquo;clean&rdquo; in the working directory? Make
 might not execute these commands if it looks at the <code>clean</code> file and sees that
 it doesn&rsquo;t need to be updated. By declaring <code>clean</code> as a <code>.PHONY</code> target, this
 problem is resolved.</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">clean</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">clean</span>
 <span class="nf">clean</span><span class="o">:</span>
 	rm sild *.o
 </code></pre></div>
-
 <p>There are other reasons to use .PHONY targets. Anytime you&rsquo;re defining a rule
 that executes arbitrary commands that don&rsquo;t result in an artifact, you should
 declare it .PHONY.</p>
 
 <p>I can also add a <code>CFLAGS</code> variable that holds some options I want to pass to
 all of my compiler invocations.</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nv">CFLAGS</span> <span class="o">=</span> -Wall -Werror
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nv">CFLAGS</span> <span class="o">=</span> -Wall -Werror
 </code></pre></div>
-
 <p>These flags tell the compiler to report more errors than it normally would.
 It&rsquo;s a good idea to do this to have extra insight into how the compiler is
 viewing your code.</p>
 
 <p>And then in each of the rules:</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="err">...</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="err">...</span>
 <span class="nf">builtins.o</span><span class="o">:</span> <span class="n">builtins</span>.<span class="n">c</span>
 	<span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> builtins.c -c
 <span class="err">...</span>
 </code></pre></div>
-
 <p>ONe of the benefits of modularizing everything is that you don&rsquo;t have to look
 at all the stuff you&rsquo;re not working with. I am keeping everything in a top
 level directory right now. This isn&rsquo;t so great! It is better to hold all your
@@ -217,7 +204,7 @@ source code in a <code>src</code> or <code>source</code> directory and then buil
 of that directory. Here, all of my source files are living in <code>src</code>, and all my
 object files are being built to a directory called <code>obj</code>, which I have also
 added to my .gitignore.</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nv">CC</span> <span class="o">=</span> cc
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nv">CC</span> <span class="o">=</span> cc
 
 <span class="nf">sild</span><span class="o">:</span> <span class="n">obj</span>/<span class="n">read</span>.<span class="n">o</span> <span class="n">obj</span>/<span class="n">print</span>.<span class="n">o</span> <span class="n">obj</span>/<span class="n">builtins</span>.<span class="n">o</span> <span class="n">obj</span>/<span class="n">eval</span>.<span class="n">o</span> <span class="n">obj</span>/<span class="n">cell</span>.<span class="n">o</span> <span class="n">obj</span>/<span class="n">util</span>.<span class="n">o</span> <span class="n">sild</span>.<span class="n">c</span>
 	<span class="k">$(</span>CC<span class="k">)</span> obj/read.o obj/print.o obj/builtins.o obj/eval.o obj/cell.o obj/util.o sild.c -o sild
@@ -248,7 +235,6 @@ added to my .gitignore.</p>
 	rm sild
 	rm -r obj
 </code></pre></div>
-
 <p>This works, but is getting pretty ugly and verbose and unmaintainable. If I
 want to change where I build to, for example, I have a lot of search and
 replacing to do. I can do better!</p>
@@ -260,36 +246,31 @@ their question with their working solution, you can find it just under &ldquo;<a
 is the working makfile:</a>&ldquo;</p>
 
 <p>Let&rsquo;s look at what that means for my makefile!</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nv">SHELL</span> <span class="o">=</span> /bin/sh
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nv">SHELL</span> <span class="o">=</span> /bin/sh
 </code></pre></div>
-
 <p>I&rsquo;ll add this as a best practice, in case the working shell is something other
 than bash, which is what I&rsquo;m expecting.</p>
 
 <p>These are the same as before:</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nv">CC</span> <span class="o">=</span> cc
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nv">CC</span> <span class="o">=</span> cc
 <span class="nv">CFLAGS</span> <span class="o">=</span> -Wall -Werror
 </code></pre></div>
-
 <p>Here I&rsquo;ll define a var <code>OBJDIR</code> for use in the target rules. The <code>vpath</code> is
 telling make &ldquo;look in this path for this type of file when searching for
 dependencies.</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nv">OBJDIR</span><span class="o">=</span>obj
-<span class="cp">vpath %.c src</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nv">OBJDIR</span><span class="o">=</span>obj
+<span class="err">vpath</span> %.c src
 </code></pre></div>
-
 <p>And one that represents all of the dependencies that need to be built for the
 main executable. Notice I&rsquo;m using the <code>addprefix</code> make function to prepend all
 of these names with the <code>OBJDIR</code> variable:</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nv">objects</span> <span class="o">=</span> <span class="k">$(</span>addprefix <span class="k">$(</span>OBJDIR<span class="k">)</span>/, util.o cell.o eval.o builtins.o print.o read.o main.o<span class="k">)</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nv">objects</span> <span class="o">=</span> <span class="k">$(</span>addprefix <span class="k">$(</span>OBJDIR<span class="k">)</span>/, util.o cell.o eval.o builtins.o print.o read.o main.o<span class="k">)</span>
 </code></pre></div>
-
 <p>Now, the dependencies of the executable can be expanded from the var that was
 constructed above.</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nf">sild</span><span class="o">:</span> <span class="k">$(</span><span class="nv">objects</span><span class="k">)</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nf">sild</span><span class="o">:</span> <span class="k">$(</span><span class="nv">objects</span><span class="k">)</span>
 	<span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> -o sild <span class="k">$(</span>objects<span class="k">)</span>
 </code></pre></div>
-
 <p>Much cleaner!</p>
 
 <p>Here&rsquo;s the beastly rule:</p>
@@ -309,17 +290,15 @@ filename.o for every .c file in src/&ldquo;.</p>
 
 <p>The <code>OBJDIR</code> target needs to know how to create itself, here that is as simple
 as a <code>mkdir</code>:</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nf">$(OBJDIR)</span><span class="o">:</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nf">$(OBJDIR)</span><span class="o">:</span>
 	mkdir <span class="k">$(</span>OBJDIR<span class="k">)</span>
 </code></pre></div>
-
 <p>And Bob&rsquo;s your uncle!</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">clean</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nf">.PHONY</span><span class="o">:</span> <span class="n">clean</span>
 <span class="nf">clean</span><span class="o">:</span>
 	rm sild
 	rm -r obj
 </code></pre></div>
-
 <hr>
 
 <p>I&rsquo;ll be honest, learning about <code>make</code> was an unwelcome detour from the business

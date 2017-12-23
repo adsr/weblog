@@ -35,75 +35,63 @@ order to read them in. How many times am I iterating over them now?</p>
 to 0. As a reminder, you can see this code in its working form in the repo,
 right about
 <a href="https://github.com/urthbound/sild/commit/1c9d7a9d14ddf5f7cedca0f749ddc51f4e9624be">here</a>.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">int</span> <span class="n">inner_reads</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">inner_reads</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></code></pre></div>
 <p>I&rsquo;ll add an increment to that variable each place where a char is
 being accessed: Once in:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">read_substring</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="o">*</span><span class="nf">read_substring</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">count_substring_length</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
     <span class="kt">char</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">len</span><span class="p">);</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;i&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sa"></span><span class="sc">&#39;i&#39;</span><span class="p">)</span>
             <span class="n">inner_reads</span><span class="o">++</span><span class="p">;</span>
 
         <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="p">}</span>
-    <span class="n">out</span><span class="p">[</span><span class="n">len</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+    <span class="n">out</span><span class="p">[</span><span class="n">len</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<span class="p">};</span></code></pre></div>
 <p>once in:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">int</span> <span class="nf">count_substring_length</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">count_substring_length</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39; &#39;</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span> <span class="sc">&#39;)&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="sa"></span><span class="sc">&#39; &#39;</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span> <span class="sa"></span><span class="sc">&#39;)&#39;</span><span class="p">)</span> <span class="p">{</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;i&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sa"></span><span class="sc">&#39;i&#39;</span><span class="p">)</span>
             <span class="n">inner_reads</span><span class="o">++</span><span class="p">;</span>
 
         <span class="n">i</span><span class="o">++</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>and once in</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">int</span> <span class="nf">count_list_length</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">count_list_length</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">depth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">depth</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;i&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sa"></span><span class="sc">&#39;i&#39;</span><span class="p">)</span>
             <span class="n">inner_reads</span><span class="o">++</span><span class="p">;</span>
 
-        <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;(&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sa"></span><span class="sc">&#39;(&#39;</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">depth</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;)&#39;</span><span class="p">){</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sa"></span><span class="sc">&#39;)&#39;</span><span class="p">){</span>
             <span class="n">depth</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="n">i</span><span class="o">++</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Notice I&rsquo;m just incrementing on the character <code>i</code>, so that I can see how many times I access just that one char, like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">C</span> <span class="o">*</span><span class="n">a_list</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s">&quot;i&quot;</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">C</span> <span class="o">*</span><span class="n">a_list</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;i&#34;</span><span class="p">);</span>
     <span class="n">debug_list</span><span class="p">(</span><span class="n">a_list</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i&quot;</span><span class="p">,</span> <span class="n">inner_reads</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i&#34;</span><span class="p">,</span> <span class="n">inner_reads</span><span class="p">);</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This prints out:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f99684033d0</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="n">i</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x104197028</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f99684033d0</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="n">i</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x104197028</span>
 <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x104197028</span>
 <span class="o">-------------------------------------------------------</span>
-<span class="mi">3</span>
-</code></pre></div>
-
+<span class="mi">3</span></code></pre></div>
 <p>Ok, so that&rsquo;s not so so bad&hellip; I look at that char 3 separate times.
 Once in <code>read_substring()</code> when it calls <code>count_substring_length()</code> to figure
 out how much memory to <code>malloc</code> for the output, once when it actually copies
@@ -111,16 +99,14 @@ over the substring to the memory that has been <code>malloc</code>&rsquo;d, and 
 in the main read function when it calls <code>count_substring_length()</code> to know how
 far to jump ahead in the input string. That, I can live with. But what about
 <code>count_list_length()</code>?</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">C</span> <span class="o">*</span><span class="n">a_list</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s">&quot;(((((((((((i)))))))))))&quot;</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">C</span> <span class="o">*</span><span class="n">a_list</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;(((((((((((i)))))))))))&#34;</span><span class="p">);</span>
     <span class="n">debug_list</span><span class="p">(</span><span class="n">a_list</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i&quot;</span><span class="p">,</span> <span class="n">inner_reads</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i&#34;</span><span class="p">,</span> <span class="n">inner_reads</span><span class="p">);</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>yields:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fde4b403540</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7fde4b403520</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x100186028</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fde4b403540</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7fde4b403520</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x100186028</span>
 <span class="o">|</span>   <span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fde4b403520</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7fde4b403500</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x100186028</span>
 <span class="o">|</span>   <span class="o">|</span>   <span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fde4b403500</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7fde4b4034e0</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x100186028</span>
 <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fde4b4034e0</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7fde4b4034c0</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x100186028</span>
@@ -156,16 +142,12 @@ far to jump ahead in the input string. That, I can live with. But what about
 <span class="o">-------------------------------------------------------</span>
 <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x100186028</span>
 <span class="o">-------------------------------------------------------</span>
-<span class="mi">14</span>
-</code></pre></div>
-
+<span class="mi">14</span></code></pre></div>
 <p>The way I&rsquo;ve got this written now, when a string is nested inside
 other lists, it gets examined 3 times for the actual reading of the
 string and <em>once more</em> for <em>each</em> list that it is nested inside. This
 is <em>really crappy</em>, and it means that for a string like</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="s">&quot;(((((((((((i)))))))))))&quot;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="sa"></span><span class="s">&#34;(((((((((((i)))))))))))&#34;</span></code></pre></div>
 <p>The <code>i</code> char in the middle is being accessed <em>fourteen</em> times. This
 isn&rsquo;t including looking at all the parenthethes chars, either!</p>
 
@@ -183,34 +165,30 @@ When you pass this pointer into the function, it creates a local copy
 of that value and binds it to the argument name in the function
 signature. Which only exists until the end of the function. So, for
 example:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">int</span> <span class="nf">derp</span><span class="p">(</span><span class="kt">int</span> <span class="n">local_i</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">derp</span><span class="p">(</span><span class="kt">int</span> <span class="n">local_i</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">local_i</span><span class="o">++</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">local_i</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span> <span class="c1">// 10</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i&quot;</span><span class="p">,</span> <span class="n">derp</span><span class="p">(</span><span class="n">i</span><span class="p">));</span> <span class="c1">// 11</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span> <span class="c1">// 10</span>
-</code></pre></div>
-
+<span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span> <span class="c1">// 10
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i&#34;</span><span class="p">,</span> <span class="n">derp</span><span class="p">(</span><span class="n">i</span><span class="p">));</span> <span class="c1">// 11
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span> <span class="o">//</span> <span class="mi">10</span></code></pre></div>
 <p>Further, if I call <code>derp()</code> inside of itself, I am still not affecting
 anything outside of the current function call.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
 
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span> <span class="c1">// 10</span>
-
+<span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span> <span class="c1">// 10
+</span><span class="c1"></span>
 <span class="kt">int</span> <span class="nf">derp</span><span class="p">(</span><span class="kt">int</span> <span class="n">local_i</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">local_i</span><span class="o">++</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">local_i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="c1">// have to have a base case or it will go on forever!</span>
-        <span class="n">derp</span><span class="p">(</span><span class="n">local_i</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">local_i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="c1">// have to have a base case or it will go on forever!
+</span><span class="c1"></span>        <span class="n">derp</span><span class="p">(</span><span class="n">local_i</span><span class="p">);</span>
     <span class="k">return</span> <span class="n">local_i</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i&quot;</span><span class="p">,</span> <span class="n">derp</span><span class="p">(</span><span class="n">i</span><span class="p">));</span> <span class="c1">// 11</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span> <span class="c1">// 10</span>
-</code></pre></div>
-
+<span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i&#34;</span><span class="p">,</span> <span class="n">derp</span><span class="p">(</span><span class="n">i</span><span class="p">));</span> <span class="c1">// 11
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span> <span class="o">//</span> <span class="mi">10</span></code></pre></div>
 <p>Avoiding complex global state is almost always a Good Thing. This
 seems like the expected behavior! We want the stuff that happens
 inside <code>derp()</code> to <em>stay there</em>, and not touch the global state,
@@ -222,61 +200,55 @@ it, and you can operate <em>directly</em> on the pointer value itself, increment
 it regardless of how many stack frames you are inside!</p>
 
 <p>So,</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">int</span> <span class="nf">derp</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">local_i</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">derp</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">local_i</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">(</span><span class="o">*</span><span class="n">local_i</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
     <span class="k">return</span> <span class="o">*</span><span class="n">local_i</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>        <span class="c1">// 10</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">derp</span><span class="p">(</span><span class="o">&amp;</span><span class="n">i</span><span class="p">));</span> <span class="c1">// 11</span>
-<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>        <span class="c1">// 11</span>
-</code></pre></div>
-
+<span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>        <span class="c1">// 10
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">derp</span><span class="p">(</span><span class="o">&amp;</span><span class="n">i</span><span class="p">));</span> <span class="c1">// 11
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>        <span class="o">//</span> <span class="mi">11</span></code></pre></div>
 <p>Now, the increment of the pointer inside the function affects the
 actual value itself, not the local copy.</p>
 
 <p>How does this look in the read function? Well it looks like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span> <span class="nf">read</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// **s is a &#39;pointer to a pointer&#39;, in this case a pointer to a string</span>
-    <span class="k">switch</span><span class="p">(</span><span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// dereferencing the pointer twice yields the actual char it points to (two levels of indirection)</span>
-        <span class="k">case</span> <span class="sc">&#39;\0&#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sc">&#39;)&#39;</span><span class="o">:</span>
-            <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>              <span class="c1">// increment the pointer at the end of a list</span>
-            <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
-        <span class="k">case</span> <span class="sc">&#39; &#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sc">&#39;\n&#39;</span><span class="o">:</span>
-            <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>              <span class="c1">// increment the pointer after ignoring whitespace</span>
-            <span class="k">return</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-        <span class="k">case</span> <span class="sc">&#39;(&#39;</span><span class="o">:</span>
-            <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>              <span class="c1">// increment the pointer after starting a list</span>
-
-            <span class="c1">// this is the magic part! the first call to read increments the pointer as it goes</span>
-            <span class="c1">// so that when what looks like the same pointer is passed into the second call, it has</span>
-            <span class="c1">// already passed by the entirety of the list!</span>
-            <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LIST</span><span class="p">,</span> <span class="p">(</span><span class="k">union</span> <span class="n">V</span><span class="p">){.</span><span class="n">list</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">)},</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
-            <span class="c1">//                                         ^          ^</span>
-            <span class="c1">//                                 so the 1st call &amp; 2nd call are starting in different places!</span>
-        <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
-            <span class="c1">// this part works like it did before, but we&#39;re guaranteed to never</span>
-            <span class="c1">// read a char more than the 3 times necessary to make a copy and then jump over it.</span>
-            <span class="kt">char</span> <span class="o">*</span><span class="n">label_val</span> <span class="o">=</span> <span class="n">read_substring</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span> <span class="nf">read</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// **s is a &#39;pointer to a pointer&#39;, in this case a pointer to a string
+</span><span class="c1"></span>    <span class="k">switch</span><span class="p">(</span><span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// dereferencing the pointer twice yields the actual char it points to (two levels of indirection)
+</span><span class="c1"></span>        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;)&#39;</span><span class="o">:</span>
+            <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>              <span class="c1">// increment the pointer at the end of a list
+</span><span class="c1"></span>            <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39; &#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span><span class="o">:</span>
+            <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>              <span class="c1">// increment the pointer after ignoring whitespace
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;(&#39;</span><span class="o">:</span>
+            <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>              <span class="c1">// increment the pointer after starting a list
+</span><span class="c1"></span>
+            <span class="c1">// this is the magic part! the first call to read increments the pointer as it goes
+</span><span class="c1"></span>            <span class="c1">// so that when what looks like the same pointer is passed into the second call, it has
+</span><span class="c1"></span>            <span class="c1">// already passed by the entirety of the list!
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LIST</span><span class="p">,</span> <span class="p">(</span><span class="k">union</span> <span class="n">V</span><span class="p">){.</span><span class="n">list</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">)},</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
+            <span class="c1">//                                         ^          ^
+</span><span class="c1"></span>            <span class="c1">//                                 so the 1st call &amp; 2nd call are starting in different places!
+</span><span class="c1"></span>        <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
+            <span class="c1">// this part works like it did before, but we&#39;re guaranteed to never
+</span><span class="c1"></span>            <span class="c1">// read a char more than the 3 times necessary to make a copy and then jump over it.
+</span><span class="c1"></span>            <span class="kt">char</span> <span class="o">*</span><span class="n">label_val</span> <span class="o">=</span> <span class="n">read_substring</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">);</span>
             <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="o">+=</span> <span class="n">count_substring_length</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">);</span>
             <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LABEL</span><span class="p">,</span> <span class="p">(</span><span class="k">union</span> <span class="n">V</span><span class="p">){.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label_val</span><span class="p">},</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>NOW WATCH THIS</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kt">char</span> <span class="o">*</span><span class="n">a_string</span> <span class="o">=</span> <span class="s">&quot;(((((((((((i)))))))))))&quot;</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">a_string</span> <span class="o">=</span> <span class="sa"></span><span class="s">&#34;(((((((((((i)))))))))))&#34;</span><span class="p">;</span>
     <span class="n">C</span> <span class="o">*</span><span class="n">a_list</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a_string</span><span class="p">);</span>
     <span class="n">debug_list</span><span class="p">(</span><span class="n">a_list</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i&quot;</span><span class="p">,</span> <span class="n">inner_reads</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i&#34;</span><span class="p">,</span> <span class="n">inner_reads</span><span class="p">);</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>with this new version of <code>read</code>, returns:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f8c0a403540</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7f8c0a403520</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x10d94a028</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f8c0a403540</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7f8c0a403520</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x10d94a028</span>
 <span class="o">|</span>   <span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f8c0a403520</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7f8c0a403500</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x10d94a028</span>
 <span class="o">|</span>   <span class="o">|</span>   <span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f8c0a403500</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7f8c0a4034e0</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x10d94a028</span>
 <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f8c0a4034e0</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7f8c0a4034c0</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x10d94a028</span>
@@ -312,15 +284,11 @@ actual value itself, not the local copy.</p>
 <span class="o">-------------------------------------------------------</span>
 <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x10d94a028</span>
 <span class="o">-------------------------------------------------------</span>
-<span class="mi">3</span>
-</code></pre></div>
-
+<span class="mi">3</span></code></pre></div>
 <p>Only those three times!</p>
 
 <p>What about:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="s">&quot;((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((i))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))&quot;</span><span class="p">;</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="o">-------------------------------------------------------</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="sa"></span><span class="s">&#34;((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((i))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))&#34;</span><span class="p">;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="o">-------------------------------------------------------</span>
 <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x10c22f028</span>
 <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="o">-------------------------------------------------------</span>
 <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="o">|</span>   <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x10c22f028</span>
@@ -333,9 +301,7 @@ actual value itself, not the local copy.</p>
 <span class="o">-------------------------------------------------------</span>
 <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x10c22f028</span>
 <span class="o">-------------------------------------------------------</span>
-<span class="mi">3</span> <span class="c1">// &lt;----- Boom.</span>
-</code></pre></div>
-
+<span class="mi">3</span> <span class="o">//</span> <span class="o">&lt;-----</span> <span class="n">Boom</span><span class="p">.</span></code></pre></div>
 <p>With this tweak, I&rsquo;ve removed a potentially major computation bottleneck and
 guaranteed that the reader function will operate in linear time at a max of
 O(3n), and I&rsquo;ve completely eliminated the <code>count_substring_length()</code> function
@@ -350,40 +316,36 @@ more better. I&rsquo;m currently calling <code>count_substring_length()</code> t
 the <code>read_substring()</code> to malloc the right amount, and again in <code>read()</code> to
 jump ahead the right amount after reading a substring in. Why not just save
 that value somewhere so I only have to count once?</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">int</span> <span class="n">current_substring_length</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">current_substring_length</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="kt">char</span> <span class="o">*</span><span class="nf">read_substring</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">current_substring_length</span> <span class="o">=</span> <span class="n">count_substring_length</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
     <span class="kt">char</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">current_substring_length</span><span class="p">);</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">current_substring_length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="p">}</span>
-    <span class="n">out</span><span class="p">[</span><span class="n">current_substring_length</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+    <span class="n">out</span><span class="p">[</span><span class="n">current_substring_length</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<span class="p">};</span></code></pre></div>
 <p>And then in the read function:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span> <span class="nf">read</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span> <span class="nf">read</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span><span class="p">(</span><span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="sc">&#39;\0&#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sc">&#39;)&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;)&#39;</span><span class="o">:</span>
             <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
             <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
-        <span class="k">case</span> <span class="sc">&#39; &#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sc">&#39;\n&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39; &#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span><span class="o">:</span>
             <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
             <span class="k">return</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-        <span class="k">case</span> <span class="sc">&#39;(&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;(&#39;</span><span class="o">:</span>
             <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
             <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LIST</span><span class="p">,</span> <span class="p">(</span><span class="k">union</span> <span class="n">V</span><span class="p">){.</span><span class="n">list</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">)},</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
         <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
              <span class="kt">char</span> <span class="o">*</span><span class="n">label_val</span> <span class="o">=</span> <span class="n">read_substring</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">);</span>
              <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="o">+=</span> <span class="n">current_substring_length</span><span class="p">;</span>
-             <span class="c1">//           HERE ^</span>
-             <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LABEL</span><span class="p">,</span> <span class="p">(</span><span class="k">union</span> <span class="n">V</span><span class="p">){.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label_val</span><span class="p">},</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
+             <span class="c1">//           HERE ^
+</span><span class="c1"></span>             <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LABEL</span><span class="p">,</span> <span class="p">(</span><span class="k">union</span> <span class="n">V</span><span class="p">){.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label_val</span><span class="p">},</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Now I&rsquo;ve saved a whole iteration and only need to look at each char a maximum
 of two times! This can really add up. I don&rsquo;t think I can go any lower than
 that- the initial lookahead is necessary to malloc appropriately, and I&rsquo;d have
@@ -396,42 +358,38 @@ just looking ahead for the number on each substring.</p>
 <p>I am operating on the very same pointer that I have a pointer to in the
 <code>read()</code> function&hellip; why can&rsquo;t I use the same trick to get rid the global var
 that holds the substring length? Spoiler alert I totally can.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">char</span> <span class="o">*</span><span class="nf">read_substring</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="o">*</span><span class="nf">read_substring</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">current_substring_length</span> <span class="o">=</span> <span class="n">count_substring_length</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">);</span>
     <span class="kt">char</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">current_substring_length</span><span class="p">);</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">current_substring_length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">**</span><span class="n">s</span><span class="p">;</span>
         <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="n">out</span><span class="p">[</span><span class="n">current_substring_length</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+    <span class="n">out</span><span class="p">[</span><span class="n">current_substring_length</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<span class="p">};</span></code></pre></div>
 <p>I still have to pass a copy of the pointer into <code>count_substring_length()</code>, and
 it&rsquo;s good to assign the <code>current_substring_length</code> to a <em>local</em> var, so I only
 have to count the length once for both the <code>malloc</code> and the <code>for</code> loop, but now
 when I increment the pointer with <code>(*s)++</code>, I am affecting the global state of
 that pointer. This means that I can remove the addition of
 <code>current_substring_length</code> in the main <code>read()</code> function.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span> <span class="nf">read</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span> <span class="nf">read</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span><span class="p">(</span><span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="sc">&#39;\0&#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sc">&#39;)&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;)&#39;</span><span class="o">:</span>
             <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
             <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
-        <span class="k">case</span> <span class="sc">&#39; &#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sc">&#39;\n&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39; &#39;</span><span class="o">:</span> <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span><span class="o">:</span>
             <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
             <span class="k">return</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-        <span class="k">case</span> <span class="sc">&#39;(&#39;</span><span class="o">:</span>
+        <span class="k">case</span> <span class="sa"></span><span class="sc">&#39;(&#39;</span><span class="o">:</span>
             <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
             <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LIST</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){.</span><span class="n">list</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">)},</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
         <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
             <span class="k">return</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LABEL</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span><span class="n">read_substring</span><span class="p">(</span><span class="n">s</span><span class="p">)},</span> <span class="n">read</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Now every call to <code>read()</code> and <code>read_substring()</code> increments the global pointer
 as much as it needs to as soon as it can. I have a lot less global state to
 think about and don&rsquo;t have to worry about passing that information through all

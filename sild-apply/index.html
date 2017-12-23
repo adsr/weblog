@@ -42,16 +42,14 @@ the addition function <code>&quot;+&quot;</code> to the list of arguments <code>
 numbers together.</p>
 
 <p>If we read in that string as it is, and <code>debug_list</code> it, we get:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f9280c03ac0</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7f9280c03aa0</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x103792030</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f9280c03ac0</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7f9280c03aa0</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x103792030</span>
 <span class="o">|</span>   <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f9280c03aa0</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="o">+</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7f9280c03a80</span>
 <span class="o">|</span>   <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f9280c03a80</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">1</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7f9280c03a60</span>
 <span class="o">|</span>   <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f9280c03a60</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="mi">2</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x103792030</span>
 <span class="o">|</span>   <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x103792030</span>
 <span class="o">-------------------------------------------------------</span>
 <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x103792030</span>
-<span class="o">-------------------------------------------------------</span>
-</code></pre></div>
-
+<span class="o">-------------------------------------------------------</span></code></pre></div>
 <p>This is the <em>Sild</em> data that represents the string that has been read in that
 looks like the C string <code>&quot;(+ 1 2)&quot;</code></p>
 
@@ -84,7 +82,7 @@ excited, and I&rsquo;ll come back to those in more detail later on.</p>
 like <code>eval</code>, accept a cell, and return a cell, and need to include a switch
 statement to know how to treat different cells. For now, in all three cases,
 I&rsquo;ll simply <code>eval</code> the input and pass it back out again.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">eval</span><span class="p">(</span><span class="n">C</span><span class="o">*</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">eval</span><span class="p">(</span><span class="n">C</span><span class="o">*</span><span class="p">);</span>
 
 <span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
@@ -93,14 +91,12 @@ I&rsquo;ll simply <code>eval</code> the input and pass it back out again.</p>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Note that I&rsquo;ve had to forward declare <code>eval()</code> above <code>apply()</code> because the two
 are circularly dependant upon one another.</p>
 
 <p><code>apply()</code> will be called from <code>eval()</code> whenever it runs into a <code>LIST</code></p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">eval</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">eval</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
             <span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
@@ -112,9 +108,7 @@ are circularly dependant upon one another.</p>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This code is functionally equivalent to what I had before, when the <code>LIST</code> case
 in eval <code>eval</code>&rsquo;d the <code>val.list</code> member inline.</p>
 
@@ -129,19 +123,17 @@ now doesn&rsquo;t care about forward slashes and just sees them as a regular
 character. All we have to do to achieve this is to check the value of the label
 at the head of the list when it is passed into <code>apply()</code>, and return <code>&amp;nil</code> if
 and only if the <code>val.label</code> equals <code>&quot;/dev/null&quot;</code>.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;/dev/null&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;/dev/null&#34;</span><span class="p">))</span> <span class="p">{</span>
                 <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
             <span class="p">}</span>
         <span class="k">case</span> <span class="nl">LIST</span><span class="p">:</span>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>I&rsquo;ll have to <code>#include &lt;string.h&gt;</code> at the top of the file to use <code>strcmp()</code>.</p>
 
 <blockquote>
@@ -152,25 +144,17 @@ we&rsquo;ll get a <code>true</code> boolean if the two strings are equal.</p>
 </blockquote>
 
 <p>So, an expression like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="p">(</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span> <span class="n">anything</span> <span class="n">can</span> <span class="n">go</span> <span class="n">here</span> <span class="n">it</span> <span class="n">does</span> <span class="n">not</span> <span class="n">matter</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="p">(</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span> <span class="n">anything</span> <span class="n">can</span> <span class="n">go</span> <span class="n">here</span> <span class="n">it</span> <span class="n">does</span> <span class="n">not</span> <span class="n">matter</span><span class="p">)</span></code></pre></div>
 <p>Evaluates to the empty list, which I haven&rsquo;t yet mentioned explicitly but will
 come into play a lot later, and is a <code>LIST</code> typed cell whose <code>val.list</code> member
 points to <code>NIL</code>!</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f9211403540</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x100d86038</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x100d86038</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7f9211403540</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x100d86038</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x100d86038</span>
 <span class="o">|</span>   <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x100d86038</span>
-<span class="o">-------------------------------------------------------</span>
-</code></pre></div>
-
+<span class="o">-------------------------------------------------------</span></code></pre></div>
 <p>It doesn&rsquo;t matter how deeply nested the <code>/dev/null</code> list is, and it doesn&rsquo;t matter how many cells are underneath it!</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="s">&quot;(this is outside (/dev/null and (anything (can go here) (it (doesn&#39;t matter)))))&quot;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="sa"></span><span class="s">&#34;(this is outside (/dev/null and (anything (can go here) (it (doesn&#39;t matter)))))&#34;</span></code></pre></div>
 <p>Evals to:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="s">&quot;(this is outside ())&quot;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="sa"></span><span class="s">&#34;(this is outside ())&#34;</span></code></pre></div>
 <p>So far, all the data in the running program has been persistent implicitly. But
 now, we have a situation where the cells that were inside the list that was
 evaluated to <code>NIL</code> are no longer referenced by anything. Recall that when these
@@ -178,10 +162,10 @@ cells were generated with <code>makecell()</code>, they were given memory via <c
 is the programmer&rsquo;s (my) responsibility to <code>free</code> that memory when it is no
 longer in use. This is as simple as calling <code>free()</code> on the pointer that was
 originally malloc&rsquo;d. I&rsquo;ll add this inside the <code>&quot;/dev/null&quot;</code> conditional block:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;/dev/null&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;/dev/null&#34;</span><span class="p">))</span> <span class="p">{</span>
                 <span class="n">free</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
                 <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
             <span class="p">}</span>
@@ -189,13 +173,11 @@ originally malloc&rsquo;d. I&rsquo;ll add this inside the <code>&quot;/dev/null&
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>BUT! This action ONLY frees the <em>head</em> of this list- only a single cell.
 Everything that operates on cells has to operate recursively, just like the
 debug and print list functions! This pattern is likely starting to look familiar:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">free_cell</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">free_cell</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
             <span class="n">free</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">);</span>
@@ -210,18 +192,16 @@ debug and print list functions! This pattern is likely starting to look familiar
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">break</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Each case frees any subnodes in the linked list from the given cell that&rsquo;s been
 passed in, as well as any cells that are further along in the list.</p>
 
 <p>I&rsquo;ll now free the cell at the head of the list before returning <code>&amp;nil</code> in the
 apply function:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;/dev/null&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;/dev/null&#34;</span><span class="p">))</span> <span class="p">{</span>
                     <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
                     <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
             <span class="p">}</span>
@@ -229,9 +209,7 @@ apply function:</p>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>The execution will appear to be the same, but under the hood, the memory that
 was holding those cells will now be available for reuse.</p>
 
@@ -244,13 +222,13 @@ either), but let&rsquo;s say we have a C function that takes two strings and ret
 a new string that is a concatenation of them. There is probably a library
 function that does this, but for the sake of demonstration, let&rsquo;s say it looks
 like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="c1">// wrote this in a hurry and there is probably something wrong with it</span>
-<span class="kt">char</span> <span class="o">*</span><span class="nf">concat</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">string1</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">string2</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// wrote this in a hurry and there is probably something wrong with it
+</span><span class="c1"></span><span class="kt">char</span> <span class="o">*</span><span class="nf">concat</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">string1</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">string2</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">s1len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">string1</span><span class="p">);</span>
     <span class="kt">int</span> <span class="n">s2len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">string2</span><span class="p">);</span>
     <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">s1len</span> <span class="o">+</span> <span class="n">s2len</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// malloc&#39;ing a new string to output</span>
-
+    <span class="kt">char</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// malloc&#39;ing a new string to output
+</span><span class="c1"></span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s1len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">string1</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="p">}</span>
@@ -259,16 +237,12 @@ like this:</p>
         <span class="n">out</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">s1len</span><span class="p">]</span> <span class="o">=</span> <span class="n">string2</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>So calling it would look like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">concat</span><span class="p">(</span><span class="s">&quot;thing1&quot;</span> <span class="p">,</span> <span class="s">&quot;thing2&quot;</span><span class="p">));</span> <span class="c1">// prints &quot;thing1thing2&quot;</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="n">concat</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;thing1&#34;</span> <span class="p">,</span> <span class="sa"></span><span class="s">&#34;thing2&#34;</span><span class="p">));</span> <span class="c1">// prints &#34;thing1thing2&#34;
+</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 <blockquote>
 <p>The <code>val.label</code> members of the cell structs are currently only strings
 (<code>LABELS</code>), so I needed a function that would operate on strings to demonstrate
@@ -277,13 +251,13 @@ anything at all.</p>
 
 <p>I can add another conditional in the <code>apply()</code> function to check for the
 <code>concat</code> LABEL:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;/dev/null&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;/dev/null&#34;</span><span class="p">))</span> <span class="p">{</span>
                 <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
                 <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;concat&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;concat&#34;</span><span class="p">))</span> <span class="p">{</span>
                 <span class="n">C</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LABEL</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span><span class="n">concat</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">)},</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">);</span>
                 <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
                 <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
@@ -292,9 +266,7 @@ anything at all.</p>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>What if I <code>eval</code> this:</p>
 
 <pre><code>((concat some things) are (concat bet ter) than (concat no things))
@@ -314,9 +286,7 @@ anything at all.</p>
 not. I wanted a <code>LABEL</code> cell whose value was the concatenated output.</p>
 
 <p>Also, this function as written makes a lot of assumptions! consider the line:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LABEL</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span><span class="n">concat</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">)})</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LABEL</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span><span class="n">concat</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">)})</span></code></pre></div>
 <p>This only gets triggered if and only if <code>c</code> is a <code>LABEL</code> with the value <code>&quot;concat&quot;</code>,
 , but it also totally assumes that:</p>
 
@@ -358,31 +328,27 @@ not a LIST cell at all, I <em>should</em> also be able to do something like this
 
 <p>To fix all of these problems, a good first step is to pull out the <code>concat</code>
 conditional block into it&rsquo;s own function, so <code>apply</code> will look like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;/dev/null&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;/dev/null&#34;</span><span class="p">))</span> <span class="p">{</span>
                     <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
                     <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;concat&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;concat&#34;</span><span class="p">))</span> <span class="p">{</span>
                 <span class="k">return</span> <span class="n">concat_two_labels</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
             <span class="p">}</span>
         <span class="k">case</span> <span class="nl">LIST</span><span class="p">:</span>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>And I&rsquo;ll have a new function <code>concat_two_labels()</code> that will take the head of
 the list and return a new cell.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">concat_two_labels</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">concat_two_labels</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">C</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LABEL</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span> <span class="n">concat</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">)</span> <span class="p">},</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">);</span>
     <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This function has three responsibilities.</p>
 
 <ol>
@@ -396,7 +362,7 @@ maintained.</li>
 
 <p>As written it already almost fulfills the last two of those obligations, and the first
 task is fairly straightforward&hellip; if pretty ugly.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">concat_two_labels</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">concat_two_labels</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="k">if</span> <span class="p">(</span>
         <span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">LABEL</span>
@@ -411,19 +377,15 @@ task is fairly straightforward&hellip; if pretty ugly.</p>
     <span class="n">C</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">makecell</span><span class="p">(</span><span class="n">LABEL</span><span class="p">,</span> <span class="p">(</span><span class="n">V</span><span class="p">){</span><span class="n">concat</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">)},</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">);</span>
     <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Now all of those arity and type error cases will exit the program! For now,
 just exiting with that error code will be fine; later on I&rsquo;ll want to set up
 some more informative error messaging.</p>
 
 <p>Ah! And what about</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="p">(</span><span class="n">concat</span> <span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="n">mom</span><span class="p">)</span> <span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="n">mom</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="p">(</span><span class="n">concat</span> <span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="n">mom</span><span class="p">)</span> <span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="n">mom</span><span class="p">))</span></code></pre></div>
 <p>That&rsquo;s actually pretty easy, I just also have to eval the arguments before operating on them!</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">concat_two_labels</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">concat_two_labels</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">C</span> <span class="o">*</span><span class="n">operand</span> <span class="o">=</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
 
     <span class="k">if</span> <span class="p">(</span>
@@ -440,14 +402,12 @@ some more informative error messaging.</p>
 
     <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Because <code>eval</code> operates on all linked cells to the end of a list, we can be
 sure that all of the operands will be evaluated. We can also move the arity
 check above the eval call, to prevent unnecessary evalling if there are too
 many arguments.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">concat_two_labels</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">concat_two_labels</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
@@ -462,23 +422,17 @@ many arguments.</p>
 
     <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Hmm, but now, evalling:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="n">mom</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="n">mom</span><span class="p">))</span></code></pre></div>
 <p>exits with a code of 1. That&rsquo;s because <code>concat</code> is still returning LIST cells! After evaluating its operands, the top level list is seeing:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="p">(</span><span class="n">himom</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="p">(</span><span class="n">himom</span><span class="p">))</span></code></pre></div>
 <p>And choking on the second operand being a <code>LIST</code>. This is the desired behavior
 for the arity check, so that&rsquo;s good! But we want the result of the call to the
 <code>concat_two_labels()</code> function to <em>replace</em> the cell that called it, not become the value of that cell.</p>
 
 <p>Let&rsquo;s look back at <code>eval()</code> again:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">eval</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">eval</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
             <span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
@@ -490,9 +444,7 @@ for the arity check, so that&rsquo;s good! But we want the result of the call to
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>In the LIST case, we can see that we are assigning the output of apply to the
 <code>LIST</code> cell&rsquo;s <code>val.list</code> member. This is where that&rsquo;s happening! In reality, we
 don&rsquo;t know what kind of cell we&rsquo;re going to get back, the return value of an
@@ -502,7 +454,7 @@ live, and free the cell that contained the function call. That&rsquo;s going to 
 like this (when declaring variables in a switch body, you have to wrap the case
 inside curly braces to create a lexical scope that the compiler can
 understand):</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">eval</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">eval</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
             <span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
@@ -516,15 +468,13 @@ understand):</p>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>I&rsquo;ll have to tweak <code>concat_two_labels</code> a little bit- in recursive calls, if I
 expect functions to clean up after themselves, it can result in the program
 attempting to <code>free</code> the same memory more than one time. I&rsquo;ll need a little
 helper function that knows how to free a single cell, only recursively if that
 cell is a LIST. That looks like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">free_one_cell</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">free_one_cell</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
             <span class="n">free</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">);</span>
@@ -537,11 +487,9 @@ cell is a LIST. That looks like this:</p>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">break</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>And I&rsquo;ll change that call in <code>concat_two_labels</code>:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">concat_two_labels</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">concat_two_labels</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
@@ -556,11 +504,9 @@ cell is a LIST. That looks like this:</p>
 
     <span class="n">free_one_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>I also need to <code>free()</code> the parent pointer of the actual LIST cell that I started with back in eval.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">eval</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">eval</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
             <span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
@@ -574,13 +520,9 @@ cell is a LIST. That looks like this:</p>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>With these tweaks, I can eval something like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="p">(</span><span class="n">concat</span> <span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="n">mom</span><span class="p">)</span> <span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="n">mom</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="p">(</span><span class="n">concat</span> <span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="n">mom</span><span class="p">)</span> <span class="p">(</span><span class="n">concat</span> <span class="n">hi</span> <span class="n">mom</span><span class="p">))</span></code></pre></div>
 <p>And get this back:</p>
 
 <pre><code>himomhimom
@@ -595,43 +537,37 @@ you deserve something neat, and boy do I have it, cause this is about to
 get <em>really really awesome</em>.</p>
 
 <p>There is a case we haven&rsquo;t covered, and it lives in <code>apply()</code></p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;/dev/null&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;/dev/null&#34;</span><span class="p">))</span> <span class="p">{</span>
                     <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
                     <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;concat&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;concat&#34;</span><span class="p">))</span> <span class="p">{</span>
                 <span class="k">return</span> <span class="n">concat_two_labels</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
             <span class="p">}</span>
         <span class="k">case</span> <span class="nl">LIST</span><span class="p">:</span>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>In fact, there are three cases we haven&rsquo;t covered fully. If you try to <code>apply()</code> a LABEL
 that doesn&rsquo;t have a corresponding function case, you fall through to returning
 the evaluation of that label, which currently just returns the cell as is.</p>
 
 <p>So this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="p">(</span><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="n">d</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="p">(</span><span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="n">d</span><span class="p">)</span></code></pre></div>
 <p>returns just a single cell, the LABEL:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">a</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">a</span></code></pre></div>
 <p>The appropriate thing to do if you&rsquo;re trying to apply a function that doesn&rsquo;t
 exist is to throw an error. Let&rsquo;s add that now.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;/dev/null&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;/dev/null&#34;</span><span class="p">))</span> <span class="p">{</span>
                 <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
                 <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;concat&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;concat&#34;</span><span class="p">))</span> <span class="p">{</span>
                 <span class="k">return</span> <span class="n">concat_two_labels</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
                 <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
@@ -640,9 +576,7 @@ exist is to throw an error. Let&rsquo;s add that now.</p>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Once again, this is piss poor error messaging, but we&rsquo;ll come back to that
 later on. Also notice I&rsquo;ve taken out the base case fall through, because I want
 to account for all the cases now. The compiler complains about this, but it is
@@ -652,13 +586,13 @@ only a warning so #yolo.</p>
 
 <p>But what if I try to apply a list? Surely I can do that, right? Yes. Yes I can.
 But I need to evaluate it first!</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;/dev/null&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;/dev/null&#34;</span><span class="p">))</span> <span class="p">{</span>
                     <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
                     <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;concat&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;concat&#34;</span><span class="p">))</span> <span class="p">{</span>
                 <span class="k">return</span> <span class="n">concat_two_labels</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
                 <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
@@ -668,9 +602,7 @@ But I need to evaluate it first!</p>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Ok, this is where things get wild. Because with this code, what happens if I evaluate:</p>
 
 <pre><code>((concat con cat) two words)
@@ -679,7 +611,7 @@ But I need to evaluate it first!</p>
 <p>Tracing this would look something like:</p>
 
 <p><code>read()</code> reads in the string and parses it into this structure:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fce9bc034e0</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7fce9bc034c0</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x108eab048</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fce9bc034e0</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7fce9bc034c0</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x108eab048</span>
 <span class="o">|</span>   <span class="n">LIST</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fce9bc034c0</span><span class="p">,</span> <span class="nl">List_Value</span><span class="p">:</span> <span class="mh">0x7fce9bc03430</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7fce9bc03490</span>
 <span class="o">|</span>   <span class="o">|</span>   <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fce9bc03430</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="n">concat</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7fce9bc03410</span>
 <span class="o">|</span>   <span class="o">|</span>   <span class="n">LABEL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x7fce9bc03410</span><span class="p">,</span> <span class="nl">Value</span><span class="p">:</span> <span class="n">con</span> <span class="nl">Next</span><span class="p">:</span> <span class="mh">0x7fce9bc033f0</span>
@@ -691,18 +623,14 @@ But I need to evaluate it first!</p>
 <span class="o">|</span>   <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x108eab048</span>
 <span class="o">-------------------------------------------------------</span>
 <span class="n">NIL</span><span class="o">-</span> <span class="nl">Address</span><span class="p">:</span> <span class="mh">0x108eab048</span>
-<span class="o">-------------------------------------------------------</span>
-</code></pre></div>
-
+<span class="o">-------------------------------------------------------</span></code></pre></div>
 <p>We then pass that into <code>eval</code>.</p>
 
 <p><code>eval</code> sees a list, and passes that into <code>apply</code>.</p>
 
 <p><code>apply</code> sees that the first cell in the list is itself a list, so it evaluates
 that list and THEN applies it. So,</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="p">(</span><span class="n">concat</span> <span class="n">con</span> <span class="n">cat</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="p">(</span><span class="n">concat</span> <span class="n">con</span> <span class="n">cat</span><span class="p">)</span></code></pre></div>
 <p>Turns into <code>concat</code>, it replaces the evaluated cell with the result of that
 evaluation:</p>
 
@@ -731,9 +659,7 @@ LABELS</code> but concatanating them together yields a LABEL cell that the
 interpreter knows how to read!</p>
 
 <p>Ohhhhhhhhhhh noooooooooo waayyyyyyyyy</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="p">((</span><span class="n">concat</span> <span class="o">/</span><span class="n">dev</span> <span class="o">/</span><span class="n">null</span><span class="p">)</span> <span class="p">(</span><span class="n">concat</span> <span class="n">mic</span> <span class="n">drop</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="p">((</span><span class="n">concat</span> <span class="o">/</span><span class="n">dev</span> <span class="o">/</span><span class="n">null</span><span class="p">)</span> <span class="p">(</span><span class="n">concat</span> <span class="n">mic</span> <span class="n">drop</span><span class="p">))</span></code></pre></div>
 <pre><code>((concat c (concat o (concat n (concat c (concat a t))))) (concat o h) (concat y (concat e (concat a h))))
 </code></pre>
 
@@ -741,13 +667,13 @@ interpreter knows how to read!</p>
 
 <p>Finally, I&rsquo;ll throw an error in apply under the <code>NIL</code> case, because <code>NIL</code> is
 not, and will never be, a function that can be applied to arguments.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">apply</span><span class="p">(</span><span class="n">C</span><span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">switch</span> <span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">type</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">case</span> <span class="nl">LABEL</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;/dev/null&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;/dev/null&#34;</span><span class="p">))</span> <span class="p">{</span>
                 <span class="n">free_cell</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
                 <span class="k">return</span> <span class="o">&amp;</span><span class="n">nil</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="s">&quot;concat&quot;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">.</span><span class="n">label</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;concat&#34;</span><span class="p">))</span> <span class="p">{</span>
                 <span class="k">return</span> <span class="n">concat_two_labels</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
                 <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
@@ -757,9 +683,7 @@ not, and will never be, a function that can be applied to arguments.</p>
         <span class="k">case</span> <span class="nl">NIL</span><span class="p">:</span>
             <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>And that&rsquo;s it! the eval/apply loop is finished!</p>
 
                 </div>

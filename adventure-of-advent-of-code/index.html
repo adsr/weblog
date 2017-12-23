@@ -105,12 +105,12 @@ too much interest in polishing it up once I&rsquo;ve finished it.</p>
 or be efficient, or really anything at all, I&rsquo;ve been able to just jump right
 in with writing dumpster fire procedural code that still spits out the answer I
 want! Look at this hot garbage from <a href="http://adventofcode.com/2016/day/2">day 2 part 2</a>:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="vi">@input</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;./inputs/2.txt&#39;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">l</span><span class="o">|</span> <span class="n">l</span><span class="o">.</span><span class="n">chomp!</span><span class="p">}</span><span class="o">.</span><span class="n">collect!</span> <span class="p">{</span><span class="o">|</span><span class="n">e</span><span class="o">|</span> <span class="n">e</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)}</span>
-<span class="vi">@keypadtwo</span> <span class="o">=</span> <span class="o">[[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="s2">&quot;B&quot;</span><span class="p">,</span><span class="s2">&quot;C&quot;</span><span class="o">]]</span>
-<span class="k">def</span> <span class="nf">two</span>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="vi">@input</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;./inputs/2.txt&#39;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">l</span><span class="o">|</span> <span class="n">l</span><span class="o">.</span><span class="n">chomp!</span><span class="p">}</span><span class="o">.</span><span class="n">collect!</span> <span class="p">{</span><span class="o">|</span><span class="n">e</span><span class="o">|</span> <span class="n">e</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)}</span>
+<span class="vi">@keypadtwo</span> <span class="o">=</span> <span class="o">[[</span><span class="mi">2</span><span class="o"></span><span class="p">,</span><span class="mi">3</span><span class="o"></span><span class="p">,</span><span class="mi">4</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">6</span><span class="o"></span><span class="p">,</span><span class="mi">7</span><span class="o"></span><span class="p">,</span><span class="mi">8</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="s2">&#34;A&#34;</span><span class="p">,</span><span class="s2">&#34;B&#34;</span><span class="p">,</span><span class="s2">&#34;C&#34;</span><span class="o">]]</span>
+<span class="k">def</span> <span class="nc"></span><span class="o"></span><span class="nf">two</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">acc</span> <span class="o">=</span> <span class="o">[]</span>
+    <span class="o"></span><span class="n">y</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="o"></span><span class="n">acc</span> <span class="o">=</span> <span class="o">[]</span>
 
     <span class="n">uplock</span> <span class="o">=</span> <span class="kp">false</span>
     <span class="n">downlock</span> <span class="o">=</span> <span class="kp">false</span>
@@ -126,59 +126,59 @@ want! Look at this hot garbage from <a href="http://adventofcode.com/2016/day/2"
                     <span class="k">next</span>
                 <span class="k">end</span>
                 <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">1</span>
-                    <span class="n">uplock</span> <span class="o">=</span> <span class="kp">true</span>
+                    <span class="o"></span><span class="n">uplock</span> <span class="o">=</span> <span class="kp">true</span>
                     <span class="k">next</span>
                 <span class="k">end</span>
                 <span class="n">y</span> <span class="o">-=</span> <span class="mi">1</span>
-            <span class="k">when</span> <span class="s1">&#39;D&#39;</span>
+            <span class="o"></span><span class="k">when</span> <span class="s1">&#39;D&#39;</span>
                 <span class="k">next</span> <span class="k">if</span> <span class="p">(</span><span class="n">leftlock</span> <span class="o">||</span> <span class="n">rightlock</span> <span class="o">||</span> <span class="n">downlock</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">uplock</span>
                     <span class="n">uplock</span> <span class="o">=</span> <span class="kp">false</span>
                     <span class="k">next</span>
                 <span class="k">end</span>
                 <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">1</span>
-                    <span class="n">downlock</span> <span class="o">=</span> <span class="kp">true</span>
+                    <span class="o"></span><span class="n">downlock</span> <span class="o">=</span> <span class="kp">true</span>
                     <span class="k">next</span>
                 <span class="k">end</span>
                 <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">when</span> <span class="s1">&#39;R&#39;</span>
+            <span class="o"></span><span class="k">when</span> <span class="s1">&#39;R&#39;</span>
                 <span class="k">next</span> <span class="k">if</span> <span class="p">(</span><span class="n">uplock</span> <span class="o">||</span> <span class="n">downlock</span> <span class="o">||</span> <span class="n">rightlock</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">leftlock</span>
                     <span class="n">leftlock</span> <span class="o">=</span> <span class="kp">false</span>
                     <span class="k">next</span>
                 <span class="k">end</span>
                 <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span>
-                    <span class="n">rightlock</span> <span class="o">=</span> <span class="kp">true</span>
+                    <span class="o"></span><span class="n">rightlock</span> <span class="o">=</span> <span class="kp">true</span>
                     <span class="k">next</span>
                 <span class="k">end</span>
                 <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">when</span> <span class="s1">&#39;L&#39;</span>
+            <span class="o"></span><span class="k">when</span> <span class="s1">&#39;L&#39;</span>
                 <span class="k">next</span> <span class="k">if</span> <span class="p">(</span><span class="n">uplock</span> <span class="o">||</span> <span class="n">downlock</span> <span class="o">||</span> <span class="n">leftlock</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">rightlock</span>
                     <span class="n">rightlock</span> <span class="o">=</span> <span class="kp">false</span>
                     <span class="k">next</span>
                 <span class="k">end</span>
                 <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span>
-                    <span class="n">leftlock</span> <span class="o">=</span> <span class="kp">true</span>
+                    <span class="o"></span><span class="n">leftlock</span> <span class="o">=</span> <span class="kp">true</span>
                     <span class="k">next</span>
                 <span class="k">end</span>
                 <span class="n">x</span> <span class="o">-=</span> <span class="mi">1</span>
-            <span class="k">end</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">3</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">3</span>
-        <span class="k">end</span>
+            <span class="o"></span><span class="k">end</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span> <span class="o"></span><span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="o"></span><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span> <span class="o"></span><span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">3</span>
+            <span class="o"></span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span> <span class="o"></span><span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="o"></span><span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o"></span><span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">3</span>
+        <span class="o"></span><span class="k">end</span>
 
         <span class="k">if</span> <span class="n">uplock</span>
             <span class="n">acc</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span>
-        <span class="k">elsif</span> <span class="n">downlock</span>
+        <span class="o"></span><span class="k">elsif</span> <span class="n">downlock</span>
             <span class="n">acc</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;D&#39;</span>
         <span class="k">elsif</span> <span class="n">rightlock</span>
             <span class="n">acc</span> <span class="o">&lt;&lt;</span> <span class="mi">9</span>
-        <span class="k">elsif</span> <span class="n">leftlock</span>
+        <span class="o"></span><span class="k">elsif</span> <span class="n">leftlock</span>
             <span class="n">acc</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span>
-        <span class="k">else</span>
+        <span class="o"></span><span class="k">else</span>
             <span class="n">acc</span> <span class="o">&lt;&lt;</span> <span class="vi">@keypadtwo</span><span class="o">[</span><span class="n">y</span><span class="o">][</span><span class="n">x</span><span class="o">]</span>
         <span class="k">end</span>
     <span class="k">end</span>
@@ -186,9 +186,7 @@ want! Look at this hot garbage from <a href="http://adventofcode.com/2016/day/2"
     <span class="n">acc</span><span class="o">.</span><span class="n">join</span>
 <span class="k">end</span>
 
-<span class="nb">p</span> <span class="n">two</span>
-</code></pre></div>
-
+<span class="nb">p</span> <span class="n">two</span></code></pre></div>
 <p>The specifics of this problem are not important right now, and in fact you&rsquo;d
 need to solve the first part to see them on the link above. But, I mean, even
 just looking at the shape of that you can tell that it&rsquo;s some&hellip; not very great
@@ -207,59 +205,57 @@ it, and then I can take my time in implementing either an efficient or elegant
 solution for teh learns. Ideally both!</p>
 
 <p>Here&rsquo;s my Rust for that very same problem:</p>
-<div class="highlight"><pre><code class="language-rust" data-lang="rust"><span></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">io</span>::<span class="n">prelude</span>::<span class="o">*</span><span class="p">;</span><span class="w"></span>
-<span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">fs</span>::<span class="n">File</span><span class="p">;</span><span class="w"></span>
-<span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">collections</span>::<span class="n">HashSet</span><span class="p">;</span><span class="w"></span>
-<span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">iter</span>::<span class="n">FromIterator</span><span class="p">;</span><span class="w"></span>
-
-
-<span class="k">static</span><span class="w"> </span><span class="n">GRID</span><span class="w"> </span>: <span class="p">[</span><span class="o">&amp;</span><span class="nb">&#39;static</span><span class="p">[</span><span class="kt">i32</span><span class="p">;</span><span class="w"> </span><span class="mi">5</span><span class="p">];</span><span class="w"> </span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">    </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w"></span>
-<span class="w">    </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w"></span>
-<span class="p">];</span><span class="w"></span>
-
-<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">allowedarr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="w"></span>
-<span class="w">        </span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">];</span><span class="w"></span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">allowed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HashSet</span>::<span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;</span>::<span class="n">from_iter</span><span class="p">(</span><span class="n">allowedarr</span><span class="p">.</span><span class="n">iter</span><span class="p">());</span><span class="w"></span>
-
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">File</span>::<span class="n">open</span><span class="p">(</span><span class="s">&quot;../inputs/2.txt&quot;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">new</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="n">f</span><span class="p">.</span><span class="n">read_to_string</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">len</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">truncate</span><span class="p">(</span><span class="n">len</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">keys</span>: <span class="nb">String</span> <span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">tokenlist</span><span class="o">|</span><span class="w"></span>
-<span class="w">            </span><span class="n">tokenlist</span><span class="p">.</span><span class="n">chars</span><span class="p">().</span><span class="n">fold</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="o">|</span><span class="n">coord</span><span class="p">,</span><span class="w"> </span><span class="n">dir</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="kd">let</span><span class="w"> </span><span class="n">newcoord</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">dir</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                    </span><span class="sc">&#39;U&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">coord</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">.</span><span class="mi">1</span><span class="p">),</span><span class="w"></span>
-<span class="w">                    </span><span class="sc">&#39;D&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">coord</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">.</span><span class="mi">1</span><span class="p">),</span><span class="w"></span>
-<span class="w">                    </span><span class="sc">&#39;R&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">coord</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">.</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"></span>
-<span class="w">                    </span><span class="sc">&#39;L&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">coord</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">.</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"></span>
-<span class="w">                    </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">panic</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;Malformed input&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">                </span><span class="p">};</span><span class="w"></span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">allowed</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="o">&amp;</span><span class="n">newcoord</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">newcoord</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">coord</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">            </span><span class="p">})</span><span class="w"></span>
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">coord</span><span class="o">|</span><span class="w"> </span><span class="n">GRID</span><span class="p">[</span><span class="n">coord</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">usize</span><span class="p">][</span><span class="n">coord</span><span class="p">.</span><span class="mi">1</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">usize</span><span class="p">])</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="n">format</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;{:x}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">))</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">collect</span>::<span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;&gt;</span><span class="p">()</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="p">.</span><span class="n">to_uppercase</span><span class="p">();</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">keys</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">io</span>::<span class="n">prelude</span>::<span class="o">*</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">fs</span>::<span class="n">File</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">collections</span>::<span class="n">HashSet</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">iter</span>::<span class="n">FromIterator</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">static</span><span class="w"> </span><span class="n">GRID</span><span class="w"> </span>: <span class="p">[</span><span class="o">&amp;</span><span class="nb">&#39;static</span><span class="p">[</span><span class="kt">i32</span><span class="p">;</span><span class="w"> </span><span class="mi">5</span><span class="p">];</span><span class="w"> </span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span><span class="w">    </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+</span><span class="w">    </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+</span><span class="w">    </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">],</span><span class="w">
+</span><span class="w">    </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+</span><span class="w">    </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">],</span><span class="w">
+</span><span class="w"></span><span class="p">];</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">allowedarr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span><span class="w">        </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w">
+</span><span class="w">    </span><span class="p">];</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">allowed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HashSet</span>::<span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;</span>::<span class="n">from_iter</span><span class="p">(</span><span class="n">allowedarr</span><span class="p">.</span><span class="n">iter</span><span class="p">());</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">File</span>::<span class="n">open</span><span class="p">(</span><span class="s">&#34;../inputs/2.txt&#34;</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">new</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">f</span><span class="p">.</span><span class="n">read_to_string</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">len</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">truncate</span><span class="p">(</span><span class="n">len</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">keys</span>: <span class="nb">String</span> <span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="w">
+</span><span class="w">        </span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)</span><span class="w">
+</span><span class="w">        </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">tokenlist</span><span class="o">|</span><span class="w">
+</span><span class="w">            </span><span class="n">tokenlist</span><span class="p">.</span><span class="n">chars</span><span class="p">().</span><span class="n">fold</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="o">|</span><span class="n">coord</span><span class="p">,</span><span class="w"> </span><span class="n">dir</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">                </span><span class="kd">let</span><span class="w"> </span><span class="n">newcoord</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">dir</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">                    </span><span class="sc">&#39;U&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">coord</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">.</span><span class="mi">1</span><span class="p">),</span><span class="w">
+</span><span class="w">                    </span><span class="sc">&#39;D&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">coord</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">.</span><span class="mi">1</span><span class="p">),</span><span class="w">
+</span><span class="w">                    </span><span class="sc">&#39;R&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">coord</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">.</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w">
+</span><span class="w">                    </span><span class="sc">&#39;L&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">coord</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">coord</span><span class="p">.</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w">
+</span><span class="w">                    </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">panic</span><span class="o">!</span><span class="p">(</span><span class="s">&#34;Malformed input&#34;</span><span class="p">)</span><span class="w">
+</span><span class="w">                </span><span class="p">};</span><span class="w">
+</span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">allowed</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="o">&amp;</span><span class="n">newcoord</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">newcoord</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">coord</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">            </span><span class="p">})</span><span class="w">
+</span><span class="w">        </span><span class="p">)</span><span class="w">
+</span><span class="w">        </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">coord</span><span class="o">|</span><span class="w"> </span><span class="n">GRID</span><span class="p">[</span><span class="n">coord</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">usize</span><span class="p">][</span><span class="n">coord</span><span class="p">.</span><span class="mi">1</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">usize</span><span class="p">])</span><span class="w">
+</span><span class="w">        </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="n">format</span><span class="o">!</span><span class="p">(</span><span class="s">&#34;{:x}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">))</span><span class="w">
+</span><span class="w">        </span><span class="p">.</span><span class="n">collect</span>::<span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;&gt;</span><span class="p">()</span><span class="w">
+</span><span class="w">        </span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">)</span><span class="w">
+</span><span class="w">        </span><span class="p">.</span><span class="n">to_uppercase</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">keys</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span></code></pre></div>
 <p>So&hellip; I don&rsquo;t really know yet if this is &ldquo;good Rust&rdquo; because I don&rsquo;t know Rust
 super well yet, but I can say for certain that it&rsquo;s much better written than
 the first one!It uses a completely different boundary checking method, and is
@@ -274,22 +270,20 @@ the desired answer! Yay functions!</p>
 
 <p>Take a look at my ruby solution for the
 next day&rsquo;s second problem:</p>
-<div class="highlight"><pre><code class="language-rb" data-lang="rb"><span></span><span class="vi">@input</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;./inputs/3.txt&#39;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<div class="highlight"><pre class="chroma"><code class="language-rb" data-lang="rb"><span class="vi">@input</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;./inputs/3.txt&#39;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">)</span>
 <span class="o">.</span><span class="n">readlines</span>
 <span class="o">.</span><span class="n">collect!</span> <span class="p">{</span><span class="o">|</span><span class="n">e</span><span class="o">|</span>
     <span class="n">e</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">map!</span> <span class="p">{</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="n">e</span><span class="o">.</span><span class="n">to_i</span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="nb">p</span> <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span>
+<span class="nb">p</span> <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">2</span><span class="o"></span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span>
     <span class="vi">@input</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span><span class="o">|</span><span class="n">e</span><span class="o">|</span> <span class="n">e</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">}</span>
-    <span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="o"></span><span class="p">)</span>
     <span class="o">.</span><span class="n">to_a</span><span class="p">}</span>
-<span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="o">.</span><span class="n">select</span> <span class="p">{</span><span class="o">|</span><span class="n">e</span><span class="o">|</span> <span class="n">e</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="ss">:+</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">e</span><span class="o">.</span><span class="n">max</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
-<span class="o">.</span><span class="n">count</span>
-</code></pre></div>
-
+<span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="mi">1</span><span class="o"></span><span class="p">)</span>
+<span class="o">.</span><span class="n">select</span> <span class="p">{</span><span class="o">|</span><span class="n">e</span><span class="o">|</span> <span class="n">e</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="ss">:+</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">e</span><span class="o">.</span><span class="n">max</span> <span class="o">*</span> <span class="mi">2</span> <span class="o"></span><span class="p">}</span>
+<span class="o">.</span><span class="n">count</span></code></pre></div>
 <p>It&rsquo;s functional af! The whole thing is just one chain of methods that spits out
 the answer! It reminds me of the
 <a href="https://github.com/twitter/scalding">scalding</a> code I&rsquo;ve written at work to

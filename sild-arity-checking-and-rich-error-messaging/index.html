@@ -31,28 +31,24 @@ bit. Where are some opportunities for that kind of thing?</p>
 
 <p>Every builtin function does an arity check on its arguments before it does
 anything else. this check follows a simple pattern&hellip; take <code>cons</code> for example:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span>    <span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">NIL</span> <span class="o">||</span> <span class="c1">// checks that there is a first argument.</span>
-        <span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">NIL</span> <span class="o">||</span> <span class="c1">// checks that there is a second argument</span>
-        <span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// checks that there is NOT a third argument</span>
-        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-    <span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c">    <span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">NIL</span> <span class="o">||</span> <span class="c1">// checks that there is a first argument.
+</span><span class="c1"></span>        <span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">NIL</span> <span class="o">||</span> <span class="c1">// checks that there is a second argument
+</span><span class="c1"></span>        <span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// checks that there is NOT a third argument
+</span><span class="c1"></span>        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span></code></pre></div>
 <p>It has to go in order this way, because if the conditional attempted to access
 <code>operand-&gt;next</code> when the <code>operand</code> was <code>NIL</code>, it would be trying to dereference
 the <code>NULL</code> pointer that <code>NIL</code> is acting as a wrapper for. Here&rsquo;s another, for
 <code>car</code> and <code>cdr</code>, which both have only one argument.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">NIL</span> <span class="o">||</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">NIL</span> <span class="o">||</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This is generic enough to abstract into a simple function that can be called at
 the beginning of each builtin. It will take the first operand and the number of
 arguments, and return true if the number matches the number of arguments passed
 to the function. Like most of the other functions that operate on these linked
 lists, it could be recursive.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">arity_check</span><span class="p">(</span><span class="kt">int</span> <span class="n">args</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">arity_check</span><span class="p">(</span><span class="kt">int</span> <span class="n">args</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">args</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
@@ -62,80 +58,70 @@ lists, it could be recursive.</p>
     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">args</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">){</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>I can now replace the long hand checks in the builtin functions with a call to
 this function with the appropriate number of args.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="n">C</span> <span class="o">*</span><span class="nf">quote</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">C</span> <span class="o">*</span><span class="nf">quote</span><span class="p">(</span><span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">arity_check</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">operand</span><span class="p">);</span>
     <span class="k">return</span> <span class="n">operand</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>But you know what? I want to stop writing crappy errors that just exit with a
 generic code. #itstime for real error messaging. To do this, I could just print something to standard out before exiting, like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">arity_check</span><span class="p">(</span><span class="kt">int</span> <span class="n">args</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">arity_check</span><span class="p">(</span><span class="kt">int</span> <span class="n">args</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">args</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;something happened, you didn&#39;t have enough args&quot;</span><span class="p">);</span>
+            <span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;something happened, you didn&#39;t have enough args&#34;</span><span class="p">);</span>
             <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
             <span class="n">arity_check</span><span class="p">(</span><span class="n">args</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">args</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">){</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;something happened, you had too many args&quot;</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;something happened, you had too many args&#34;</span><span class="p">);</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>But standard out (<code>stdout</code>) is not the most appropriate stream for this
 message. It&rsquo;s an error message, so it should be directed to standard error:
 <code>stderr</code>. I can print to an arbitrary stream by using <code>fprintf</code> instead:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">arity_check</span><span class="p">(</span><span class="kt">int</span> <span class="n">args</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">arity_check</span><span class="p">(</span><span class="kt">int</span> <span class="n">args</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">args</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;something happened, you didn&#39;t have enough args&quot;</span><span class="p">);</span>
+            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;something happened, you didn&#39;t have enough args&#34;</span><span class="p">);</span>
             <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
             <span class="n">arity_check</span><span class="p">(</span><span class="n">args</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">args</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">){</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;something happened, you had too many args&quot;</span><span class="p">);</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;something happened, you had too many args&#34;</span><span class="p">);</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This is heading in the right direction, but it&rsquo;s not very rich. What function
 was being called? What was being passed in? I can give <code>arity_check()</code> the name
 of the caller like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">arity_check</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">caller_name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">args</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">arity_check</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">caller_name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">args</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">operand</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">args</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">==</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span>
-            <span class="s">&quot;something happened, you didn&#39;t have enough args to %s&quot;</span><span class="p">,</span>
+            <span class="sa"></span><span class="s">&#34;something happened, you didn&#39;t have enough args to %s&#34;</span><span class="p">,</span>
             <span class="n">caller_name</span><span class="p">);</span>
             <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">arity_check</span><span class="p">(</span><span class="s">&quot;quote&quot;</span><span class="p">,</span> <span class="n">args</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
+            <span class="n">arity_check</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;quote&#34;</span><span class="p">,</span> <span class="n">args</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">args</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">operand</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">){</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span>
-        <span class="s">&quot;something happened, you had too many args to %s&quot;</span><span class="p">,</span>
+        <span class="sa"></span><span class="s">&#34;something happened, you had too many args to %s&#34;</span><span class="p">,</span>
         <span class="n">caller_name</span><span class="p">);</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This is better, but you know what? I don&rsquo;t need to make this recursive at all,
 really. Doing so means I have to copy all those inputs to the function on each
 call, and I don&rsquo;t really know what state I&rsquo;m in when the error gets tripped. I
 can just count the number of args to the function and compare it against the
 number that was passed in. That&rsquo;s much easier!</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">arity_check</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">caller_name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">args</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">cur</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">arity_check</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">caller_name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">args</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">cur</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">passed_in</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">passed_in</span><span class="o">++</span><span class="p">;</span>
@@ -143,18 +129,16 @@ number that was passed in. That&rsquo;s much easier!</p>
     <span class="p">}</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">passed_in</span> <span class="o">!=</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span>
-        <span class="s">&quot;ArityError: %s expected %d, got %d&quot;</span><span class="p">,</span>
+        <span class="sa"></span><span class="s">&#34;ArityError: %s expected %d, got %d&#34;</span><span class="p">,</span>
         <span class="n">caller_name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">passed_in</span>
         <span class="p">);</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>I still would like to list the arguments passed in. I can retain access to the
 first operand by copying the pointer at the beginning before transforming it in
 the counting loop.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">arity_check</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">caller_name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">args</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">arity_check</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">caller_name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">args</span><span class="p">,</span> <span class="n">C</span> <span class="o">*</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">C</span> <span class="o">*</span><span class="n">cur</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">passed_in</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">!=</span> <span class="n">NIL</span><span class="p">)</span> <span class="p">{</span>
@@ -163,15 +147,13 @@ the counting loop.</p>
     <span class="p">}</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">passed_in</span> <span class="o">!=</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span>
-        <span class="s">&quot;ArityError: %s expected %d, got %d&quot;</span><span class="p">,</span>
+        <span class="sa"></span><span class="s">&#34;ArityError: %s expected %d, got %d&#34;</span><span class="p">,</span>
         <span class="n">caller_name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">passed_in</span>
         <span class="p">);</span>
         <span class="n">print_list</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Hey great! Now when I call something like:</p>
 
 <pre><code>(quote this (that))

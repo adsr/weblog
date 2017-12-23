@@ -43,14 +43,12 @@ but more on that later&hellip;)</p>
 <p>I eventually settled on a two dimensional array containing 6 other arrays (one
 for each face of the whole cube) of 9 elements each (one for each square on
 each face.) More about the structure from the README:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="vi">@cube</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">-</span> <span class="n">top</span>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="vi">@cube</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">-</span> <span class="n">top</span>
 <span class="vi">@cube</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">-</span> <span class="n">left</span>
 <span class="vi">@cube</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">-</span> <span class="n">back</span>
 <span class="vi">@cube</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span> <span class="o">-</span> <span class="n">right</span>
 <span class="vi">@cube</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span> <span class="o">-</span> <span class="n">front</span>
-<span class="vi">@cube</span><span class="o">[</span><span class="mi">5</span><span class="o">]</span> <span class="o">-</span> <span class="n">bottom</span>
-</code></pre></div>
-
+<span class="vi">@cube</span><span class="o">[</span><span class="mi">5</span><span class="o">]</span> <span class="o">-</span> <span class="n">bottom</span></code></pre></div>
 <p>The first element <code>@cube[x][0]</code> in any array describes the center square of
 that face, and remains static in relation to the other sides, just as a real
 cube&rsquo;s center square would.</p>
@@ -96,7 +94,7 @@ fairly straightforward. there are only 6 basic moves- each face can be turned
 clockwise once (turning a face counterclockwise is the same as turning it
 clockwise three times). here is the method for turning the top face clockwise
 once:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="k">def</span> <span class="nf">u</span>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nc"></span><span class="o"></span><span class="nf">u</span>
     <span class="n">cubetemp</span> <span class="o">=</span> <span class="no">Marshal</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="no">Marshal</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="vi">@cube</span><span class="p">))</span>
 
     <span class="n">cubetemp</span><span class="o">[</span><span class="mi">1</span><span class="o">][</span><span class="mi">4</span><span class="o">]</span> <span class="o">=</span> <span class="vi">@cube</span><span class="o">[</span><span class="mi">4</span><span class="o">][</span><span class="mi">2</span><span class="o">]</span>
@@ -127,9 +125,7 @@ once:</p>
     <span class="vi">@hist</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;u&#39;</span>
     <span class="vi">@cube</span> <span class="o">=</span> <span class="no">Marshal</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="no">Marshal</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">cubetemp</span><span class="p">))</span>
     <span class="nb">self</span>
-  <span class="k">end</span>
-</code></pre></div>
-
+  <span class="k">end</span></code></pre></div>
 <p>Simple- just reassigning all the colors based on how the cube is moving. Notice
 that, because I didn&rsquo;t understand deep copying of data, I used the (then
 magical) &ldquo;Marshal&rdquo; incantation to create a duplicate temporary array to operate

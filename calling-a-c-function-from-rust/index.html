@@ -38,19 +38,17 @@ to <a href="https://doc.rust-lang.org/book/ffi.html">this</a>. I&rsquo;ve heard 
 ok.  Foreign Function Interface. Ok.</p>
 
 <p>So, first I make a C file that has a single, simple function declaration and a <code>main</code> that uses it, and nothing else.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="c1">// main.c</span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// main.c
+</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
 <span class="kt">int</span> <span class="nf">doubler</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i&quot;</span><span class="p">,</span> <span class="n">doubler</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+    <span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i&#34;</span><span class="p">,</span> <span class="n">doubler</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <pre><code>clang main.c
 ./a.out
 </code></pre>
@@ -61,23 +59,19 @@ ok.  Foreign Function Interface. Ok.</p>
 </code></pre>
 
 <p>I&rsquo;ll pull this into two files now, one for the function, and one for the executable.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="c1">// doubler.c</span>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// doubler.c
+</span><span class="c1"></span>
 <span class="kt">int</span> <span class="nf">doubler</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="c1">// main.c</span>
-
-<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;doubler.c&quot;</span><span class="cp"></span>
-
+<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// main.c
+</span><span class="c1"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;doubler.c&#34;</span><span class="cp">
+</span><span class="cp"></span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i&quot;</span><span class="p">,</span> <span class="n">doubler</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+    <span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i&#34;</span><span class="p">,</span> <span class="n">doubler</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This also &ldquo;just works&rdquo;</p>
 
 <pre><code>clang main.c
@@ -89,27 +83,21 @@ ok.  Foreign Function Interface. Ok.</p>
 
 <p>Instead, I want to  <code>#include &quot;doubler.h&quot;</code>. What is <code>doubler.h</code>? It looks like
 this, simply stating the function signature of <code>doubler</code>:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="c1">// doubler.h</span>
-<span class="kt">int</span> <span class="nf">doubler</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// doubler.h
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">doubler</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">);</span></code></pre></div>
 <p>The other two look like this now, with only the change from
 <code>#include &quot;doubler.c&quot;</code> to <code>#include &quot;doubler.h&quot;</code></p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="c1">// doubler.c</span>
-<span class="kt">int</span> <span class="nf">doubler</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// doubler.c
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">doubler</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="c1">// main.c</span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;doubler.h&quot;</span><span class="cp"></span>
-
+<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// main.c
+</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;doubler.h&#34;</span><span class="cp">
+</span><span class="cp"></span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%i&quot;</span><span class="p">,</span> <span class="n">doubler</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+    <span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;%i&#34;</span><span class="p">,</span> <span class="n">doubler</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <pre><code>clang main.c
 </code></pre>
 
@@ -165,12 +153,10 @@ symbol I actually want to link to.</p>
 <p>produces an <code>a.out</code> file that when executed prints <code>2</code>.</p>
 
 <p>So how do I do this from Rust, in the most basic way?</p>
-<div class="highlight"><pre><code class="language-rust" data-lang="rust"><span></span><span class="c1">// main.rs</span>
-<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">doubler</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// main.rs
+</span><span class="c1"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">doubler</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span><span class="w">
+</span><span class="w"></span><span class="p">}</span></code></pre></div>
 <p>If I try to compile this with <code>rustc main.rs</code>, I get an obvious error:</p>
 
 <pre><code>error[E0425]: unresolved name `doubler`
@@ -189,16 +175,14 @@ also know that what I need to do is direct the compiler to expect the symbol
 exists in the C header file, just the function signature.</p>
 
 <p>That equivalent can be put into an <code>extern</code> block, like this:</p>
-<div class="highlight"><pre><code class="language-rust" data-lang="rust"><span></span><span class="c1">// main.rs</span>
-<span class="k">extern</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">fn</span> <span class="nf">doubler</span><span class="p">(</span><span class="n">x</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">u32</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">doubler</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// main.rs
+</span><span class="c1"></span><span class="k">extern</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">doubler</span><span class="p">(</span><span class="n">x</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">u32</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">doubler</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span><span class="w">
+</span><span class="w"></span><span class="p">}</span></code></pre></div>
 <blockquote>
 <p>I am using <code>u32</code> here because on my machine <code>sizeof(int)</code> returns <code>4</code>, which
 is 4 bytes, so 4 * 8 bits = 32 bits.</p>
@@ -217,17 +201,15 @@ error: aborting due to previous error
 
 <p>Because the Rust compiler has no way of controlling what the C code is going to
 do to the data passed into it, I need to wrap this in an unsafe block.</p>
-<div class="highlight"><pre><code class="language-rust" data-lang="rust"><span></span><span class="k">extern</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">fn</span> <span class="nf">doubler</span><span class="p">(</span><span class="n">x</span>: <span class="kt">u8</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">u8</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">doubler</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="k">extern</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">doubler</span><span class="p">(</span><span class="n">x</span>: <span class="kt">u8</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">u8</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">doubler</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span></code></pre></div>
 <pre><code>error: linking with `cc` failed: exit code: 1
   |
   = note: Undefined symbols for architecture x86_64:

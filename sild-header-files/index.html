@@ -102,10 +102,9 @@ explicitly set a target with the <code>-o</code> flag, which specifies the outpu
 
 <p>This is the <em>only</em> line that has been in my makefile this entire time, as a
 matter of fact. (I&rsquo;ll get way deep into makefiles in a while!)</p>
-<div class="highlight"><pre><code class="language-make" data-lang="make"><span></span><span class="nf">sild</span><span class="o">:</span> <span class="n">sild</span>.<span class="n">c</span>
+<div class="highlight"><pre class="chroma"><code class="language-make" data-lang="make"><span class="nf">sild</span><span class="o">:</span> <span class="n">sild</span>.<span class="n">c</span>
 	cc sild.c -o sild
 </code></pre></div>
-
 <p>And when I run make, it compiles <code>sild.c</code> into <code>sild</code> as an executable, and I
 can run it, yay!</p>
 
@@ -145,25 +144,23 @@ more than one .o file is for your own abstraction benefit.</li>
 goal is to abstract those sections into libraries. I&rsquo;ll start with an easy one!
 At the very top of <code>sild.c</code>, I have my replacement <code>strcmp()</code> function that I
 called <code>scmp()</code>.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="cm">/* ----------*/</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/* ----------*/</span>
 <span class="cm">/* utilities */</span>
 <span class="cm">/* ----------*/</span>
 
 <span class="kt">int</span> <span class="nf">scmp</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">str1</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str2</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">str1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">str1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">str2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">||</span> <span class="n">str2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\0&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">str1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">str1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">str2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">||</span> <span class="n">str2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">str2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\0&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">str2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sa"></span><span class="sc">&#39;\0&#39;</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This is a great place to start since this doesn&rsquo;t depend on any other standard
 libraries or even any functions within my own code. I can pull it straight out
 into another file called <code>utils.c</code>. This file will NOT have a main() function,
@@ -191,11 +188,9 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)
 inside of sild.c call <code>scmp()</code>, but it doesn&rsquo;t know where that function is, it
 doesn&rsquo;t know how to link them together.  This is where I was tempted to do this
 in <code>sild.c</code> at the very top:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;utils.c&quot;</span><span class="cp"></span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;utils.c&#34;</span></code></pre></div>
 <p>(Angled brackets search the system libraries path first, and quotes search the
 current directory the file is actually in first, for a matching name.)</p>
 
@@ -209,12 +204,10 @@ file</em> and it will work as you expect.</p>
 </code></pre>
 
 <p>But, this is bad news bears, and scales terribly! Consider this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;utils.c&quot;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&quot;utils.c&quot;</span><span class="cp"></span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;utils.c&#34;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&#34;utils.c&#34;</span></code></pre></div>
 <p>On a compilation attempt, gives the following error:</p>
 
 <pre><code>In file included from sild.c:5:
@@ -339,32 +332,28 @@ run, it will be fine!</p>
 <p>Here are some other considerations. What if <code>scmp()</code> depended on some helper
 function that also would live in utils.c, but this helper function didn&rsquo;t need
 to be exposed to the consumers of the utils library? What if it looked something like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="c1">// utils.c</span>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// utils.c
+</span><span class="c1"></span>
 <span class="kt">int</span> <span class="nf">helper_function</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">string</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
-    <span class="c1">// stuff</span>
-    <span class="k">return</span> <span class="n">result</span>
+    <span class="c1">// stuff
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">result</span>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="nf">scmp</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">str1</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str2</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">thing_i_need</span> <span class="o">=</span> <span class="n">helper_function</span><span class="p">(</span><span class="n">str1</span><span class="p">);</span>
-    <span class="c1">// stuff that uses thing_i_need</span>
-    <span class="c1">// ...</span>
-    <span class="k">return</span> <span class="c1">// whatever</span>
-<span class="p">}</span>
-</code></pre></div>
-
+    <span class="c1">// stuff that uses thing_i_need
+</span><span class="c1"></span>    <span class="c1">// ...
+</span><span class="c1"></span>    <span class="k">return</span> <span class="c1">// whatever
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
 <p>In this case, <code>helper_function()</code> does not need to live in the header file at
 all. It is an implementation detail that lives inside the black box that is
 <code>utils.c</code>, and as such, it should be marked <em>static</em>, like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="k">static</span> <span class="kt">int</span> <span class="nf">helper_function</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">string</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="nf">helper_function</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">string</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
-    <span class="c1">// stuff</span>
-    <span class="k">return</span> <span class="n">result</span>
-<span class="p">}</span>
-</code></pre></div>
-
+    <span class="c1">// stuff
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">result</span>
+<span class="p">}</span></code></pre></div>
 <p>Which tells the compiler that it is not needed outside of its defining module,
 effectively limiting that function&rsquo;s scope to it&rsquo;s translation unit (the object
 file that that c file is compiled into)!</p>
@@ -382,22 +371,18 @@ things more encapsulated</li>
 <p>It is traditional to wrap .h files inside of <em>header guards</em> so that they are
 only processed once no matter how many files <code>#include</code> them. A header guard
 looks like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="cp">#ifndef UNIQUENAME_GUARD </span><span class="c1">// if UNIQUENAME_GUARD is not defined</span>
-<span class="cp">#define UNIQUENAME_GUARD </span><span class="c1">// define it (to nothing, but it is still defined)</span>
-
-<span class="c1">// ...header file prototypes, constants, etc</span>
-
-<span class="cp">#endif </span><span class="c1">// end the if block</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#ifndef UNIQUENAME_GUARD </span><span class="c1">// if UNIQUENAME_GUARD is not defined
+</span><span class="c1"></span><span class="cp">#define UNIQUENAME_GUARD </span><span class="c1">// define it (to nothing, but it is still defined)
+</span><span class="c1"></span>
+<span class="c1">// ...header file prototypes, constants, etc
+</span><span class="c1"></span>
+<span class="cp">#endif // end the if block</span></code></pre></div>
 <p>All of the standard library headers have this, for example, <code>stdio.h</code> starts with:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="cp">#ifndef _STDIO_H_</span>
-<span class="c1">// ...some stuff</span>
-<span class="cp">#define _STDIO_H_</span>
-<span class="c1">// ...some stuff</span>
-<span class="cp">#endif </span><span class="cm">/* _STDIO_H_ */</span><span class="cp"></span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#ifndef _STDIO_H_
+</span><span class="cp"></span><span class="c1">// ...some stuff
+</span><span class="c1"></span><span class="cp">#define _STDIO_H_
+</span><span class="cp"></span><span class="c1">// ...some stuff
+</span><span class="c1"></span><span class="cp">#endif </span><span class="cm">/* _STDIO_H_ */</span></code></pre></div>
 <p>Guard constants that start with underscores are reserved for system library
 usage.</p>
 
@@ -407,14 +392,12 @@ in a bigger project with giant header files, that type of optimization can
 really make a difference, and it is good practice to do it.</p>
 
 <p>So, <code>utils.h</code> will look like this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="cp">#ifndef UTILS_GUARD</span>
-<span class="cp">#define UTILS_GUARD</span>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#ifndef UTILS_GUARD
+</span><span class="cp">#define UTILS_GUARD
+</span><span class="cp"></span>
 <span class="kt">int</span> <span class="nf">scmp</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">);</span>
 
-<span class="cp">#endif</span>
-</code></pre></div>
-
+<span class="cp">#endif</span></code></pre></div>
 <hr>
 
 <p>And that&rsquo;s that! To recap:</p>

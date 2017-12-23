@@ -131,10 +131,8 @@ but the IDE / Compiler / toolchain takes care of all the heavy lifting with
 regard to linking libraries and compiling binaries and flashing the chip on the
 board with the new firmware and all that.  We just need to worry about a single
 <code>.ino</code> file that implements two functions:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">setup</span><span class="p">();</span>
-<span class="kt">void</span> <span class="nf">loop</span><span class="p">();</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">setup</span><span class="p">();</span>
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">();</span></code></pre></div>
 <p><code>setup()</code> runs one time, at the start of the program, and thereafter <code>loop()</code>
 runs indefinitely, on a loop.</p>
 
@@ -142,15 +140,13 @@ runs indefinitely, on a loop.</p>
 hardware and write bare C for chips someday, that day is not today, so this is
 very nice. We just have to write two methods, flash to the board using the IDE,
 and the Arduino will work. :sparkles: Rapid indeed! Here is a simple program:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">pinMode</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p><code>13</code> is the number for one of the board&rsquo;s digital pins, so we&rsquo;re telling it
 that we want to treat that pin as an output pin. It&rsquo;s purely digital, off and
 on, 0v or 5v, and nothing in between, but we have precise control over when it
@@ -158,17 +154,15 @@ is switched, up to the limits of the speed of the processor.</p>
 
 <p>The arduino has other output pins, it doesn&rsquo;t have to be 13. And we hates us
 some magic numbers, so might as well make that into a constant:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="cp">#define OUTPIN 13</span>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define OUTPIN 13
+</span><span class="cp"></span>
 <span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">pinMode</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>The preprocessor will now replace every instance of <code>OUTPIN</code> with the value
 <code>13</code>. This looks similar to variable assignment, but the mechanism underlying
 it is very different. All of those replacements happen at (but really <em>just
@@ -176,18 +170,14 @@ before</em>) compile time, and so a constant should never be redefined after it 
 been given a value.</p>
 
 <p>Something like:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="cp">#define MYAWESOMECONSTANT &quot;this is what I want my constant to be!&quot;</span>
-<span class="cp">#define MYAWESOMECONSTANT &quot;wait I changed my mind!&quot;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define MYAWESOMECONSTANT &#34;this is what I want my constant to be!&#34;
+</span><span class="cp">#define MYAWESOMECONSTANT &#34;wait I changed my mind!&#34;</span></code></pre></div>
 <p>would give us this compile time warning:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="o">/</span><span class="n">private</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="k">const</span><span class="p">.</span><span class="nl">c</span><span class="p">:</span><span class="mi">2</span><span class="o">:</span><span class="mi">9</span><span class="o">:</span> <span class="nl">warning</span><span class="p">:</span> <span class="err">&#39;</span><span class="n">MYAWESOMECONSTANT</span><span class="err">&#39;</span> <span class="n">macro</span> <span class="n">redefined</span>
-<span class="cp">#define MYAWESOMECONSTANT &quot;wait I changed my mind!&quot;</span>
-        <span class="o">^</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="o">/</span><span class="n">private</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="k">const</span><span class="p">.</span><span class="nl">c</span><span class="p">:</span><span class="mi">2</span><span class="o">:</span><span class="mi">9</span><span class="o">:</span> <span class="nl">warning</span><span class="p">:</span> <span class="err">&#39;</span><span class="n">MYAWESOMECONSTANT</span><span class="err">&#39;</span> <span class="n">macro</span> <span class="n">redefined</span>
+<span class="cp">#define MYAWESOMECONSTANT &#34;wait I changed my mind!&#34;
+</span><span class="cp"></span>        <span class="o">^</span>
         <span class="o">/</span><span class="n">private</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="k">const</span><span class="p">.</span><span class="nl">c</span><span class="p">:</span><span class="mi">1</span><span class="o">:</span><span class="mi">9</span><span class="o">:</span> <span class="nl">note</span><span class="p">:</span> <span class="n">previous</span> <span class="n">definition</span> <span class="n">is</span> <span class="n">here</span>
-<span class="cp">#define MYAWESOMECONSTANT &quot;this is what I want my constant to be!&quot;</span>
-</code></pre></div>
-
+<span class="cp">#define MYAWESOMECONSTANT &#34;this is what I want my constant to be!&#34;</span></code></pre></div>
 <p>What does the program above do? It writes <code>HIGH</code> to the output pin as fast as
 it can, forever. <code>HIGH</code> is an arduino library constant that resolves to the
 maximum output voltage of the model of board you have, so for this one, 5v)</p>
@@ -197,12 +187,10 @@ when the program first starts to run, which means that a current <em>is</em> bei
 
 <p>Let&rsquo;s change the loop&hellip; (<code>LOW</code>, as you might guess, is a constant that resolves
 to the minimum output of our board, which is 0v):</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This does more&hellip; I mean, it makes a &hellip; sound. :</p>
 
 <iframe src="https://vine.co/v/5w11Hdx3Aq5/embed/simple" width="480" height="480" frameborder="0"></iframe>
@@ -212,16 +200,14 @@ moving back and forth, and we can hear a high pitched, messy squeal as a result.
 
 <p>We want a more control over this, but let&rsquo;s start by making something pretty
 close to white noise.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">no_whammies</span> <span class="o">=</span> <span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">no_whammies</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
         <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>With that program, there is a <sup>50</sup>&frasl;<sub>50</sub> chance for either high or low. It sounds like this:</p>
 
 <iframe src="https://vine.co/v/5w11zw1KXAn/embed/simple" width="480" height="480" frameborder="0"></iframe>
@@ -243,13 +229,11 @@ electromagnetic waves.</p>
 A light that flashes once a second is flashing at 1Hz.</p>
 
 <p>Let&rsquo;s make this speaker &ldquo;flash&rdquo; at once per second:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
     <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <iframe src="https://vine.co/v/5w1dBnKBPve/embed/simple" width="600" height="600" frameborder="0"></iframe>
 
 <p>(<code>delay()</code> takes an int that represents milliseconds, so this is one second)</p>
@@ -260,14 +244,12 @@ and then waits a second before doing it again. There might be a better way; the
 cone likely isn&rsquo;t even getting all the way out before being pulled back in.</p>
 
 <p>Recall that the speaker cone clicks when it goes in, AND when it goes out.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
     <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
     <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <iframe src="https://vine.co/v/5w1JPlIMBt9/embed/simple" width="480" height="480" frameborder="0"></iframe>
 
 <p>Now you have your own shitty, too quiet, incredibly user unfriendly
@@ -327,14 +309,12 @@ Tepfer</a>:</p>
 </blockquote>
 
 <p>Let&rsquo;s try having it wait just 1 millisecond between <code>HIGH</code> and <code>LOW</code>&hellip;</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
     <span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
     <span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This is one cycle every two milliseconds, which is 500 cycles per second, which
 is 500Hz. Cross referencing with the chart above, our speaker should be
 producing a note about 6.12Hz faster than a B above middle C. Let&rsquo;s see:</p>
@@ -345,14 +325,12 @@ producing a note about 6.12Hz faster than a B above middle C. Let&rsquo;s see:</
 using <code>delay()</code> because it takes milliseconds. In order to delay a smaller
 amount between <code>HIGH</code> and <code>LOW</code> we would need to delay for a shorter period
 than 1ms. Luckily, we can:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
     <span class="n">delayMicroseconds</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
     <span class="n">delayMicroseconds</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This code is a refactor of the loop above. A millisecond is 1/1000th of a
 second, but a microsecond is 1/1000th of a millisecond. We&rsquo;re in the
 millionth&rsquo;s of a second here, and so can be a lot more precise!</p>
@@ -378,14 +356,12 @@ is <code>μs</code>, which I didn&rsquo;t know until just now when I looked it u
 <p>Remember that to complete one complete cycle, we have to write <code>HIGH</code>, then
 wait for <sup>1</sup>&frasl;<sub>2</sub> a cycle, then write <code>LOW</code>, then wait for the remaining half. Half
 of 2272μs is 1136μs, so:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
     <span class="n">delayMicroseconds</span><span class="p">(</span><span class="mi">1136</span><span class="p">);</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
     <span class="n">delayMicroseconds</span><span class="p">(</span><span class="mi">1136</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Will produce a tone at <em>precisely</em> 440Hz.</p>
 
 <iframe src="https://vine.co/v/5w1njzB1eEI/embed/simple" width="480" height="480" frameborder="0"></iframe>
@@ -400,32 +376,26 @@ the specifics in another post.</p>
 
 <p>This is begging to be made into a function that takes a frequency and returns a
 discrete number of microseconds that are equal to have of one cycle. Here it is:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">float</span> <span class="nf">halfCycleDelay</span><span class="p">(</span><span class="kt">float</span> <span class="n">freq</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">float</span> <span class="nf">halfCycleDelay</span><span class="p">(</span><span class="kt">float</span> <span class="n">freq</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">freq</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>The math geniuses out there will no doubt note that this can be simplified to:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">float</span> <span class="nf">halfCycleDelay</span><span class="p">(</span><span class="kt">float</span> <span class="n">freq</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">float</span> <span class="nf">halfCycleDelay</span><span class="p">(</span><span class="kt">float</span> <span class="n">freq</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="mi">500000</span> <span class="o">/</span> <span class="n">freq</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>I&rsquo;m returning a float just to retain that precision, though
 <code>delayMicroseconds()</code> casts it to an <code>int</code> anyway. NBD.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="kt">float</span> <span class="n">delay_time</span> <span class="o">=</span> <span class="n">halfCycleDelay</span><span class="p">(</span><span class="mf">440.0</span><span class="p">);</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
     <span class="n">delayMicroseconds</span><span class="p">(</span><span class="n">delay_time</span><span class="p">);</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
     <span class="n">delayMicroseconds</span><span class="p">(</span><span class="n">delay_time</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This is a nice little thing to encapsulate, so I&rsquo;m going to do that, and there
 is no reason not to make the frequency that I&rsquo;m computing the delay time for
 into a argument that is passed into the function:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">square_wave</span><span class="p">(</span><span class="kt">float</span> <span class="n">freq</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">square_wave</span><span class="p">(</span><span class="kt">float</span> <span class="n">freq</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">float</span> <span class="n">delay_time</span> <span class="o">=</span> <span class="n">halfCycleDelay</span><span class="p">(</span><span class="n">freq</span><span class="p">);</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
     <span class="n">delayMicroseconds</span><span class="p">(</span><span class="n">delay_time</span><span class="p">);</span>
@@ -435,16 +405,14 @@ into a argument that is passed into the function:</p>
 
 <span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">square_wave</span><span class="p">(</span><span class="mf">440.0</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>So, a couple of things here&hellip; first, that name. I&rsquo;m calling that function
 <code>square_wave()</code> because that&rsquo;s the type of wave that is being produced. More on
 that later. Also, notice that every loop is calling <code>square_wave()</code>,
 which is calling <code>halfCycleDelay()</code>, which is doing some computations. I don&rsquo;t
 really need to do that on every loop, it would seem better to do something like
 this:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">square_wave</span><span class="p">(</span><span class="kt">float</span> <span class="n">delay_time</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">square_wave</span><span class="p">(</span><span class="kt">float</span> <span class="n">delay_time</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>
     <span class="n">delayMicroseconds</span><span class="p">(</span><span class="n">delay_time</span><span class="p">);</span>
     <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
@@ -455,9 +423,7 @@ this:</p>
 
 <span class="kt">void</span> <span class="n">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">square_wave</span><span class="p">(</span><span class="n">delay</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>But I&rsquo;m not going to do that, for reasons that will be clear in a moment.</p>
 
 <p>Clearly, to do anything useful, we need to come up with a way to
@@ -469,7 +435,7 @@ with&hellip;. one second.</p>
 since the board started running: <code>millis()</code>. By comparing the return value of
 this function when we call it in different places, we can keep track of
 relative time inside a function.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">square_wave</span><span class="p">(</span><span class="kt">float</span> <span class="n">freq</span><span class="p">){</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">square_wave</span><span class="p">(</span><span class="kt">float</span> <span class="n">freq</span><span class="p">){</span>
     <span class="kt">float</span> <span class="n">delay_time</span> <span class="o">=</span> <span class="n">halfCycleDelay</span><span class="p">(</span><span class="n">freq</span><span class="p">);</span>
     <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">start_time</span> <span class="o">=</span> <span class="n">millis</span><span class="p">();</span>
 
@@ -484,9 +450,7 @@ relative time inside a function.</p>
 <span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">square_wave</span><span class="p">(</span><span class="mf">440.0</span><span class="p">);</span>
     <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This one just beeps an A 440 for one second, and then waits for one second so
 that we can hear when the notes stops and starts. This is very exciting,
 actually!</p>
@@ -512,7 +476,7 @@ actually!</p>
 <p>Now I can make music.</p>
 
 <p>There is no reason to hard code the length of the note, though, so lets change that function a little bit:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">square_wave</span><span class="p">(</span><span class="kt">float</span> <span class="n">freq</span><span class="p">,</span> <span class="kt">int</span> <span class="n">duration</span><span class="p">){</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">square_wave</span><span class="p">(</span><span class="kt">float</span> <span class="n">freq</span><span class="p">,</span> <span class="kt">int</span> <span class="n">duration</span><span class="p">){</span>
     <span class="kt">float</span> <span class="n">delay_time</span> <span class="o">=</span> <span class="n">halfCycleDelay</span><span class="p">(</span><span class="n">freq</span><span class="p">);</span>
     <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">start_time</span> <span class="o">=</span> <span class="n">millis</span><span class="p">();</span>
 
@@ -522,22 +486,18 @@ actually!</p>
         <span class="n">digitalWrite</span><span class="p">(</span><span class="n">OUTPIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>
         <span class="n">delayMicroseconds</span><span class="p">(</span><span class="n">delay_time</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p><code>duration</code> here is in milliseconds. Let&rsquo;s play a scale; recall that frequency
 chart from before&hellip; I&rsquo;ll enter all the <em>natural notes</em> (white keys) into an array.</p>
 
 <p>This code plays two octaves of a C major scale:</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">float</span> <span class="n">notes</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mf">130.813</span><span class="p">,</span> <span class="mf">146.832</span><span class="p">,</span> <span class="mf">164.841</span><span class="p">,</span> <span class="mf">174.614</span><span class="p">,</span> <span class="mf">195.998</span><span class="p">,</span> <span class="mf">220.000</span><span class="p">,</span> <span class="mf">246.942</span><span class="p">,</span> <span class="mf">261.626</span><span class="p">,</span> <span class="mf">293.665</span><span class="p">,</span> <span class="mf">329.628</span><span class="p">,</span> <span class="mf">349.228</span><span class="p">,</span> <span class="mf">391.995</span><span class="p">,</span> <span class="mf">440.0</span><span class="p">,</span> <span class="mf">493.883</span><span class="p">,</span> <span class="mf">523.251</span> <span class="p">};</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">float</span> <span class="n">notes</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mf">130.813</span><span class="p">,</span> <span class="mf">146.832</span><span class="p">,</span> <span class="mf">164.841</span><span class="p">,</span> <span class="mf">174.614</span><span class="p">,</span> <span class="mf">195.998</span><span class="p">,</span> <span class="mf">220.000</span><span class="p">,</span> <span class="mf">246.942</span><span class="p">,</span> <span class="mf">261.626</span><span class="p">,</span> <span class="mf">293.665</span><span class="p">,</span> <span class="mf">329.628</span><span class="p">,</span> <span class="mf">349.228</span><span class="p">,</span> <span class="mf">391.995</span><span class="p">,</span> <span class="mf">440.0</span><span class="p">,</span> <span class="mf">493.883</span><span class="p">,</span> <span class="mf">523.251</span> <span class="p">};</span>
 
 <span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">,</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">square_wave</span><span class="p">(</span><span class="n">notes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">500</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <iframe src="https://vine.co/v/5w1vB7FFnaH/embed/simple" width="480" height="480" frameborder="0"></iframe>
 
 <p>Not very beautiful (and still out of tune), but recognizably <em>musical</em>.</p>
@@ -547,13 +507,11 @@ an array. When initializing such a <code>2d</code> array, the first number in br
 represents the number of elements in the array and the second the number of
 elements in each subarray. All of the sub arrays must have the same number of
 elements in them.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">float</span> <span class="n">c_major_trid</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">float</span> <span class="n">c_major_trid</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">{</span><span class="mf">261.626</span><span class="p">,</span> <span class="mf">500.0</span><span class="p">},</span>
     <span class="p">{</span><span class="mf">329.628</span><span class="p">,</span> <span class="mf">750.0</span><span class="p">},</span>
     <span class="p">{</span><span class="mf">391.995</span><span class="p">,</span> <span class="mf">250.0</span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>This is an ugly. verbose way to represent melodic information, and there are
 many many better and more semantic ways to do so, but for now it has the
 advantage of being very straightforward and very simple, based on what we&rsquo;ve
@@ -570,7 +528,7 @@ passed <code>0</code> into <code>square_wave()</code> currently.</p>
 
 <p>Let&rsquo;s tweak <code>square_wave()</code> to simply delay for the passed in duration in the
 event of a <code>0</code> frequency.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">square_wave</span><span class="p">(</span><span class="kt">float</span> <span class="n">freq</span><span class="p">,</span> <span class="kt">int</span> <span class="n">duration</span><span class="p">){</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">square_wave</span><span class="p">(</span><span class="kt">float</span> <span class="n">freq</span><span class="p">,</span> <span class="kt">int</span> <span class="n">duration</span><span class="p">){</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">delay</span><span class="p">(</span><span class="n">duration</span><span class="p">);</span>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -584,9 +542,7 @@ event of a <code>0</code> frequency.</p>
             <span class="n">delayMicroseconds</span><span class="p">(</span><span class="n">delay_time</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Now we have an easy way to trigger silence, and we&rsquo;ve accounted for that edge
 case, as well.</p>
 
@@ -595,17 +551,15 @@ to explicitly pass in the size of the array that is holding the melody, because
 of the way C treats local bindings. That gets a little hairy, just know right
 now that <code>size_of_melody</code> is telling <code>play_melody</code> how many notes and rests in
 total to play before exiting the <code>for</code> loop.</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="kt">void</span> <span class="nf">play_melody</span><span class="p">(</span><span class="kt">float</span> <span class="n">melody</span><span class="p">[][</span><span class="mi">2</span><span class="p">],</span> <span class="kt">size_t</span> <span class="n">size_of_melody</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">play_melody</span><span class="p">(</span><span class="kt">float</span> <span class="n">melody</span><span class="p">[][</span><span class="mi">2</span><span class="p">],</span> <span class="n">size_t</span> <span class="n">size_of_melody</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size_of_melody</span> <span class="o">/</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">square_wave</span><span class="p">(</span><span class="n">melody</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">melody</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
     <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p>Now that we have this little function, we can just feed it a &ldquo;melody&rdquo; in the correct format, and it will play it!</p>
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span></span><span class="c1">//                  C        D        E        F        G        A        B        C        D        E        F        G        A      B        C</span>
-<span class="c1">//                  0        1        2        3        4        5        6        7        8        9        10       11       12     13       14</span>
-<span class="kt">float</span> <span class="n">notes</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mf">130.813</span><span class="p">,</span> <span class="mf">146.832</span><span class="p">,</span> <span class="mf">164.841</span><span class="p">,</span> <span class="mf">174.614</span><span class="p">,</span> <span class="mf">195.998</span><span class="p">,</span> <span class="mf">220.000</span><span class="p">,</span> <span class="mf">246.942</span><span class="p">,</span> <span class="mf">261.626</span><span class="p">,</span> <span class="mf">293.665</span><span class="p">,</span> <span class="mf">329.628</span><span class="p">,</span> <span class="mf">349.228</span><span class="p">,</span> <span class="mf">391.995</span><span class="p">,</span> <span class="mf">440.0</span><span class="p">,</span> <span class="mf">493.883</span><span class="p">,</span> <span class="mf">523.251</span> <span class="p">};</span>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">//                  C        D        E        F        G        A        B        C        D        E        F        G        A      B        C
+</span><span class="c1">//                  0        1        2        3        4        5        6        7        8        9        10       11       12     13       14
+</span><span class="c1"></span><span class="kt">float</span> <span class="n">notes</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mf">130.813</span><span class="p">,</span> <span class="mf">146.832</span><span class="p">,</span> <span class="mf">164.841</span><span class="p">,</span> <span class="mf">174.614</span><span class="p">,</span> <span class="mf">195.998</span><span class="p">,</span> <span class="mf">220.000</span><span class="p">,</span> <span class="mf">246.942</span><span class="p">,</span> <span class="mf">261.626</span><span class="p">,</span> <span class="mf">293.665</span><span class="p">,</span> <span class="mf">329.628</span><span class="p">,</span> <span class="mf">349.228</span><span class="p">,</span> <span class="mf">391.995</span><span class="p">,</span> <span class="mf">440.0</span><span class="p">,</span> <span class="mf">493.883</span><span class="p">,</span> <span class="mf">523.251</span> <span class="p">};</span>
 
 <span class="kt">float</span> <span class="n">my_bonnie_lies_over_the_ocean</span><span class="p">[][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="p">{</span><span class="n">notes</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="mi">500</span><span class="p">},</span>
@@ -650,9 +604,7 @@ total to play before exiting the <code>for</code> loop.</p>
 
 <span class="kt">void</span> <span class="n">loop</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">play_melody</span><span class="p">(</span><span class="n">my_bonnie_lies_over_the_ocean</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">my_bonnie_lies_over_the_ocean</span><span class="p">));</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<span class="p">}</span></code></pre></div>
 <p><a href="https://www.instagram.com/p/BLzxOcDlqGr/" target="_blank">Sing oh sing that song little speaker.</a></p>
 
 <hr>

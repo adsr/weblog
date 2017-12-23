@@ -109,40 +109,28 @@ authored in the early 70&rsquo;s. <code>patch</code> was capable of taking the <
 <p>Here&rsquo;s a thing to try! Run some commands in an empty directory (not a git repo
 just an empty directory&hellip;)</p>
 </blockquote>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span><span class="nb">printf</span> <span class="s1">&#39;hi mom\nhi dad\n&#39;</span> &gt; <span class="m">1</span>.txt
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">printf</span> <span class="s1">&#39;hi mom\nhi dad\n&#39;</span> &gt; <span class="m">1</span>.txt
 <span class="nb">printf</span> <span class="s1">&#39;hi mom\nhi dad\nhello world\n&#39;</span> &gt; <span class="m">2</span>.txt
 cat <span class="m">1</span>.txt
-cat <span class="m">2</span>.txt
-</code></pre></div>
-
+cat <span class="m">2</span>.txt</code></pre></div>
 <blockquote>
 <p>Just makin&rsquo; some files! How are they different?</p>
 </blockquote>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>diff <span class="m">1</span>.txt <span class="m">2</span>.txt
-diff <span class="m">2</span>.txt <span class="m">1</span>.txt
-</code></pre></div>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>diff <span class="m">1</span>.txt <span class="m">2</span>.txt &gt; look_a_patch_file_omg
-cat look_a_patch_file_omg
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">diff <span class="m">1</span>.txt <span class="m">2</span>.txt
+diff <span class="m">2</span>.txt <span class="m">1</span>.txt</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">diff <span class="m">1</span>.txt <span class="m">2</span>.txt &gt; look_a_patch_file_omg
+cat look_a_patch_file_omg</code></pre></div>
 <blockquote>
 <p>We saved those differences into the patchfile&hellip; notice the name is
 inconsequential, it doesn&rsquo;t need a suffix to describe a filetype.</p>
 
 <p>Let&rsquo;s apply that patch, then!</p>
 </blockquote>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>patch <span class="m">1</span> &lt; look_a_patch_file_omg
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">patch <span class="m">1</span> &lt; look_a_patch_file_omg</code></pre></div>
 <blockquote>
 <p>or</p>
 </blockquote>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>patch <span class="m">2</span> &lt; look_a_patch_file_omg
-</code></pre></div>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>cat <span class="m">1</span>.txt
-cat <span class="m">2</span>.txt
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">patch <span class="m">2</span> &lt; look_a_patch_file_omg</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">cat <span class="m">1</span>.txt
+cat <span class="m">2</span>.txt</code></pre></div>
 <blockquote>
 <p>This is basically all <code>git diff</code> and <code>git apply</code> do, but the diff is taken from
 what a file looked like at a specified ref (a ref[erence] is a commit hash, or

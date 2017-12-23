@@ -50,9 +50,7 @@ incomprehensible, FYI.</p>
 
 <p>brainfuck interpreters recognize only 8 characters (<em>sometimes</em> 9, but
 not really&hellip; back to that later):</p>
-<div class="highlight"><pre><code class="language-brainfuck" data-lang="brainfuck"><span></span><span class="nb">+</span><span class="c">   </span><span class="nb">-</span><span class="c">   </span><span class="k">[</span><span class="c">   </span><span class="k">]</span><span class="c">   </span><span class="nt">.</span><span class="c">   </span><span class="nt">,</span><span class="c">   </span><span class="nv">&lt;</span><span class="c">   </span><span class="nv">&gt;</span><span class="c"></span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-brainfuck" data-lang="brainfuck"><span class="nb">+</span><span class="c">   </span><span class="nb">-</span><span class="c">   </span><span class="k">[</span><span class="c">   </span><span class="k">]</span><span class="c">   </span><span class="nt">.</span><span class="c">   </span><span class="nt">,</span><span class="c">   </span><span class="nv">&lt;</span><span class="c">   </span><span class="nv">&gt;</span></code></pre></div>
 <p>Any and all spaces, extra characters, line breaks, etc, are completely ignored.
 100%. The program really looks like a long string with no spaces consisting of
 just those 8.  Before moving on, here are some interesting things I learned
@@ -108,17 +106,13 @@ href="http://en.wikipedia.org/wiki/Turing_machine">Universal Turing
 Machine.</a></p>
 
 <p>Now we can understand what the first four symbols do.</p>
-<div class="highlight"><pre><code class="language-brainfuck" data-lang="brainfuck"><span></span><span class="nv">&lt;</span><span class="c">   moves the pointer to the left decreasingly</span>
-<span class="nv">&gt;</span><span class="c">   moves the pointer to the right increasingly</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-brainfuck" data-lang="brainfuck"><span class="nv">&lt;</span><span class="c">   moves the pointer to the left decreasingly
+</span><span class="c"></span><span class="nv">&gt;</span><span class="c">   moves the pointer to the right increasingly</span></code></pre></div>
 <p>Usually, the location of the pointer will &ldquo;roll over&rdquo; if it goes below 0 or
 above 30,000&hellip; (or above whatever the maximum number available is) effectively
 making the memory cells act like one long circular tape.</p>
-<div class="highlight"><pre><code class="language-brainfuck" data-lang="brainfuck"><span></span><span class="nb">+</span><span class="c">   increments the value of the byte at the current slot</span>
-<span class="nb">-</span><span class="c">   decrements the value of the byte at the current slot</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-brainfuck" data-lang="brainfuck"><span class="nb">+</span><span class="c">   increments the value of the byte at the current slot
+</span><span class="c"></span><span class="nb">-</span><span class="c">   decrements the value of the byte at the current slot</span></code></pre></div>
 <p>So far so good. So here&rsquo;s a new brainfuck space, I&rsquo;ll only show 10 spots
 because I am not going to type 30,000 (and the brackets surround where the
 cursor is):</p>
@@ -127,9 +121,7 @@ cursor is):</p>
 </code></pre>
 
 <p>Pointer starts at one; everything is zero. Now if we ran this code:</p>
-<div class="highlight"><pre><code class="language-brainfuck" data-lang="brainfuck"><span></span><span class="nb">+++</span><span class="nv">&gt;&gt;&gt;</span><span class="nb">+</span><span class="nv">&gt;</span><span class="nb">--</span><span class="c"></span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-brainfuck" data-lang="brainfuck"><span class="nb">+++</span><span class="nv">&gt;&gt;&gt;</span><span class="nb">+</span><span class="nv">&gt;</span><span class="nb">--</span></code></pre></div>
 <p>The memory array would end up looking like this:</p>
 
 <pre><code> 3 0 0 1 [254] 0 0 0 0 0 0 ...
@@ -142,10 +134,8 @@ one byte per cell is all you would get. Notice also where the pointer ends up-
 on the last cell it pointed to.</p>
 
 <p>Two more symbols- the input and output.</p>
-<div class="highlight"><pre><code class="language-brainfuck" data-lang="brainfuck"><span></span><span class="nt">,</span><span class="c">   waits for the user to input a value and places it at the current cell</span>
-<span class="nt">.</span><span class="c">   outputs the value at the current cell (prints to screen)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-brainfuck" data-lang="brainfuck"><span class="nt">,</span><span class="c">   waits for the user to input a value and places it at the current cell
+</span><span class="c"></span><span class="nt">.</span><span class="c">   outputs the value at the current cell (prints to screen)</span></code></pre></div>
 <p>The values 0-255 are mapped to characters using <a
 href="http://www.asciichart.com">ASCII</a>- so if I wanted a cell to contain
 the value &ldquo;103,&rdquo; I would press &ldquo;g&rdquo; (lowercase). Similarly, if the cell had a
@@ -156,19 +146,17 @@ value of 103 (&ldquo;0110 0111&rdquo; in binary, &ldquo;67&rdquo; in hexadecimal
 can have it say <i>anything</i> just using <code>+</code>,<code>-</code> and <code>.</code></p>
 
 <p>Here&rsquo;s a super simple hello world:</p>
-<div class="highlight"><pre><code class="language-brainfuck" data-lang="brainfuck"><span></span><span class="nb">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span><span class="nt">.</span><span class="c"></span>
-<span class="nb">+++++++++++++++++++++++++++++</span><span class="nt">.</span><span class="c">  </span>
-<span class="nb">+++++++</span><span class="nt">..</span><span class="c"></span>
-<span class="nb">+++</span><span class="nt">.</span><span class="c"></span>
-<span class="nb">-------------------------------------------------------------------------------</span><span class="nt">.</span><span class="c"></span>
-<span class="nb">+++++++++++++++++++++++++++++++++++++++++++++++++++++++</span><span class="nt">.</span><span class="c"></span>
-<span class="nb">++++++++++++++++++++++++</span><span class="nt">.</span><span class="c"></span>
-<span class="nb">+++</span><span class="nt">.</span><span class="c"></span>
-<span class="nb">------</span><span class="nt">.</span><span class="c"></span>
-<span class="nb">--------</span><span class="nt">.</span><span class="c"></span>
-<span class="nb">-------------------------------------------------------------------</span><span class="nt">.</span><span class="c"></span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-brainfuck" data-lang="brainfuck"><span class="nb">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span><span class="nt">.</span><span class="c">
+</span><span class="c"></span><span class="nb">+++++++++++++++++++++++++++++</span><span class="nt">.</span><span class="c">  
+</span><span class="c"></span><span class="nb">+++++++</span><span class="nt">..</span><span class="c">
+</span><span class="c"></span><span class="nb">+++</span><span class="nt">.</span><span class="c">
+</span><span class="c"></span><span class="nb">-------------------------------------------------------------------------------</span><span class="nt">.</span><span class="c">
+</span><span class="c"></span><span class="nb">+++++++++++++++++++++++++++++++++++++++++++++++++++++++</span><span class="nt">.</span><span class="c">
+</span><span class="c"></span><span class="nb">++++++++++++++++++++++++</span><span class="nt">.</span><span class="c">
+</span><span class="c"></span><span class="nb">+++</span><span class="nt">.</span><span class="c">
+</span><span class="c"></span><span class="nb">------</span><span class="nt">.</span><span class="c">
+</span><span class="c"></span><span class="nb">--------</span><span class="nt">.</span><span class="c">
+</span><span class="c"></span><span class="nb">-------------------------------------------------------------------</span><span class="nt">.</span></code></pre></div>
 <p><a href="https://repl.it/MBmv/0" target="_blank">Check it out here and run it.</a></p>
 
 <p>Easy, right? You&rsquo;ll notice two things. It works great! and.. only the first
@@ -193,23 +181,17 @@ to start from a fresh cell. Easy! Notice that the memory slots are all filling
 up with 33&rsquo;s as well. やった！</p>
 
 <p>But we have two more symbols, and they are the really good ones:</p>
-<div class="highlight"><pre><code class="language-brainfuck" data-lang="brainfuck"><span></span><span class="k">[</span><span class="c">   if the value of current cell is zero skip to the matching bracket without executing the code</span>
-<span class="k">]</span><span class="c">   if the value of the current cell is NOT zero go back to the opening bracket and execute the code again</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-brainfuck" data-lang="brainfuck"><span class="k">[</span><span class="c">   if the value of current cell is zero skip to the matching bracket without executing the code
+</span><span class="c"></span><span class="k">]</span><span class="c">   if the value of the current cell is NOT zero go back to the opening bracket and execute the code again</span></code></pre></div>
 <p>OMG! LOORPS!</p>
 
 <p>The simplest loop in brainfuck is this one:</p>
-<div class="highlight"><pre><code class="language-brainfuck" data-lang="brainfuck"><span></span><span class="k">[</span><span class="nb">-</span><span class="k">]</span><span class="c"></span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-brainfuck" data-lang="brainfuck"><span class="k">[</span><span class="nb">-</span><span class="k">]</span></code></pre></div>
 <p>This code decreases the value of the current cell until it is zero. If you just
 ran this code and nothing else, it wouldn&rsquo;t do anything because the cell is
 initialized at 0, thereby making the program skip the internal parts of the
 bracket. But if we run this code:</p>
-<div class="highlight"><pre><code class="language-brainfuck" data-lang="brainfuck"><span></span><span class="nb">+++++</span><span class="c"> </span><span class="k">[</span><span class="nb">-</span><span class="k">]</span><span class="c"></span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-brainfuck" data-lang="brainfuck"><span class="nb">+++++</span><span class="c"> </span><span class="k">[</span><span class="nb">-</span><span class="k">]</span></code></pre></div>
 <p>Well, it still <em>looks</em> like it does nothing, but really it increments
 the value to 5 and then decrements it to zero.</p>
 
@@ -246,9 +228,7 @@ car by bolting parts onto a skateboard.</p>
 
 <p>You can use a helper cell to iterate a loop a specified number of times.
 Consider this:</p>
-<div class="highlight"><pre><code class="language-brainfuck" data-lang="brainfuck"><span></span><span class="nb">+++++</span><span class="c"> </span><span class="nb">+++++</span><span class="c"> </span><span class="k">[</span><span class="nv">&gt;</span><span class="c"> </span><span class="nb">+++++</span><span class="c"> </span><span class="nb">+++++</span><span class="c"> </span><span class="nv">&lt;</span><span class="c"> </span><span class="nb">-</span><span class="k">]</span><span class="c"></span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-brainfuck" data-lang="brainfuck"><span class="nb">+++++</span><span class="c"> </span><span class="nb">+++++</span><span class="c"> </span><span class="k">[</span><span class="nv">&gt;</span><span class="c"> </span><span class="nb">+++++</span><span class="c"> </span><span class="nb">+++++</span><span class="c"> </span><span class="nv">&lt;</span><span class="c"> </span><span class="nb">-</span><span class="k">]</span></code></pre></div>
 <p>This loads the first cell (our counter) to 10, then when the loop starts it
 moves over to cell two to increment 10 times, before moving back to cell one to
 decrement once. Just like before, it runs the code until the cell reaches zero-
