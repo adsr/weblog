@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="/css/style.css">
     <link href="" rel="alternate feed" type="application/rss+xml" title="RSS Feed for blog.jfo.click" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-77907408-1', 'auto');
+        ga('send', 'pageview');
+    </script>
 </head>
 
 
@@ -406,7 +415,8 @@ and returned.</p>
          cur = cur-&gt;next;
      }
      return NULL;
-<span class="err"> }</span></code></pre></div>
+ }
+</code></pre></div>
 <p>and down in <code>new_env()</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"> Env *new_env() {
 
@@ -420,7 +430,8 @@ and returned.</p>
      if (!out) { exit(1); };
      out-&gt;head = entry1;
      return out;
-<span class="err"> }</span></code></pre></div>
+ }
+</code></pre></div>
 <p>This works great for something like:</p>
 
 <pre><code>one
@@ -877,4 +888,8 @@ done reading all the forms in a file.</p>
             </article>
         </div>
     </body>
+
+    
+
+
 </html>

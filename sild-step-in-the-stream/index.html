@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="/css/style.css">
     <link href="" rel="alternate feed" type="application/rss+xml" title="RSS Feed for blog.jfo.click" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-77907408-1', 'auto');
+        ga('send', 'pageview');
+    </script>
 </head>
 
 
@@ -182,7 +191,8 @@ unified diff is actually a great illustration of the changes I had to make:</p>
 <span class="gi">+            fseek(s, -1, SEEK_CUR);
 </span><span class="gi"></span>             return categorize(s);
          }
-<span class="err">     }</span></code></pre></div>
+     }
+</code></pre></div>
 <p>I only have to dereference the current char at the beginning of the function,
 which implicitly advances the pointer, so I can remove all the conditional
 <code>(*s)++</code>* businesses. This does mean that I have to <em>explicitly</em> retract the
@@ -234,7 +244,8 @@ converted to accepting FILE pointers in a very similar way:</p>
          return makecell(BUILTIN, (V){ .func = {token, quote} }, read(s));
 <span class="gu">@@ -61,24 +65,22 @@ static C* categorize(char **s) {
 </span><span class="gu"></span>     }
-<span class="err"> }</span></code></pre></div>
+ }
+</code></pre></div>
 <p>I&rsquo;ve added <code>EOF</code> to the list of delimiters, and replaced all the string pointer
 dereferencings with calls to <code>getc()</code>. I&rsquo;ve also changed the function prototype
 in <code>read.h</code> to reflect the new typing. Overall, this actually makes things a
@@ -254,7 +265,8 @@ lot more readable, I think!</p>
                           print(an_evalled_list);
                           /* debug_list(an_evalled_list); */
     return 0;
-<span class="err">}</span></code></pre></div>
+}
+</code></pre></div>
 <p>Now, a file called <code>test.sld</code> will open, and be read just like the string was
 read, in constant time and with <em>no buffering</em>.</p>
 
@@ -461,4 +473,8 @@ just like I would expect it to be run.</p>
             </article>
         </div>
     </body>
+
+    
+
+
 </html>
