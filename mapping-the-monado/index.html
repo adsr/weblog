@@ -167,11 +167,13 @@ object that has a <code>value</code> property.</p>
     <span class="k">return</span> <span class="p">{</span>
         <span class="nx">value</span><span class="o">:</span> <span class="nx">x</span>
     <span class="p">};</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>For now, <code>unit</code> will simply be a wrapper around this constructor.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">const</span> <span class="nx">unit</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nx">Thing</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>I will use only the <code>unit</code> function below, and it always means <code>new Thing()</code>.</p>
 
 <h2 id="bind"><code>bind()</code></h2>
@@ -185,10 +187,12 @@ at it as javascript with type annotations!</p>
 <p>Here is a function that takes a number and adds one to it and return a number!</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">const</span> <span class="nx">addOne</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span> <span class="o">:</span> <span class="nx">number</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>What if I want to add one to a <code>Thing</code>?</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">mx</span> <span class="o">=</span> <span class="nx">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="nx">addOne</span><span class="p">(</span><span class="nx">mx</span><span class="p">);</span></code></pre></div>
+<span class="nx">addOne</span><span class="p">(</span><span class="nx">mx</span><span class="p">);</span>
+</code></pre></div>
 <p><code>mx</code> is a <code>Thing</code>, and <code>addOne</code> expects and <code>number</code>, so I get this compilation
 error:</p>
 
@@ -211,11 +215,13 @@ string <code>&quot;1&quot;</code> onto the end. Typescript catches this error.</
 <code>value</code> of a <code>Thing</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">const</span> <span class="nx">addOneToThing</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">mx</span><span class="o">:</span> <span class="nx">Thing</span><span class="p">)</span> <span class="o">:</span> <span class="nx">Thing</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">unit</span><span class="p">(</span><span class="nx">mx</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>This function takes a <code>Thing</code> and returns a <em>new</em> <code>Thing</code>. And it does what I would
 expect it to.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">mx</span> <span class="o">=</span> <span class="nx">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="nx">addOneToThing</span><span class="p">(</span><span class="nx">mx</span><span class="p">);</span></code></pre></div>
+<span class="nx">addOneToThing</span><span class="p">(</span><span class="nx">mx</span><span class="p">);</span>
+</code></pre></div>
 <pre><code>{ value: 2 }
 </code></pre>
 
@@ -229,12 +235,14 @@ contained inside of another type.</em></p>
 <code>Thing</code>, which is just an object with a <code>value</code> property that is a number!</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">const</span> <span class="nx">bind</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fn</span><span class="o">:</span> <span class="nb">Function</span><span class="p">,</span> <span class="nx">mx</span><span class="o">:</span> <span class="nx">Thing</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">fn</span><span class="p">(</span><span class="nx">mx</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><code>bind</code> knows about <code>.value</code>, so <code>addOne</code> doesn&rsquo;t have to be <code>addOneToThing</code>
 anymore. I can just use <code>bind</code>!</p>
 
 <p>What do I get, then, if I <em>bind</em> <code>addOne</code> to a <code>Thing</code>?</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">bind</span><span class="p">(</span><span class="nx">addOne</span><span class="p">,</span> <span class="nx">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">bind</span><span class="p">(</span><span class="nx">addOne</span><span class="p">,</span> <span class="nx">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</code></pre></div>
 <p>I get:</p>
 
 <pre><code>2
@@ -244,7 +252,8 @@ anymore. I can just use <code>bind</code>!</p>
 try to bind another function to the return value, now:</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
     <span class="nx">bind</span><span class="p">(</span><span class="nx">addOne</span><span class="p">,</span> <span class="nx">bind</span><span class="p">(</span><span class="nx">addOne</span><span class="p">,</span> <span class="nx">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <pre><code>NaN
 </code></pre>
 
@@ -275,7 +284,8 @@ with the next example. The function signatures below amount to <code>a -&gt; M b
 <span class="p">};</span>
 <span class="k">const</span> <span class="nx">timesTwo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span> <span class="o">:</span> <span class="nx">Thing</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">unit</span><span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 <p>Now, if I</p>
 <div class="highlight"><pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="nx">bind</span><span class="p">(</span><span class="nx">addOne</span><span class="p">,</span> <span class="nx">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span></code></pre></div>
 <p>I get a <code>Thing</code> back&hellip;</p>
@@ -306,9 +316,11 @@ this <code>a -&gt; M b</code> type signature, they are:</p>
 bare function on the value(s) contained &ldquo;inside&rdquo; the monad.</p>
 
 <p>so,</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">bind</span><span class="p">(</span><span class="nx">addOne</span><span class="p">,</span> <span class="nx">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">bind</span><span class="p">(</span><span class="nx">addOne</span><span class="p">,</span> <span class="nx">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
 <p>must be equivalent to:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">addone</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">addone</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
 <p>They are! They both return:</p>
 
 <pre><code>{ value: 2 }
@@ -320,9 +332,11 @@ bare function on the value(s) contained &ldquo;inside&rdquo; the monad.</p>
 calling the unit function on a bare value.</p>
 
 <p>So,</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">bind</span><span class="p">(</span><span class="nx">unit</span><span class="p">,</span> <span class="nx">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">bind</span><span class="p">(</span><span class="nx">unit</span><span class="p">,</span> <span class="nx">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
 <p>must be equivalent to:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
 <p>They are! They both return:</p>
 
 <pre><code>{ value: 1 }
@@ -341,11 +355,14 @@ together. <code>compose(g, f)</code> then, returns a function that takes an inpu
     <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">mx</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">bind</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">bind</span><span class="p">(</span><span class="nx">g</span><span class="p">,</span> <span class="nx">mx</span><span class="p">));</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>So,</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">bind</span><span class="p">(</span><span class="nx">addOne</span><span class="p">,</span> <span class="nx">compose</span><span class="p">(</span><span class="nx">timesTwo</span><span class="p">,</span> <span class="nx">addOne</span><span class="p">)(</span><span class="nx">mx</span><span class="p">))</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">bind</span><span class="p">(</span><span class="nx">addOne</span><span class="p">,</span> <span class="nx">compose</span><span class="p">(</span><span class="nx">timesTwo</span><span class="p">,</span> <span class="nx">addOne</span><span class="p">)(</span><span class="nx">mx</span><span class="p">))</span>
+</code></pre></div>
 <p>must be equivalent to:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">compose</span><span class="p">(</span><span class="nx">addOne</span><span class="p">,</span> <span class="nx">addOne</span><span class="p">)(</span><span class="nx">bind</span><span class="p">(</span><span class="nx">timesTwo</span><span class="p">,</span> <span class="nx">mx</span><span class="p">))</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">compose</span><span class="p">(</span><span class="nx">addOne</span><span class="p">,</span> <span class="nx">addOne</span><span class="p">)(</span><span class="nx">bind</span><span class="p">(</span><span class="nx">timesTwo</span><span class="p">,</span> <span class="nx">mx</span><span class="p">))</span>
+</code></pre></div>
 <p>They are! they both return</p>
 
 <pre><code>{ value: 4 }
@@ -469,7 +486,8 @@ Identity monad implemented in a more object oriented way, This time using PHP.</
 <span class="k">interface</span> <span class="nx">Monad</span> <span class="p">{</span>
     <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="o"></span><span class="nf">unit</span><span class="p">(</span><span class="nv">$x</span><span class="p">);</span>
     <span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="nf">bind</span><span class="p">(</span><span class="nx">callable</span> <span class="nv">$fn</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Now, I&rsquo;ll make one!</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="cp">&lt;?</span>
 
@@ -492,12 +510,14 @@ Identity monad implemented in a more object oriented way, This time using PHP.</
     <span class="k">public</span> <span class="k">function</span> <span class="o"></span><span class="nf">compose</span><span class="p">(</span><span class="nx">callable</span> <span class="nv">$g</span><span class="p">,</span> <span class="nx">callable</span> <span class="nv">$f</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="nv">$g</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">value</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="nv">$f</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Here are two functions that I can pass to <code>bind</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="cp">&lt;?</span>
 
 <span class="nv">$increment</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">ID</span><span class="o">::</span><span class="na">unit</span><span class="p">(</span><span class="nv">$n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="p">};</span>
-<span class="nv">$times2</span>    <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">ID</span><span class="o">::</span><span class="na">unit</span><span class="p">(</span><span class="nv">$n</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span> <span class="p">};</span></code></pre></div>
+<span class="nv">$times2</span>    <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">ID</span><span class="o">::</span><span class="na">unit</span><span class="p">(</span><span class="nv">$n</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span> <span class="p">};</span>
+</code></pre></div>
 <p>Does this pass those tests?</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="cp">&lt;?</span>
 
@@ -509,7 +529,8 @@ Identity monad implemented in a more object oriented way, This time using PHP.</
 
 <span class="c1"># associativity identity
 </span><span class="c1"></span><span class="nx">ID</span><span class="o">::</span><span class="na">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">compose</span><span class="p">(</span><span class="nv">$increment</span><span class="p">,</span> <span class="nv">$times2</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="nv">$increment</span><span class="p">)</span> <span class="o">==</span>
-<span class="nx">ID</span><span class="o">::</span><span class="na">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="nv">$increment</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">compose</span><span class="p">(</span><span class="nv">$times2</span><span class="p">,</span> <span class="nv">$increment</span><span class="p">);</span></code></pre></div>
+<span class="nx">ID</span><span class="o">::</span><span class="na">unit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="nv">$increment</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">compose</span><span class="p">(</span><span class="nv">$times2</span><span class="p">,</span> <span class="nv">$increment</span><span class="p">);</span>
+</code></pre></div>
 <p>All of these are:</p>
 
 <pre><code>bool(true)

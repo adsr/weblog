@@ -158,7 +158,8 @@ objects I get back from those calls because
 <span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>&hellip;which yields in the console:</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&gt;</span> <span class="nb">Object</span> <span class="p">{</span><span class="nx">__SECRET_DOM_DO_NOT_USE_OR_YOU_WILL_BE_FIRED</span><span class="o">:</span> <span class="nb">Object</span><span class="p">,</span> <span class="nx">__SECRET_DOM_SERVER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED</span><span class="o">:</span> <span class="nb">Object</span><span class="p">,</span> <span class="nx">Children</span><span class="o">:</span> <span class="nb">Object</span><span class="p">,</span> <span class="nx">PropTypes</span><span class="o">:</span> <span class="nx">Obj</span><span class="p">...</span> <span class="c1">// etc
-</span><span class="c1"></span><span class="o">&gt;</span> <span class="nb">Object</span> <span class="p">{</span><span class="nx">version</span><span class="o">:</span> <span class="s2">&#34;15.3.1&#34;</span><span class="p">}</span></code></pre></div>
+</span><span class="c1"></span><span class="o">&gt;</span> <span class="nb">Object</span> <span class="p">{</span><span class="nx">version</span><span class="o">:</span> <span class="s2">&#34;15.3.1&#34;</span><span class="p">}</span>
+</code></pre></div>
 <p><a href="https://www.reddit.com/r/javascript/comments/3m6wyu/found_this_line_in_the_react_codebase_made_me/cvcyo4a">Lol.</a></p>
 
 <p><sub><a href='#toc'>toc</a></sub></p>
@@ -178,7 +179,8 @@ get one this way:</p>
         <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://unpkg.com/react-dom@15.3.1/dist/react-dom.js&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
         <span class="p">&lt;</span><span class="nt">script</span><span class="p"></span><span class="p">&gt;</span>
             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;example&#34;</span><span class="p">));</span>
-        <span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+        
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="p">/</span><span class="nt">head</span><span class="p">&gt;</span>
 
     <span class="p">&lt;</span><span class="nt">body</span><span class="p"></span><span class="p">&gt;</span>
@@ -211,11 +213,13 @@ lines, after all!)</p>
         <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://unpkg.com/react-dom@15.3.1/dist/react-dom.js&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
         <span class="p">&lt;</span><span class="nt">script</span><span class="p"></span><span class="p">&gt;</span>
             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;example&#34;</span><span class="p">));</span>
-        <span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+        
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="p">/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="p">/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></div>
 <p>This logs:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&gt;</span> <span class="nx">div</span><span class="err">#</span><span class="nx">example</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&gt;</span> <span class="nx">div</span><span class="err">#</span><span class="nx">example</span>
+</code></pre></div>
 <p>Which is a DOM object that you can open up and mess with in the console which
 is what I wanted hooray.</p>
 
@@ -241,7 +245,8 @@ know that I have access to the ReactDOM object there, after all.</p>
                 <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="nx">world</span><span class="o">!&lt;</span><span class="err">/h1&gt;,</span>
                 <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
             <span class="p">);</span>
-        <span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+        
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="p">/</span><span class="nt">body</span><span class="p">&gt;</span>
 
 <span class="p">&lt;</span><span class="p">/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></div>
@@ -263,7 +268,8 @@ I&rsquo;ll come back to it in a minute.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
     <span class="s2">&#34;&lt;h1&gt;Hello, world!&lt;/h1&gt;&#34;</span><span class="p">,</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>Nope! But I <em>do</em> get a helpful error message!</p>
 
 <pre><code>react.js:20150 Uncaught Invariant Violation: ReactDOM.render(): Invalid
@@ -280,7 +286,8 @@ see what that would get turned into, try this <a href="https://babeljs.io/repl/#
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
     <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;div&#34;</span><span class="p">),</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>No errors! It isn&rsquo;t immediately apparent what this does, but if you inspect the
 DOM now you&rsquo;ll see something new added to it:</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;example&#34;</span><span class="p"></span><span class="p">&gt;</span>
@@ -295,7 +302,8 @@ arbitrary tags</a>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
     <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;thingamadoodad&#34;</span><span class="p">),</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>yields</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;example&#34;</span><span class="p"></span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">thingamadoodad</span> <span class="na">data-reactroot</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">thingamadoodad</span><span class="p">&gt;</span>
@@ -307,7 +315,8 @@ of the source, including the argument list:</p>
 <span class="o">&lt;</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">props</span><span class="p">,</span> <span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">validType</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">;</span>
     <span class="c1">// We warn in this case but don&#39;t throw. We expect the element creation to
-</span><span class="c1"></span>    <span class="err">// suc…</span></code></pre></div>
+</span><span class="c1"></span>    <span class="c1">// suc…
+</span><span class="c1"></span></code></pre></div>
 <p>We can see the whole source by calling <code>toString</code> on the function:</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&gt;</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
 <span class="o">&lt;</span> <span class="s2">&#34;function (type, props, children) {
@@ -340,7 +349,8 @@ of the source, including the argument list:</p>
 </span><span class="s2">    validatePropTypes(element);
 </span><span class="s2">
 </span><span class="s2">    return element;
-</span><span class="s2">}&#34;</span></code></pre></div>
+</span><span class="s2">}&#34;</span>
+</code></pre></div>
 <p>Sweet, sweet code comments! This looks like a light wrapper around
 <code>ReactElement.createElement.apply()</code> that does a little bit of error handling.</p>
 
@@ -356,7 +366,8 @@ string?</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
     <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;div&#34;</span><span class="p">,</span> <span class="s2">&#34;name=&#39;thing&#39;&#34;</span><span class="p">),</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>Nope! But this does give me two error messages!</p>
 
 <pre><code>react.js:20483 Warning: React.createElement(...): Expected props argument to be a plain object. Properties defined in its prototype chain will be ignored.
@@ -377,14 +388,16 @@ like that&hellip; like try it in the console!:</p>
 <span class="nx">thing</span><span class="p">.</span><span class="nx">next</span><span class="p">()</span>
 <span class="nx">thing</span><span class="p">.</span><span class="nx">next</span><span class="p">()</span>
 <span class="nx">thing</span><span class="p">.</span><span class="nx">next</span><span class="p">()</span>
-<span class="err">// etc...</span></code></pre></div>
+<span class="c1">// etc...
+</span><span class="c1"></span></code></pre></div>
 <p>That&rsquo;s a guess anyway, but it doesn&rsquo;t matter right now! We&rsquo;re experimenting!
 Move fast and maintain a cursory understanding of the architecture that
 underpins your systems, that&rsquo;s what I always say!</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
     <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;thingy&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;doodad&#34;</span> <span class="p">}),</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>Does indeed give me:</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">thingy</span> <span class="na">data-reactroot</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;doodad&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">thingy</span><span class="p">&gt;</span></code></pre></div>
 <p>Woot Woot!</p>
@@ -394,7 +407,8 @@ it, something we&rsquo;re likely to do all the time.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
     <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;whatsit&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="k">class</span><span class="o">:</span> <span class="s2">&#34;hoohaa&#34;</span> <span class="p">}),</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>Does not work! Gives this warning:</p>
 
 <pre><code>Warning: Unknown DOM property class. Did you mean className?
@@ -433,7 +447,8 @@ elements and/or strings and/or numbers and/or arrays you want to be rendered!</p
         <span class="p">[</span><span class="s2">&#34;what&#34;</span><span class="p">,</span> <span class="mi">78</span><span class="p">]</span>
     <span class="p">),</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>This yields this html, basically:</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h1</span> <span class="na">data-reactroot</span><span class="p"></span><span class="p">&gt;</span>
     string<span class="p">&lt;</span><span class="nt">sup</span><span class="p"></span><span class="p">&gt;</span>UPP<span class="p">&lt;</span><span class="p">/</span><span class="nt">sup</span><span class="p">&gt;</span>123<span class="p">&lt;</span><span class="nt">sub</span><span class="p"></span><span class="p">&gt;</span>little doooown<span class="p">&lt;</span><span class="p">/</span><span class="nt">sub</span><span class="p">&gt;</span>what78
@@ -450,7 +465,8 @@ by the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Referenc
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
     <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;h1&#34;</span><span class="p">,</span> <span class="p">{},</span> <span class="s2">&#34;Hello, &#34;</span><span class="p">,</span> <span class="s2">&#34;World!&#34;</span><span class="p">),</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h1</span> <span class="na">data-reactroot</span><span class="p"></span><span class="p">&gt;</span>Hello, World!<span class="p">&lt;</span><span class="p">/</span><span class="nt">h1</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h1</span> <span class="na">data-reactroot</span><span class="p"></span><span class="p">&gt;</span>Hello, World!<span class="p">&lt;</span><span class="p">/</span><span class="nt">h1</span><span class="p">&gt;</span></code></pre></div>
 <p>And we&rsquo;re back where we started, but with React in the mix. This Single Page
 App is going to be so sweeeeeeeet!</p>
 
@@ -468,7 +484,8 @@ the same directory as the index.html file.</p>
 </span><span class="c1"></span><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
     <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;h1&#34;</span><span class="p">,</span> <span class="p">{},</span> <span class="s2">&#34;Hello, &#34;</span><span class="p">,</span> <span class="s2">&#34;World!&#34;</span><span class="p">),</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>Also, now that we know what JSX renders into (just a plain old javascript
 function call, as it turn out!) I can see the great benefit of it.</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://unpkg.com/babel-core@5.8.38/browser.min.js&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
@@ -525,7 +542,8 @@ really matter who you are, it&rsquo;s not especially controversial to prefer thi
             <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="s2">&#34;li&#34;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;ordered&#34;</span><span class="p">),</span>
             <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="s2">&#34;li&#34;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;list&#34;</span><span class="p">)</span>
         <span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>So here we are!</p>
 
 <div id="elements"></div>
@@ -539,14 +557,16 @@ curlies. (Sorry, my syntax highlighter doesn&rsquo;t like inlined JSX at all.)</
 <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">thing</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h1&gt;,</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>That will be the same thing as this:</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="s2">&#34;Hello World!&#34;</span><span class="p">;</span>
 
 <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
     <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;h1&#34;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">thing</span><span class="p">),</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>Ok, so, what if I want to style this thing? I know how to add attributes in
 JSX, how about this?</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="s2">&#34;Hello World!&#34;</span><span class="p">;</span>
@@ -554,7 +574,8 @@ JSX, how about this?</p>
 <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">h1</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&#34;color:red;&#34;</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">thing</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h1&gt;,</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>Seems reasonable! Doesn&rsquo;t work! Another gotcha gotme. But a wild good error
 message appeared!</p>
 
@@ -567,7 +588,8 @@ message appeared!</p>
 <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">h1</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span><span class="s2">&#34;red&#34;</span><span class="p">}</span> <span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">thing</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h1&gt;,</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>Notice the double curlies- the first for inlining the js into the jsx and the
 second is just the object notation. This works! I get a big red <code>Hello World!</code>.</p>
 
@@ -579,7 +601,8 @@ second is just the object notation. This works! I get a big red <code>Hello Worl
 <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">h1</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span><span class="nx">color</span><span class="p">}</span> <span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">thing</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h1&gt;,</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <blockquote>
 <p>lol @</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&gt;</span> <span class="kd">var</span> <span class="nx">color</span> <span class="o">=</span> <span class="nx">colors</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">colors</span><span class="p">.</span><span class="nx">length</span><span class="p">)];</span>
@@ -605,7 +628,8 @@ second is just the object notation. This works! I get a big red <code>Hello Worl
 </span><span class="sb">```</span><span class="nx">js</span>
 <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">color</span> <span class="o">=</span> <span class="nx">colors</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">colors</span><span class="p">.</span><span class="nx">length</span><span class="p">)];</span>
-<span class="p">},</span> <span class="mi">1000</span><span class="p">)</span></code></pre></div></blockquote>
+<span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
+</code></pre></div></blockquote>
 
 <p>But&hellip; React doesn&rsquo;t do anything! Shouldn&rsquo;t it like, you know, react?</p>
 
@@ -615,7 +639,8 @@ first time through!</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">color</span> <span class="o">=</span> <span class="nx">colors</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">colors</span><span class="p">.</span><span class="nx">length</span><span class="p">)];</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">color</span><span class="p">);</span>
-<span class="p">},</span> <span class="mi">1000</span><span class="p">)</span></code></pre></div>
+<span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
+</code></pre></div>
 <p>You can see that the var is being updated, but of course it&rsquo;s not going to
 affect the dom in any way.</p>
 
@@ -624,7 +649,8 @@ of the DOM and manipulate its style property directly!</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">color</span> <span class="o">=</span> <span class="nx">colors</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">colors</span><span class="p">.</span><span class="nx">length</span><span class="p">)];</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">).</span><span class="nx">children</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="nx">color</span>
-<span class="p">},</span> <span class="mi">1000</span><span class="p">)</span></code></pre></div>
+<span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
+</code></pre></div>
 <p>This works! I will see the color change every second.</p>
 
 <p>But it is <em>so, so, ugly.</em></p>
@@ -660,7 +686,8 @@ states.</p>
         <span class="o">&lt;</span><span class="nx">h1</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span> <span class="p">{</span><span class="s2">&#34;color&#34;</span><span class="o">:</span><span class="nx">color</span><span class="p">}</span> <span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">thing</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h1&gt;,</span>
         <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
     <span class="p">);</span>
-<span class="p">},</span> <span class="mi">1000</span><span class="p">)</span></code></pre></div>
+<span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
+</code></pre></div>
 <p>&ldquo;But wait!&rdquo; I hear you saying, &ldquo;Isn&rsquo;t that inefficient?? Rerendering the whole
 tree everytime anything changes at all?&rdquo;</p>
 
@@ -680,7 +707,8 @@ tree everytime anything changes at all?&rdquo;</p>
             <span class="o">&lt;</span><span class="err">/div&gt;,</span>
             <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
             <span class="p">);</span>
-        <span class="p">},</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+        <span class="p">},</span> <span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
 <p>This updates the whole ReactDom <em>10 times a second</em>. But it only ever <em>touches
 the real DOM</em> where it&rsquo;s <em>actually</em> changing!</p>
 
@@ -755,7 +783,8 @@ Object (the last two).</p>
         <span class="o">&lt;</span><span class="err">/div&gt;,</span>
         <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
     <span class="p">);</span>
-<span class="p">},</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<span class="p">},</span> <span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
 <p><a href="https://facebook.github.io/react/blog/2015/12/18/react-components-elements-and-instances.html">I found a good doc about this!!</a></p>
 
 <blockquote>
@@ -801,7 +830,8 @@ thing at the end of the day. JavaScript!</p>
         <span class="o">&lt;</span><span class="nx">Box</span> <span class="err">/&gt;,</span>
         <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
     <span class="p">);</span>
-<span class="p">},</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<span class="p">},</span> <span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
 <p>Everytime this is rendered (10 times a second!) we get a new color box. Let&rsquo;s make 2!</p>
 
 <p><sub><a href='#toc'>toc</a></sub></p>
@@ -815,7 +845,8 @@ thing at the end of the day. JavaScript!</p>
         <span class="o">&lt;</span><span class="nx">Box</span> <span class="err">/&gt;</span>
     <span class="o">&lt;</span><span class="err">/div&gt;,</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p>Hmm&hellip; I wanted these side by side, but they are on top of each other. This is
 a classic styling thinger! Divs are <code>block</code> elements, and by default stack on top of each other. Easy fix!</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">Box</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -825,7 +856,8 @@ a classic styling thinger! Divs are <code>block</code> elements, and by default 
         <span class="nx">width</span><span class="o">:</span> <span class="s2">&#34;100px&#34;</span><span class="p">,</span>
         <span class="nx">height</span><span class="o">:</span> <span class="s2">&#34;100px&#34;</span>
     <span class="p">}}</span> <span class="err">/&gt;;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>It feels really weird to me to have all this styling directly on the element
 itself instead of in an external style sheet&hellip; but this is the react way. Self
 contained composable units!</p>
@@ -852,7 +884,8 @@ composes 5 of them side by side!</p>
         <span class="o">&lt;</span><span class="nx">Box</span> <span class="err">/&gt;</span>
         <span class="o">&lt;</span><span class="nx">Box</span> <span class="err">/&gt;</span>
     <span class="o">&lt;</span><span class="err">/div&gt;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><sub><a href='#toc'>toc</a></sub></p>
 
 <div id="grid"></div>
@@ -868,7 +901,8 @@ composes 5 of them side by side!</p>
         <span class="o">&lt;</span><span class="nx">Row</span> <span class="err">/&gt;</span>
         <span class="o">&lt;</span><span class="nx">Row</span> <span class="err">/&gt;</span>
     <span class="o">&lt;</span><span class="err">/div&gt;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Now, rendering a <code>Grid</code> element will give me a 5x5 grid of statically sized
 100x100 pixel boxes!</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">setInterval</span><span class="p">(()=&gt;{</span>
@@ -876,7 +910,8 @@ composes 5 of them side by side!</p>
         <span class="o">&lt;</span><span class="nx">Grid</span> <span class="err">/&gt;,</span>
         <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
     <span class="p">);</span>
-<span class="p">},</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<span class="p">},</span> <span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
 <p><sub><a href='#toc'>toc</a></sub></p>
 
 <div id="sizing"></div>
@@ -905,7 +940,8 @@ accordingly&hellip;</p>
         <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">height</span><span class="o">=</span><span class="s2">&#34;500px&#34;</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&#34;500px&#34;</span> <span class="err">/&gt;,</span>
         <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
     <span class="p">);</span>
-<span class="p">},</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<span class="p">},</span> <span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
 <p>This limits the size of the enclosing <code>Grid</code> element to what I specify. I would
 like to cascade that value down through the hierarchy.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">const</span> <span class="nx">Row</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -933,7 +969,8 @@ like to cascade that value down through the hierarchy.</p>
         <span class="o">&lt;</span><span class="nx">Row</span> <span class="nx">height</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">height</span> <span class="sr">/ 5} width={props.width} /</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">Row</span> <span class="nx">height</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">height</span> <span class="sr">/ 5} width={props.width} /</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="err">/div&gt;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Notice something important here- the <code>Row</code>s don&rsquo;t do the calculation to know
 their own height- they simply respond to the input. Passing in the full size of
 the grid and then doing the calculation inside the <code>Row</code> would give the Row
@@ -961,7 +998,8 @@ know. Feels like it though.</p>
         <span class="o">&lt;</span><span class="nx">Box</span> <span class="nx">height</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">height</span><span class="p">}</span> <span class="nx">width</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">width</span> <span class="sr">/ 5} /</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">Box</span> <span class="nx">height</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">height</span><span class="p">}</span> <span class="nx">width</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">width</span> <span class="sr">/ 5} /</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="err">/div&gt;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><sub><a href='#toc'>toc</a></sub>
 <div id="dimensions"></div></p>
 
@@ -1013,7 +1051,8 @@ know. Feels like it though.</p>
         <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">height</span><span class="o">=</span><span class="p">{</span><span class="mi">500</span><span class="p">}</span> <span class="nx">width</span><span class="o">=</span><span class="p">{</span><span class="mi">500</span><span class="p">}</span> <span class="nx">dimensions</span><span class="o">=</span><span class="p">{{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">5</span><span class="p">}}</span> <span class="err">/&gt;,</span>
         <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>
     <span class="p">);</span>
-<span class="p">},</span> <span class="mi">100</span><span class="p">)</span></code></pre></div>
+<span class="p">},</span> <span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
 <p>Now, I want to dynamically generate the number of boxes based on those
 dimension values, and compute the absolute height and width values of these
 children on the fly. Step one is to recognize that I can return <em>an array of
@@ -1068,12 +1107,14 @@ look something like this:</p>
         <span class="p">);</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="nx">out</span><span class="p">;</span>
-<span class="p">}(</span><span class="nx">props</span><span class="p">.</span><span class="nx">dimensions</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span></code></pre></div>
+<span class="p">}(</span><span class="nx">props</span><span class="p">.</span><span class="nx">dimensions</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
+</code></pre></div>
 <p>This will totally work! But it&rsquo;s so imperative! Let&rsquo;s get more functional.</p>
 
 <p>I start with the number, and I want to end with an array. I can start by making
 an Array with that number of elements.</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">Array</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">dimensions</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">Array</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">dimensions</span><span class="p">.</span><span class="nx">y</span><span class="p">)</span>
+</code></pre></div>
 <p>This will return a reference to an Array that has its <code>length</code> property set to
 that number (if you pass more than one argument to this constructor, it simply
 makes an array out of them).</p>
@@ -1081,15 +1122,19 @@ makes an array out of them).</p>
 <p>If I want to map over this array, I need to fill in the array with a
 placeholder value (this is weird that I have to do this, but whatever- it&rsquo;s all
 in the service of a good one liner!)</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">Array</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">dimensions</span><span class="p">.</span><span class="nx">y</span><span class="p">).</span><span class="nx">fill</span><span class="p">()</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">Array</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">dimensions</span><span class="p">.</span><span class="nx">y</span><span class="p">).</span><span class="nx">fill</span><span class="p">()</span>
+</code></pre></div>
 <p>Will do this. This returns (for a y value of <code>5</code>, say) &hellip;.</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span><span class="kc">undefined</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">]</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span><span class="kc">undefined</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">]</span>
+</code></pre></div>
 <p>Since I didn&rsquo;t pass in anything to <code>fill()</code>.</p>
 
 <p>Now, I can map over this array! I pass it a function (yay stabby procs!)</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">Array</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nx">fill</span><span class="p">().</span><span class="nx">map</span><span class="p">(()=&gt;</span><span class="mi">3</span><span class="p">)</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">Array</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nx">fill</span><span class="p">().</span><span class="nx">map</span><span class="p">(()=&gt;</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
 <p>Would return</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</code></pre></div>
 <p>Instead of those <code>3</code>&rsquo;s, I&rsquo;ll simply return the element I wanted!</p>
 
 <p>The map function takes two arguments, positionally they are <code>(element, index)</code>.
@@ -1102,7 +1147,8 @@ keys boxes, for example.)</p>
             <span class="nx">width</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">width</span><span class="p">}</span>
             <span class="nx">count</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">dimensions</span><span class="p">.</span><span class="nx">x</span><span class="p">}</span>
             <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">i</span><span class="p">}</span> <span class="err">/&gt;;</span>
-<span class="p">})</span></code></pre></div>
+<span class="p">})</span>
+</code></pre></div>
 <p>And Robert&rsquo;s your sister&rsquo;s husband&rsquo;s father-in-law&rsquo;s cousin&rsquo;s cousin!</p>
 
 <p>I thought that one could use some splainin&rsquo; because&hellip; while it&rsquo;s very simple,
@@ -1134,7 +1180,8 @@ function doesn&rsquo;t maintain a reference to itself.</p>
             <span class="nx">width</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span>
         <span class="p">}}</span> <span class="nx">onMouseOver</span><span class="o">=</span><span class="p">{()=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">color</span><span class="o">:</span> <span class="nx">randColor</span><span class="p">()})}</span><span class="err">/&gt;;</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>You&rsquo;ll notice that the <code>render()</code> method returns exactly what it was returning before, but the color refers to <code>state</code>, not to a <code>prop</code>. This is important!</p>
 
 <p>Also notice I&rsquo;ve attached an event handler to the onMouseOver event. It simply
@@ -1146,7 +1193,8 @@ single call, once, to <code>ReactDOM.render()</code></p>
           <span class="nx">width</span><span class="o">=</span><span class="p">{</span><span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span><span class="p">}</span>
           <span class="err">/&gt;,</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;grid&#39;</span><span class="p">)</span>
-<span class="p">);</span></code></pre></div>
+<span class="p">);</span>
+</code></pre></div>
 <p><em>But now, something magical happens.</em></p>
 
 <p>When I mouse over a box, the onMouseOver callback is triggered, which updates
@@ -1194,7 +1242,8 @@ rerendered! This is amaze and I think I really like it.</p>
         <span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
         <span class="o">&lt;</span><span class="err">/div&gt;</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>I&rsquo;ve added two sliders for the x and y dimension values. Now, instead of
 passing them in as props, they are given a default value of 1, and when the
 sliders are moved, the whole dom is efficiently rerendered! This means that the

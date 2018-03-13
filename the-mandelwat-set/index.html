@@ -105,11 +105,13 @@ except with incrementing ids!</p>
 
 <p>You can do many wonderful things on a canvas! First you need to grab a
 reference to the thing:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;ex1&#34;</span><span class="p">);</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;ex1&#34;</span><span class="p">);</span>
+</code></pre></div>
 <p>And then instantiate a <em>context</em> for drawing on it. For now, we&rsquo;re just going
 to stick with a basic <code>CanvasRenderingContext2D</code>, which can be fetched with a
 call like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&#34;2d&#34;</span><span class="p">);</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&#34;2d&#34;</span><span class="p">);</span>
+</code></pre></div>
 <p>From there, there are a <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D">lot of methods you can call on the
 context</a>
 to affect the canvas itself. In the following example, notice that we access
@@ -124,7 +126,8 @@ To run this example, press this button labeled &ldquo;Run&rdquo;, right here: <s
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">context</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
 <span class="nx">context</span><span class="p">.</span><span class="nx">rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
 <span class="nx">context</span><span class="p">.</span><span class="nx">fillStyle</span> <span class="o">=</span> <span class="nx">randColor</span><span class="p">();</span>
-<span class="nx">context</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span></code></pre></div>
+<span class="nx">context</span><span class="p">.</span><span class="nx">fill</span><span class="p">();</span>
+</code></pre></div>
 <script>
     (function() {
         var canvasId = "ex1"
@@ -154,7 +157,8 @@ To run this example, press this button labeled &ldquo;Run&rdquo;, right here: <s
 <span class="nx">context</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
 <span class="nx">context</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="err">/2);</span>
 <span class="nx">context</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="err">/2);</span>
-<span class="nx">context</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span></code></pre></div>
+<span class="nx">context</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+</code></pre></div>
 <script>
     (function() {
         var canvasId = "ex2"
@@ -197,7 +201,8 @@ To run this example, press this button labeled &ldquo;Run&rdquo;, right here: <s
 <span class="nx">context</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
 <span class="nx">context</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
 <span class="nx">context</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">150</span><span class="p">);</span>
-<span class="nx">context</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span></code></pre></div>
+<span class="nx">context</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+</code></pre></div>
 <script>
     (function() {
         var canvasId = "ex3"
@@ -224,7 +229,8 @@ width or height of the canvas, they&rsquo;ll just go straight off the side!</p>
 <span class="nx">context</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
 <span class="nx">context</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
 <span class="nx">context</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="mi">1200</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
-<span class="nx">context</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span></code></pre></div>
+<span class="nx">context</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+</code></pre></div>
 <script>
     (function() {
         var canvasId = "ex4"
@@ -258,7 +264,8 @@ interact directly with the pixels in a canvas by using a representation called
 <p>Calling <code>createImageData(height, width)</code> on a <code>CanvasRenderingContext2d</code> will
 return an ImageData object that contains three things:</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">context</span><span class="p">.</span><span class="nx">createImageData</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="err">// ImageData { data: Uint8ClampedArray[400], width: 10, height: 10 }</span></code></pre></div>
+<span class="c1">// ImageData { data: Uint8ClampedArray[400], width: 10, height: 10 }
+</span><span class="c1"></span></code></pre></div>
 <p>There is the <code>width</code> and <code>height</code> that I expected to see. What is the other
 thing? It&rsquo;s just a 1-dimensional array of bytes! 10 x 10 = 100, it seems like a
 10 x 10 ImageData should contain 100 items since it represents 100 pixels, but
@@ -282,12 +289,14 @@ doesn&rsquo;t otherwise have any sense of integer types, and internally represen
     <span class="p">[</span><span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">],</span>
     <span class="p">[</span><span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">],</span>
     <span class="p">[</span><span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="p">]</span>
-<span class="p">]</span></code></pre></div>
+<span class="p">]</span>
+</code></pre></div>
 <p>Where <code>p</code> is a some sort of pixel object that can be address by attribute like:</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">p</span><span class="p">.</span><span class="nx">r</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
 <span class="nx">p</span><span class="p">.</span><span class="nx">g</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="nx">p</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="nx">p</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></code></pre></div>
+<span class="nx">p</span><span class="p">.</span><span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
 <p>But this is lower level than that. It is literally just a one dimensional
 array! Let&rsquo;s play with it though. This example simply fills all the channels
 for all the pixels with a random value.  You&rsquo;ll notice that it looks a little
@@ -299,7 +308,8 @@ pixel. <span><button id="ex5button">RGB Noise</button></span></p>
 <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">255</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="nx">context</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">imageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="err">//  0, 0 is the offset to start putting the imageDate into the actual canvas. I won&#39;t use any other values for that in this article..</span></code></pre></div>
+<span class="nx">context</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">imageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">//  0, 0 is the offset to start putting the imageDate into the actual canvas. I won&#39;t use any other values for that in this article..
+</span><span class="c1"></span></code></pre></div>
 <script>
     (function() {
         var canvasId = "ex5"
@@ -334,7 +344,8 @@ This example simply turns every pixel blue with no transparency.
 </span><span class="c1"></span>    <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>    <span class="c1">// green channel
 </span><span class="c1"></span>    <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>  <span class="c1">// alpha channel
 </span><span class="c1"></span><span class="p">}</span>
-<span class="nx">context</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">imageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></code></pre></div>
+<span class="nx">context</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">imageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</code></pre></div>
 <script>
     (function() {
         var canvasId = "ex6"
@@ -392,7 +403,8 @@ for that index in that imageData object. Note that <code>canvas</code> must be i
     <span class="p">}</span>
     <span class="c1">// returning that coordinate will let us use it later on
 </span><span class="c1"></span>    <span class="k">return</span> <span class="nx">coord</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>So now, let&rsquo;s say I have a 10x10 canvas. (That&rsquo;s a very small canvas, but lol I
 guess) and I want to address the pixel marked below with an <code>@</code>.</p>
 
@@ -443,7 +455,8 @@ whatever range I want. That scaling value is going to be an &ldquo;r&rdquo; valu
 </span><span class="c1"></span>    <span class="nx">coord</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="p">((</span><span class="nx">coord</span><span class="p">.</span><span class="nx">y</span> <span class="o">*</span> <span class="nx">r</span> <span class="err">/ canvas.width) - r/2) * -1 ;</span>
 
     <span class="k">return</span> <span class="nx">coord</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Let&rsquo;s also assume we have a much larger canvas! 10 x 10 is not very
 interesting. 200 x 200, as before, gives us an ImageData object that has
 160,000 bytes in it! Again, that&rsquo;s 200 * 200 = 40,000 * 4 = 160,000. Quite a
@@ -455,7 +468,8 @@ scale of -2 to 2, then, yields something very close to what you&rsquo;d expect:<
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">indexToCoord</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>      <span class="c1">// { x: -2,    y: 2 }
 </span><span class="c1"></span><span class="nx">indexToCoord</span><span class="p">(</span><span class="mi">159999</span><span class="p">);</span> <span class="c1">// { x: 1.98,  y: -1.98 }
 </span><span class="c1"></span><span class="nx">indexToCoord</span><span class="p">(</span><span class="mi">132987</span><span class="p">);</span> <span class="c1">// { x: -1.08, y: -1.3199999999999998 }
-</span><span class="c1"></span><span class="nx">indexToCoord</span><span class="p">(</span><span class="mi">54</span><span class="p">));</span>    <span class="err">// { x: -1.74, y: 2 }</span></code></pre></div>
+</span><span class="c1"></span><span class="nx">indexToCoord</span><span class="p">(</span><span class="mi">54</span><span class="p">));</span>    <span class="c1">// { x: -1.74, y: 2 }
+</span><span class="c1"></span></code></pre></div>
 <p>This is just begging to be abstracted, so that&rsquo;s what I&rsquo;m going to do.</p>
 
 <p>First, the constructor will take one thing, a string that represents the canvas
@@ -466,7 +480,8 @@ that we can reuse.</p>
     <span class="kd">var</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">canvasId</span><span class="p">);</span>
     <span class="kd">var</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&#34;2d&#34;</span><span class="p">);</span>
     <span class="kd">var</span> <span class="nx">imageData</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">createImageData</span><span class="p">(</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Next we&rsquo;ll add that <code>indexToCoord</code> method. I&rsquo;ve put the <code>r</code> value and the
 <code>center</code> value as attributes on the object so that I can manipulate them from
 outside, and I&rsquo;ve added an aspect ratio to scale the coordinates correctly in
@@ -507,7 +522,8 @@ rendering, which will always be 1:1.</p>
         <span class="p">}</span>
         <span class="nx">context</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">imageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>I&rsquo;ve also added the rgb noise example as the render function for this object.</p>
 
 <p>Now we can interact with a canvas something like this: <span><button id="ex7button">Run</button></span></p>
@@ -578,7 +594,8 @@ method to accept a predicate function, instead:</p>
             <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="nx">set</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="nx">context</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">imageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="p">}</span></code></pre></div>
+    <span class="p">}</span>
+</code></pre></div>
 <p>Now, for every pixel on a given Graph, the predicate is called on it&rsquo;s
 coordinate and returns whether or not it should be filled in with black or not.
 The first three values per pixel are RGB values, and the last one is the
@@ -598,7 +615,8 @@ next section, like this!</p>
 <span class="nx">graph</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">coord</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// stuff stuff stuff
 </span><span class="c1"></span>    <span class="c1">// return true or return false
-</span><span class="c1"></span><span class="p">})</span></code></pre></div>
+</span><span class="c1"></span><span class="p">})</span>
+</code></pre></div>
 <p>Ok let&rsquo;s play with it!</p>
 
 <script>
@@ -680,7 +698,8 @@ next section, like this!</p>
         <span class="o">||</span>
         <span class="nx">coord</span><span class="p">.</span><span class="nx">x</span> <span class="o">*</span> <span class="mi">40</span> <span class="o">==</span> <span class="nx">coord</span><span class="p">.</span><span class="nx">y</span>
     <span class="p">)</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span>
+</code></pre></div>
 <p>Above we see a predicate function that basically says: &ldquo;if the current pixel is
 on the line described by one of these equations, fill it in. If not, don&rsquo;t!&rdquo;</p>
 
@@ -741,7 +760,8 @@ dream up, <code>x</code> will either be in this set, or not.</p>
 </span><span class="c1"></span><span class="nx">mySet</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="mi">76</span><span class="p">)</span>     <span class="c1">// false
 </span><span class="c1"></span><span class="nx">mySet</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="mi">88</span><span class="p">)</span>     <span class="c1">// false
 </span><span class="c1"></span><span class="nx">mySet</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="mi">397376</span><span class="p">)</span> <span class="c1">// true
-</span><span class="c1"></span><span class="nx">mySet</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>    <span class="err">// false</span></code></pre></div>
+</span><span class="c1"></span><span class="nx">mySet</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>    <span class="c1">// false
+</span><span class="c1"></span></code></pre></div>
 <p>Will this work??</p>
 
 <canvas id="ex9" style="border: 1px solid black;" width="200px" height="200px"></canvas>
@@ -775,14 +795,16 @@ dream up, <code>x</code> will either be in this set, or not.</p>
 
 <span class="nx">graph</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">coord</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">mySet</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">coord</span><span class="p">);</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span>
+</code></pre></div>
 <p>Hmm, no it will not. Because of JavaScript&rsquo;s equality rules, objects are not
 compared to each other by value. To whit, these are falsy:</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{}</span> <span class="o">==</span> <span class="p">{}</span> <span class="c1">// false
 </span><span class="c1"></span><span class="p">{}</span> <span class="o">===</span> <span class="p">{}</span> <span class="c1">// false
 </span><span class="c1"></span><span class="p">{</span> <span class="nx">thing</span><span class="o">:</span> <span class="mi">7</span> <span class="p">}</span> <span class="o">==</span> <span class="p">{</span> <span class="nx">thing</span><span class="o">:</span> <span class="mi">7</span> <span class="p">}</span> <span class="c1">// false
 </span><span class="c1"></span><span class="p">{</span> <span class="nx">thing</span><span class="o">:</span> <span class="mi">7</span> <span class="p">}</span> <span class="o">===</span> <span class="p">{</span> <span class="nx">thing</span><span class="o">:</span> <span class="mi">7</span> <span class="p">}</span> <span class="c1">// false
-</span><span class="c1"></span><span class="err">// etc...</span></code></pre></div>
+</span><span class="c1">// etc...
+</span><span class="c1"></span></code></pre></div>
 <p>Objects instead are equal if they are <em>actually the same object</em>, meaning the
 two sides of the double or triple equals refer to the same memory.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">thing1</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">whatever</span><span class="o">:</span> <span class="s2">&#34;whatevar&#34;</span> <span class="p">};</span>
@@ -792,7 +814,8 @@ two sides of the double or triple equals refer to the same memory.</p>
 <span class="kd">var</span> <span class="nx">thing2</span> <span class="o">=</span> <span class="nx">thing1</span><span class="p">;</span>
 
 <span class="nx">thing1</span> <span class="o">==</span> <span class="nx">thing2</span> <span class="c1">// true
-</span><span class="c1"></span><span class="nx">thing1</span> <span class="o">===</span> <span class="nx">thing2</span> <span class="err">// true</span></code></pre></div>
+</span><span class="c1"></span><span class="nx">thing1</span> <span class="o">===</span> <span class="nx">thing2</span> <span class="c1">// true
+</span><span class="c1"></span></code></pre></div>
 <p>You get the idea. Now, I <em>could</em> write a deep checking set class for these
 coordinates, or build the coordinates into a real object that has a function
 that can do that, but I don&rsquo;t really want to. Instead I&rsquo;m going to talk
@@ -804,12 +827,14 @@ about sets more generally!</p>
 <p>So, you can have a set that is just a defined set of whatever, and write all
 the whatevers out, like the example above.. That works great! But what about
 something like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">mySet</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/* The set of all even integers */</span> <span class="p">}</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">mySet</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/* The set of all even integers */</span> <span class="p">}</span>
+</code></pre></div>
 <p>Obviously, I can&rsquo;t write that out! But I <em>can</em> check if an arbitrary number is
 a member of that set with a simple function.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">isInTheSetOfAllEvenIntegers</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Hey cool! This is like, a programaticalized way to test for set membership in
 that particular set of numbers.</p>
 
@@ -831,7 +856,8 @@ that particular set of numbers.</p>
 
 <span class="nx">graph</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">coord</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">coord</span><span class="p">.</span><span class="nx">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span>
+</code></pre></div>
 <p>Now we&rsquo;re getting somewhere! What about this one:</p>
 
 <pre><code>The set of all points whose x value is higher than 100 and whose y value is higher that -27;
@@ -855,7 +881,8 @@ that particular set of numbers.</p>
 
 <span class="nx">graph</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">coord</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">(</span><span class="nx">coord</span><span class="p">.</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="mi">100</span> <span class="o">&amp;&amp;</span> <span class="nx">coord</span><span class="p">.</span><span class="nx">y</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">27</span><span class="p">);</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span>
+</code></pre></div>
 <p>This is cool, then, I have a way of &ldquo;graphing&rdquo; sets! These sets are pretty
 boring though. But you know what&rsquo;s not boring??</p>
 
@@ -883,9 +910,11 @@ going to explain them to you, one by one!</p>
 <p>This part&rsquo;s pretty easy. I have a function, and I feed it a number, and I get a number back.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">thinger</span><span class="p">(</span><span class="nx">z</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">z</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nx">c</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>This is, of course, borked.</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">thinger</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">thinger</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div>
 <pre><code>ReferenceError: c is not defined
     at thinger (/private/tmp/thinger.js:2:29)
     at Object.&lt;anonymous&gt; (/private/tmp/thinger.js:5:13)
@@ -902,11 +931,13 @@ going to explain them to you, one by one!</p>
 <p><code>c</code> here must be defined. I will define it then!</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">thinger</span><span class="p">(</span><span class="nx">z</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">z</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nx">c</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Cool cool. I can plug whatever in there now great.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">thinger</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
 <span class="nx">thinger</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
-<span class="nx">thinger</span><span class="p">(</span><span class="mi">4000</span><span class="p">,</span> <span class="mf">3.32</span><span class="p">);</span></code></pre></div>
+<span class="nx">thinger</span><span class="p">(</span><span class="mi">4000</span><span class="p">,</span> <span class="mf">3.32</span><span class="p">);</span>
+</code></pre></div>
 <pre><code>18
 1603
 16000003.32
@@ -918,7 +949,8 @@ going to explain them to you, one by one!</p>
 function. The initial <code>z</code> input is always 0.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">thinger</span><span class="p">(</span><span class="nx">z</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">thinger</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">z</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">c</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Obviously, this is also borked.</p>
 
 <pre><code>RangeError: Maximum call stack size exceeded
@@ -940,9 +972,11 @@ loop.</p>
     <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">z</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nx">c</span><span class="p">;</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">next</span><span class="p">);</span>
     <span class="k">return</span> <span class="nx">thinger</span><span class="p">(</span><span class="nx">next</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Now, we can see some interesting stuff.</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">thinger</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">thinger</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</code></pre></div>
 <pre><code>2
 6
 38
@@ -959,7 +993,8 @@ Infinity
 <p>Exponents are no joke, and 2 decidedly does <em>not</em> remain bounded.</p>
 
 <p>What about this one?</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">thinger</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">thinger</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</code></pre></div>
 <p>Hmm&hellip;</p>
 
 <pre><code>-1
@@ -1030,7 +1065,8 @@ two shall meet. What if I wanted to add two complex numbers together?</p>
 <span class="nx">realTwo</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 <span class="nx">imaginaryTwo</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">([</span><span class="nx">realOne</span> <span class="o">+</span> <span class="nx">realTwo</span><span class="p">,</span> <span class="nx">imaginaryOne</span> <span class="o">+</span> <span class="nx">imaginaryTwo</span><span class="p">]</span></code></pre></div>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">([</span><span class="nx">realOne</span> <span class="o">+</span> <span class="nx">realTwo</span><span class="p">,</span> <span class="nx">imaginaryOne</span> <span class="o">+</span> <span class="nx">imaginaryTwo</span><span class="p">]</span>
+</code></pre></div>
 <pre><code>[4, 7]
 </code></pre>
 
@@ -1049,7 +1085,9 @@ two shall meet. What if I wanted to add two complex numbers together?</p>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">({</span>
     <span class="nx">real</span><span class="o">:</span> <span class="nx">first</span><span class="p">.</span><span class="nx">real</span> <span class="o">+</span> <span class="nx">second</span><span class="p">.</span><span class="nx">real</span><span class="p">,</span>
     <span class="nx">imaginary</span><span class="o">:</span> <span class="nx">first</span><span class="p">.</span><span class="nx">imaginary</span> <span class="o">+</span> <span class="nx">second</span><span class="p">.</span><span class="nx">imaginary</span>
-<span class="p">});</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span> <span class="nx">real</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">imaginary</span><span class="o">:</span> <span class="mi">7</span> <span class="p">}</span></code></pre></div>
+<span class="p">});</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span> <span class="nx">real</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">imaginary</span><span class="o">:</span> <span class="mi">7</span> <span class="p">}</span>
+</code></pre></div>
 <p>Do you see it? Do you see how this is just <em>dying</em> to be made into a prototype
 that implements basic math over itself and stuff? Oh man, it really wants me to
 do that, but I&rsquo;m not going to do it.</p>
@@ -1097,7 +1135,8 @@ for now, as well, but I&rsquo;m going to change it to <code>iterations</code> fo
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">([</span><span class="nx">nextr</span><span class="p">,</span> <span class="nx">nexti</span><span class="p">]);</span>
 
     <span class="k">return</span> <span class="nx">thinger</span><span class="p">(</span><span class="nx">nextr</span><span class="p">,</span> <span class="nx">nexti</span><span class="p">,</span> <span class="nx">cr</span><span class="p">,</span> <span class="nx">ci</span><span class="p">,</span> <span class="nx">iterations</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Those <code>nextr</code> and <code>nexti</code> expressions are just what you get when you factor out
 the real and imaginary operations from the <code>FOIL</code> procedure from above.</p>
 
@@ -1125,7 +1164,8 @@ set.</p>
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="nx">thinger</span><span class="p">(</span><span class="nx">nextr</span><span class="p">,</span> <span class="nx">nexti</span><span class="p">,</span> <span class="nx">cr</span><span class="p">,</span> <span class="nx">ci</span><span class="p">,</span> <span class="nx">iterations</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>So what we have here&hellip; this is getting there. If the condition stated above is
 met, then the number is not in the set. BUT if we&rsquo;ve reached some maximum
 iteration count, then <em>as far as we know</em>, the number <em>is</em> in the set. That&rsquo;s
@@ -1152,7 +1192,8 @@ and <code>zi</code>, either. And what the hell, why don&rsquo;t I change that na
         <span class="nx">zi</span> <span class="o">=</span> <span class="nx">newzi</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Ok so, remember those predicate functions from before? They took in a <code>coord</code>
 with an <code>x</code> value and a <code>y</code> value? Doesn&rsquo;t that look&hellip; suspiciously similar to
 what we&rsquo;ve got above?</p>
@@ -1173,7 +1214,8 @@ what we&rsquo;ve got above?</p>
         <span class="nx">zi</span> <span class="o">=</span> <span class="nx">newzi</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <canvas id="ex12" height="200" width="200" style="border: 1px solid black;"></canvas>
 
 <script>
@@ -1202,7 +1244,8 @@ what we&rsquo;ve got above?</p>
 })();
 </script>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">graph</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Graph</span><span class="p">(</span><span class="s2">&#34;ex12&#34;</span><span class="p">);</span>
-<span class="nx">graph</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">isMandlebrot</span><span class="p">);</span></code></pre></div>
+<span class="nx">graph</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">isMandlebrot</span><span class="p">);</span>
+</code></pre></div>
 <p>There it is. Our old friend. The Mandelbrot set.</p>
 
 <img src="https://assets.jfo.click/mb/mb44.jpg" />
@@ -1321,7 +1364,8 @@ much looks like you would expect.</p>
         <span class="p">}</span>
         <span class="nx">ctx</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">imageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
     <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <script>
 function MandelbrotOne(canvasId) {
     var canvas = document.getElementById(canvasId);
@@ -1389,7 +1433,8 @@ function MandelbrotOne(canvasId) {
 
 <p>Now, I can do something like this:</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">mb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mandelbrot</span><span class="p">(</span><span class="s2">&#34;ex14&#34;</span><span class="p">)</span>
-<span class="nx">mb</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span></code></pre></div>
+<span class="nx">mb</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</code></pre></div>
 <p>There&rsquo;s one important change here! In the <code>Mandelbrot</code> object above, you can
 see that I&rsquo;ve exposed another attribute. <code>this.iterations</code>, and used it as a
 maximum value in the for loop in the Mandelbrot function.</p>
@@ -1407,7 +1452,8 @@ grained the Mandlebrot can be displayed. Look at this!</p>
         <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="nx">mb</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
-<span class="p">},</span> <span class="mi">1000</span><span class="p">)</span></code></pre></div>
+<span class="p">},</span> <span class="mi">1000</span><span class="p">)</span>
+</code></pre></div>
 <canvas id="ex15" height="200" width="200" style="border: 1px solid black;"></canvas>
 
 <script>
@@ -1458,7 +1504,8 @@ is really interesting information!</p>
             <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="nx">set</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="nx">ctx</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">imageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span></code></pre></div>
+    <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+</code></pre></div>
 <p>We can change <code>isMandlebrot</code> to return a tuple instead, of two things: the
 original boolean value <em>and the iterations required to divine it</em>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">isMandlebrot</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">coord</span><span class="p">)</span> <span class="p">{</span>
@@ -1479,7 +1526,8 @@ original boolean value <em>and the iterations required to divine it</em>.</p>
         <span class="nx">zi</span> <span class="o">=</span> <span class="nx">newzi</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="p">[</span><span class="kc">true</span><span class="p">,</span> <span class="nx">i</span><span class="p">];</span>
-<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span></code></pre></div>
+<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</code></pre></div>
 <p>Now, back in the render function, we can use that information to color the
 pixel according to it&rsquo;s iteration score!</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -1492,7 +1540,8 @@ pixel according to it&rsquo;s iteration score!</p>
         <span class="nx">imageData</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="nx">ctx</span><span class="p">.</span><span class="nx">putImageData</span><span class="p">(</span><span class="nx">imageData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span></code></pre></div>
+<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+</code></pre></div>
 <blockquote>
 <p><code>set</code> here is a value that I&rsquo;m first normalizing between 0 and 1, then
 scaling to be between 0 and 16777215. Then I&rsquo;m extracting RGB values in kind
@@ -1570,7 +1619,8 @@ I&rsquo;m turning the iteration count into a color value is all!</p>
 })()
 </script>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">mb</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mandelbrot</span><span class="p">(</span><span class="s2">&#34;ex16&#34;</span><span class="p">)</span>
-<span class="nx">mb</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span></code></pre></div>
+<span class="nx">mb</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+</code></pre></div>
 <p>Remember those little thingers from before? Look what they look like in <em>color</em>!!</p>
 
 <p><canvas id="ex17" height="200" width="200" style="border: 1px solid black;"></canvas>
