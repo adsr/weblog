@@ -6,10 +6,21 @@
     <description>Recent content on blog.jfo.click</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 29 Sep 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 15 Mar 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.jfo.click/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How Zig do?</title>
+      <link>https://blog.jfo.click/how-zig-do/</link>
+      <pubDate>Thu, 15 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jfo.click/how-zig-do/</guid>
+      <description>Hello and good morning or whatever! Let&amp;rsquo;s write a brainfuck interpreter. &amp;ldquo;Why are you doing this?&amp;rdquo; you might say, but you won&amp;rsquo;t find that answer here.
+I&amp;rsquo;m going to make it in Zig.
+Zig is&amp;hellip;. &amp;hellip;new, still very much in beta, and moving quickly. If you&amp;rsquo;ve seen any Zig previously, the code in this post might look quite different. It is different! Zig 0.2.0 has just been released, coinciding with the release of LLVM 6 a few weeks ago, and includes a lot of changes to the syntax and general improvements to the language.</description>
+    </item>
     
     <item>
       <title>s3, Hugo, and static asset hosting</title>
@@ -27,16 +38,6 @@
       
       <guid>https://blog.jfo.click/mapping-the-monado/</guid>
       <description>I have recently come into possession of a reasonably sound understanding of monads. Tradition dictates that I now have an obligation to write a blog post/tutorial/thing about them, wherein I attempt to gracefully share this nascent knowledge through the judicious use of carefully chosen metaphors and examples. Legend has it that I will inevitably fail in this, and then be raked over the coals for my sins by both category theorists and Haskellers alike.</description>
-    </item>
-    
-    <item>
-      <title>Farvel til alt det</title>
-      <link>https://blog.jfo.click/farvel-til-alt-det/</link>
-      <pubDate>Wed, 26 Jul 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.jfo.click/farvel-til-alt-det/</guid>
-      <description>September update: After a short but intense job hunt, I&amp;rsquo;m happy to say I&amp;rsquo;ll be starting work with Peakon at their beautiful office in Copenhagen in a few weeks! Thanks to all who shared and read this post, it was a vast help to me.
- After 9 years in New York, I am leaving for good on August 1st, when I&amp;rsquo;ll be moving to Copenhagen with my wife and cat.</description>
     </item>
     
   </channel>
