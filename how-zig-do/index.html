@@ -426,13 +426,15 @@ to implement. I&rsquo;ll come back to it later!</p>
 <div class="highlight"><pre class="chroma"><code class="language-brainfuck" data-lang="brainfuck"><span class="k">[</span><span class="c">   if the value of current cell is zero skip to the matching bracket without executing the code
 </span><span class="c"></span><span class="k">]</span><span class="c">   if the value of the current cell is NOT zero go back to the opening bracket and execute the code again</span></code></pre></div>
 <p>I&rsquo;ll <em>start</em> with the test case this time, testing them together (as it doesn&rsquo;t
-make sense to test them in isolation).</p>
+make sense to test them in isolation). The first test case- <code>storage[2]</code> should
+end up being empty even though the loop would increment it if it ran:</p>
 <div class="highlight"><pre class="chroma"><code class="language-zig" data-lang="zig">test &#34;[] skips execution and exits&#34; {
-    var storage = []u8{0} ** 2;
+    var storage = []u8{0} ** 3;
     const src = &#34;+++++&gt;[&gt;+++++&lt;-]&#34;;
     bf(src, storage[0..]);
     assert(storage[0] == 5);
     assert(storage[1] == 0);
+    assert(storage[2] == 0);
 }</code></pre></div>
 <p>and I&rsquo;ll stub out the switch case:</p>
 <div class="highlight"><pre class="chroma"><code class="language-zig" data-lang="zig">&#39;[&#39; =&gt; if (storage[memptr] == 0) {
